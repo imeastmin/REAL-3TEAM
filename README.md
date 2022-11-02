@@ -11,7 +11,7 @@
 ### <p><b>Daily Issue</b>
 
 1. <i>ISSUE
-<img src="Issue_img/issue_1.png">
+![Issue_1](https://user-images.githubusercontent.com/51441191/199425667-e7b35ceb-e699-4e1b-b35f-3e1bda643386.png)
 설명: 코드 병합시 구분하기 어려움</i>
 
 2. <i>ISSUE<br>
