@@ -2,9 +2,11 @@ package peer.model.booking;
 
 import java.util.Date;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ShareBean {
 	private int book_num;
 	private int house_num;
