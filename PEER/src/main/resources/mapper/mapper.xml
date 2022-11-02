@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peer.dao.memberRepo">
+
+	<insert id="insert" >
+	insert into user_info values(user_seq.nextval,#{user_email},#{user_pass},#{user_name},#{user_gender},#{user_age},#{user_phone},#{user_nickname},#{user_status},1,sysdate)
+	</insert>
+	
+	<select id="searchinfo" resultType="peer.model.member.MemberBean">
+	select * from user_info where user_email=#{user_email}
+	</select>
+
+	<select id="nicknamecheck" resultType="peer.model.member.MemberBean">
+	select * from user_info where user_nickname=#{user_nickname}
+	</select>
+
+</mapper>
