@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html leng="en">
+<head>
+<meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						$("#submit")
+								.click(
+										function() {
+											if ($("#user_email").val() == "") {
+												$("#result").text(
+														"Email이 입력되지 않았습니다");
+												$("#user_email").focus();
+												return false;
+											}
+											if ($("#user_pass").val() == "") {
+												$("#result").text(
+														"비밀번호가 입력되지 않았습니다");
+												$("#user_pass").focus();
+												return false;
+											}
+											if ($("#user_pass").val() != ""
+													|| $("#user_email").val() != "") {
+												var user_email = $(
+														"#user_email").val();
+												var user_pass = $("#user_pass")
+														.val();
+												var url = "/searchinfo2?";
+												$
+														.ajax({
+															type : "get",
+															url : url,
+															data : {
+																"user_email" : $(
+																		"#user_email")
+																		.val(),
+																"user_pass" : $(
+																		"#user_pass")
+																		.val()
+															},
+															success : function(
+																	data) {
+																if (data == 1) {
+																		$("#login").submit();																	
+																/* 이부분을 post빙식으로 변경 */
+																	var location2 = "/loginsuccess?user_email="
+																			+ user_email;
+																	location.href = location2; /* 여기서 이메일 session 공유 */ 
+																} else if (data == -2) {
+																	$("#result")
+																			.text(
+																					"회원정보가 일치하지 않습니다");/* 비밀번호가 일치하지 않는 경우 */
+																	$(
+																			"#user_pass")
+																			.focus();
+																	return false;
+																} else if (data == -1) {
+																	$("#result")
+																			.text(
+																					"회원정보가 일치하지 않습니다");/* 아이디가 없는 경우 */
+																	$(
+																			"#user_pass")
+																			.focus();
+																	return false;
+																}
+															}//success end
+														}) // ajax end
+											}
+										});
+					});
+</script>
+
+<title>로그인</title>
+
+</head>
+<body>
+	<form id="login">
+		<table border="0" class="tab">
+			<tr>
+				<td>id</td>
+				<td><input type="text" id="user_email"></td>
+			</tr>
+			<tr>
+				<td>password</td>
+				<td><input type="text" id="user_pass"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><div id="result"></div></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="로그인" id="submit"></td>
+				<td><input type="button" value="회원가입"
+					onclick="location.href='/emailAuth'"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button" value="카카오 button"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button" value="google button"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
