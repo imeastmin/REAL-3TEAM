@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<style>
+	div.title {
+		margin: 50px;
+	}
+	
+	table {
+		border-spacing: 50px;
+		margin-left:  auto;
+		margin-right: auto;
+	}
+	
+	
+</style>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+
+	<!-- Comment: 확인 끝!
+	타임리프 테스트
+	<p th:text="${QueMember}"></p>
+	-->
+
+
+
+
+
+	<!-- 대기자 명단 / 매칭되지 않은 인원만 띄우기 -->
+	<th:block th:if="${not #lists.isEmpty(QueMember)}">
+	<form method="POST" action="Sign.do">
+	<table>
+		<caption>
+			<div class="title">
+			 <h1>대기열</h1>
+			</div>
+		</caption>
+		<thead>
+			<tr align="center">
+				<th>사진</th>
+				<th>닉네임</th>
+				<th>나이</th>
+				<th>성별</th>
+				<th>버튼</th>
+			</tr>
+		</thead>
+	
+		<tbody th:each="QueMemList, i: ${QueMember}">
+		
+			
+		                                      <!-- 본인 데이터를 View 페이지에서 제외 -->
+			<tr align="center" th:if="${not #strings.equals(id, QueMemList.user_num)}">
+			<input type="hidden" name="user_num_1" th:value="${QueMemList.user_num}"/>
+			<input type="hidden" name="user_num_2" th:value="${id}"/>
+			<input type="hidden" name="book_num" th:value="${book_num}"/>
+			
+				<td><img src="/img/BasicProfile.png" width="45" height="45"></td>
+				<td th:text="${QueMemList.user_nickname}"></td>
+				<td th:text="${QueMemList.user_age}"></td>
+				<td th:text="${QueMemList.user_gender}"></td>
+				
+				<td> <input type="submit" value="신청"/> </td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+	</th:block>
+
+
+	<!-- 대기열이 없을 때 -->
+	<div>
+		<h1 th:if="${#lists.isEmpty(QueMember)}">대기열이 존재하지 않습니다.</h1>
+	</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
