@@ -20,10 +20,10 @@ public class ShareController {
 	@Autowired
 	private ShareServiceImp shareService;
 	
-	@RequestMapping("/")
-	public String Test() {
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String Test() {
+//		return "index";
+//	}
 	
 	// 대기열 리스트
 	@RequestMapping(value = "/GetQueList.do", method = RequestMethod.POST)
