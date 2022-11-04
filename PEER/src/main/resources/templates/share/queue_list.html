@@ -28,9 +28,6 @@
 	-->
 
 
-
-
-
 	<!-- 대기자 명단 / 매칭되지 않은 인원만 띄우기 -->
 	<th:block th:if="${not #lists.isEmpty(QueMember)}">
 	<form method="POST" action="Sign.do">
@@ -76,14 +73,6 @@
 	<div>
 		<h1 th:if="${#lists.isEmpty(QueMember)}">대기열이 존재하지 않습니다.</h1>
 	</div>
-
-
-
-
-
-
-
-
 
 
 </body>

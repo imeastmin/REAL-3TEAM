@@ -2,7 +2,6 @@ package peer.controller.booking;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,8 +79,6 @@ public class ShareController {
 	@GetMapping(value = "ShareSign.do")
 	public String shareSign(Model model) {
 		System.out.println("쉐어사인 진입");
-		return "share/queue_view";
-	}
 	
 	
 	// 쉐어 결정

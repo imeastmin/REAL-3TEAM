@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import peer.model.booking.ShareBean;
 import peer.model.member.MemberBean;
 
