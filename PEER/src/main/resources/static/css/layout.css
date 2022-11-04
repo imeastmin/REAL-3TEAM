@@ -1,7 +1,59 @@
+.btn-primary {
+	outline: none !important;
+	box-shadow: none !important;
+	color: white; -
+	-bs-btn-hover-bg: #3232FF; -
+	-bs-btn-hover-color: var(- -bs-white);
+	background-color: #3232FF !important;
+}
+
+.btn-primary:hover {
+	outline: none !important;
+	box-shadow: none !important; -
+	-bs-btn-hover-color: var(- -bs-white);
+	transform: scale(0.95);
+}
+
+.btn-primary:active {
+	outline: none !important;
+	box-shadow: none !important; -
+	-bs-btn-hover-color: var(- -bs-white);
+	color: white;
+	transform: scale(1);
+}
+
+.btn-outline-dark:hover {
+	background-color: #ffffff !important;
+	color: #000000 !important;
+	outline: none !important;
+	box-shadow: none !important; -
+	-bs-btn-hover-color: var(- -bs-white);
+	transform: scale(0.95);
+}
+
+.btn-outline-dark:active {
+	outline: none !important;
+	box-shadow: none !important; -
+	-bs-btn-hover-color: var(- -bs-white);
+	color: white;
+	transform: scale(1);
+}
+
+.btn-outline-dark:checked { -
+	-bs-btn-hover-color: var(- -bs-white);
+	color: white;
+	transform: scale(1);
+}
+
+.dropdown:hover #main-dropdown {
+	display: inline-block !important;
+	margin: 0;
+}
+
 
 .footer {
 	width: 100%;
-	position: absolute;  
-    bottom: 0;
-    left: 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
