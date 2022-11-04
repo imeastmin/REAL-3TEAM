@@ -8,7 +8,7 @@ import peer.model.member.MemberBean;
 public interface ShareService {
 
 	// 예약정보 불러오기
-	public ShareBean getShareInfo(int user_num) throws Exception;
+	public ShareBean getShareInfo(int id) throws Exception;
 	
 	// 성별 가져오기
 	public String getGender(int user_num) throws Exception;

@@ -16,8 +16,8 @@ public class ShareServiceImp implements ShareService {
 	private ShareMapper shareMapper;
 	
 	/* 예약정보 불러오기 */
-	public ShareBean getShareInfo(int user_num) throws Exception{
-		return shareMapper.getShareInfo(user_num);
+	public ShareBean getShareInfo(int id) throws Exception{
+		return shareMapper.getShareInfo(id);
 	}
 	
 	/* 성별 불러오기 */

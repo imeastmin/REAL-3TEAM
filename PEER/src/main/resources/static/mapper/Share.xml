@@ -5,7 +5,7 @@
 
 	<!-- 예약정보 불러오기 -->
 	<select id="getShareInfo" resultType="peer.model.booking.ShareBean">
-		select * from share_booking where user_num_1 = #{user_num}
+		select * from share_booking where user_num_1 = #{id}
 	</select>
 	
 	<!-- 회원 성별 가져오기(임시) -->

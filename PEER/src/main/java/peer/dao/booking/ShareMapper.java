@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import peer.model.booking.ShareBean;
 import peer.model.member.MemberBean;
 
@@ -13,10 +11,10 @@ import peer.model.member.MemberBean;
 public interface ShareMapper {
 	
 	/* 예약정보 불러오기 */
-	ShareBean getShareInfo(int user_num) throws Exception;
+	ShareBean getShareInfo(int id) throws Exception;
 	
 	/* 회원 성별 가져오기 */
-	public String getGender(int user_num) throws Exception;
+	public String getGender(int id) throws Exception;
 
 	/* 대기열 리스트 */
 	List<MemberBean> getQueList(
