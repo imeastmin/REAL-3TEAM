@@ -57,3 +57,9 @@
 	bottom: 0;
 	left: 0;
 }
+
+.table table-striped #message{
+	table-layout:fixed; 
+	width:400px;
+	height:350px;
+}

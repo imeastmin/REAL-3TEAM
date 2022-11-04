@@ -10,6 +10,7 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String index(HttpSession session) {
+		// 세션 테스트 코드
 		session.setAttribute("nickname", "닉네임");
 		return "mainindex";
 	}

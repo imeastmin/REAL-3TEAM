@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 */-->
+<th:block th:replace="/common/layout.html :: head('쪽지')"></th:block>
+<body>
+	<table class="table table-striped" id="message">
+	  	<thead>
+	    <tr>
+	      <th scope="col"><input type="checkbox" onclick="selectAll(this)"></th>
+	      <th scope="col">보낸회원</th>
+	      <th scope="col">내용</th>
+	      <th scope="col">보낸시간</th>
+	    </tr>
+	  	</thead>
+	  	<tbody>
+		    <tr>
+		      	<th scope="col"><input type="checkbox" name='chk'></th>
+		      	<th scope="col">보낸회원</th>
+		      	<th scope="col">내용</th>
+		      	<th scope="col">보낸시간</th>
+		    </tr>
+	    	<tr th:each="msg : ${msglist}">
+			    <th scope="row">  
+			    <input type="checkbox" name='chk'>
+  				</th>
+			    <td th:text=${msglist.sender_nickname>한글닉네임열자리까지</td>
+			    <td style="overflow :hidden">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</td>
+			    <td>@mdo</td>
+		    </tr>
+	  	</tbody>
+	</table>
+	<script th:inline="javascript">
+	function selectAll(selectAll)  {
+		  const checkboxes 
+		       = document.getElementsByName('chk');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked;
+		  })
+		}
+	</script>
+</body>
+</html>
