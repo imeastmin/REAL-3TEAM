@@ -17,6 +17,14 @@
   line-height: 1em;
 }
 
+/* 주말 색상 표기 */
+.daterangepicker th:nth-child(1){
+  color:red; /* 일요일 빨간색 추가 */
+} 
+.daterangepicker th:nth-child(7){
+  color:blue; /* 토요일 파란색 추가 */
+} 
+
 .daterangepicker:before, .daterangepicker:after {
   position: absolute;
   display: inline-block;
@@ -384,10 +392,6 @@
 
   .daterangepicker .drp-calendar.left .calendar-table {
     padding-right: 8px;
-  }
-
-  .daterangepicker .ranges, .daterangepicker .drp-calendar {
-    float: left;
   }
 }
 
