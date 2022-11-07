@@ -3,7 +3,6 @@ package peer.controller.booking;
 import java.util.List;
 
 import javax.websocket.Session;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -114,7 +113,6 @@ public class ShareController {
 			model.addAttribute("QueMember", QueMember);
 			return "share/queue_list";
 		}
-		
 		/* 페이지에 공유 */
 		model.addAttribute("id", id);
 		model.addAttribute("book_num", book_num);
