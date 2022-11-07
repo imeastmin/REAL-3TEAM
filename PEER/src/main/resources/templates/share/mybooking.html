@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<style>
+	#layout {
+		top: 50%;
+		bottom: 50%;
+		margin-top: 5%;
+	}
+	
+	#title {
+		font-size: 12pt;
+	}
+	
+	html, body {
+		height: 100%;
+	}
+
+	.wrap {
+	  height: 100%;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	.button {
+	  width: 140px;
+	  height: 45px;
+	  font-family: 'Roboto', sans-serif;
+	  font-size: 11px;
+	  text-transform: uppercase;
+	  letter-spacing: 2.5px;
+	  font-weight: 500;
+	  color: #000;
+	  background-color: #fff;
+	  border: none;
+	  border-radius: 45px;
+	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	  transition: all 0.3s ease 0s;
+	  cursor: pointer;
+	  outline: none;
+	  }
+
+	.button:hover {
+	  background-color: #2EE59D;
+	  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+	  color: #fff;
+	  transform: translateY(-7px);
+	}
+	
+	table {
+		border-spacing: 30px;
+	}
+	
+	tr, td {
+		padding-right: 50px;
+		padding-left: 50px;
+	}
+	
+	h1 {
+		margin-bottom: -50px;
+	}
+
+</style>
+
+
+<title>peer</title>
+</head>
+<body>
+
+<div id="layout" align="center">
+		<h1>예약 내역 - 철님</h1>
+		<br>
+		<br>
+		<br>
+		
+		<form method="post" action="Share.do">
+			<input type="hidden" name="id" value="1234" readonly="readonly"/><br>
+			<input type="hidden" name="book_num" value="1" />
+			
+			<table>
+				<tr>
+					<td id="title">내가 예약한 쉐어가능 숙소</td>
+					<td><input class="button" type="submit" value="쉐어하기" /></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+		
+		<form method="post" action="Share.do">
+			<input type="hidden" name="id" value="1236" readonly="readonly"/>
+			<input type="hidden" name="book_num" value="3"/>
+			
+			<table>
+				<tr >
+					<td>내가 예약한 쉐어가능 숙소</td>
+					<td><input class="button" type="submit" value="쉐어하기"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

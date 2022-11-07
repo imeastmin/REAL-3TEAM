@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<style>
+	body {
+		top: 50%;
+		bottom: 50%;
+		margin-top: 5%;
+	}
+</style>	
+	
+<title>매칭성공</title>
+</head>
+<body>
+	
+	<div class="Title" align="center">
+		<h1>매칭</h1>
+	</div>
+	
+	
+	<div class="Number" align="center">
+		<h4>매칭상대 연락처<br> 
+		<th:block th:text="${Number.user_phone}"></h4>
+		</th:block>
+	</div>
+
+	<div class="Content" align="center">
+		연락을 통해서 쉐어여부를 최종결정 하세요!<br><br>
+	</div>
+	
+	<div class="button" align="center">
+		<input type="button" value="쉐어확정" 
+			th:onclick="|location.href='@{ShareResult.do(type=Y, book_num=${book_num})}'|">
+		<input type="button" value="취소하기" 
+			th:onclick="|location.href='@{ShareResult.do(type=N, book_num=${book_num})}'|">
+		<input type="button" value="되돌아가기" th:onclick="|location.href='@{MyBooking.do}'|">
+	</div>
+
+</body>
+</html>

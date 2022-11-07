@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<style>
+	body {
+		top: 50%;
+		bottom: 50%;
+		margin-top: 5%;
+	}
+</style>
+
+<title>peer</title>
+</head>
+<body>
+	
+	<div class="Comment" align="center">
+		<h3>이제 같이 여행을 떠날 준비가 되었습니다.<br>
+		즐거운 여행되세요!</h3>
+	</div>
+	
+	<div align="center">
+		<input type="button" value="예약내역" th:onclick="|location.href='@{MyBooking.do}'|">
+		<input type="button" value="메인" th:onclick="|location.href='@{MyBooking.do}'|">
+	</div>
+
+</body>
+</html>

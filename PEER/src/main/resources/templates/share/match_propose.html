@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<style>
+	div.title {
+		margin: 50px;
+	}
+	
+	table {
+		border-spacing: 30px;
+		margin-left:  auto;
+		margin-right: auto;
+	}
+	
+	body {
+		top: 50%;
+		bottom: 50%;
+		margin-top: 5%;
+	}
+	
+</style>
+
+<title>요청</title>
+</head>
+<body>
+
+	<!-- 쉐어 신청자가 있는 사람에게 띄우기 -->
+	<div align="center">
+		<h1>요청</h1>
+		<th:block th:if="${not #strings.isEmpty(proposer)}">
+			
+			<!-- 신청자 회원정보 -->
+			<table>
+				<tr>
+					<td colspan=3 align="center">
+						<img src="/img/BasicProfile.png" width="80" height="80">
+					</td>
+				</tr>
+				<tr>
+				 <td th:text="${proposerInfo.user_name}"></td>
+				 <td th:text="${proposerInfo.user_gender}"></td>
+				 <td th:text="${proposerInfo.user_age}"></td>
+				</tr>
+			</table>	
+			<div>쉐어 요청이 왔습니다!<br> 수락하시겠습니까?</div>
+				<form>
+					<input type="button" value="수락" 
+					th:onclick="|location.href=
+						'@{SignResult.do(type=Y, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
+					<input type="button" value="거절" 
+					th:onclick="|location.href=
+						'@{SignResult.do(type=N, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
+				</form>
+		<th:block>
+	</div>
+
+</body>
+</html>
