@@ -1,14 +1,21 @@
-package peer.model.member;
+package peer.model.booking;
 
-import java.sql.Date;
-
-import org.apache.ibatis.type.Alias;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
-@Alias("member")
-public class MemberBean {
+public class TotalBean {
+	/* ShareBean */
+	private int book_num;
+	private int house_num;
+	private Date checkin;
+	private Date checkout;
+	private int user_num_1;
+	private int user_num_2;
+	private int share_check;
+	
+	/* MemberBean */
 	private int user_num;
 	private String user_email;
 	private String user_pass;
