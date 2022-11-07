@@ -58,8 +58,18 @@
 	left: 0;
 }
 
-.table table-striped #message{
-	table-layout:fixed; 
-	width:400px;
-	height:350px;
+#msgchk{
+	width:50px;
+}
+#msgsender{
+	width:100px;
+	text-align:center;
+}
+#msgcontent{
+	width:280px
+	text-align:center;
+}
+#msgdate{
+	width:150px
+	text-align:center;
 }

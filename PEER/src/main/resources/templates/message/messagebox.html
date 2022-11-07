@@ -3,41 +3,155 @@
 <!--/* head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 */-->
 <th:block th:replace="/common/layout.html :: head('쪽지')"></th:block>
 <body>
-	<table class="table table-striped" id="message">
+	<table class="table table-striped table-hover" style="width:550px" id="message">
 	  	<thead>
 	    <tr>
-	      <th scope="col"><input type="checkbox" onclick="selectAll(this)"></th>
-	      <th scope="col">보낸회원</th>
-	      <th scope="col">내용</th>
-	      <th scope="col">보낸시간</th>
+	      <th scope="col" id="msgchk"><div class=col-1><input type="checkbox" onclick="selectAll(this)"></div></th>
+	      <td scope="col" id="msgsender">보낸회원</td>
+	      <td scope="col" id="msgcontent">내용</td>
+	      <td scope="col" id="msgdate">보낸시간</div></td>
 	    </tr>
 	  	</thead>
-	  	<tbody>
+  	  	<tbody>
 		    <tr>
-		      	<th scope="col"><input type="checkbox" name='chk'></th>
-		      	<th scope="col">보낸회원</th>
-		      	<th scope="col">내용</th>
-		      	<th scope="col">보낸시간</th>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk' value="쪽지번호"></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
 		    </tr>
-	    	<tr th:each="msg : ${msglist}">
-			    <th scope="row">  
-			    <input type="checkbox" name='chk'>
-  				</th>
-			    <td th:text=${msglist.sender_nickname>한글닉네임열자리까지</td>
-			    <td style="overflow :hidden">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</td>
-			    <td>@mdo</td>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
 		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='ㅈ'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk'></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk' value=9></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+		    <tr>
+		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk' value=10></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
+		    </tr>
+<!--
+		    <tr th:each="msg : ${msglist}">
+		      	<th scope="col" id="msgchk" ><div class=col-1><input type="checkbox" name='chk' value="${msglist.message_num}"></div></th>
+		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;" 
+		      		th:text=${msglist.sender_nickname}></span></td>
+		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;" 
+		      		th:text=${msglist.message_content}></span></td>
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;" 
+		      		th:text=${msglist.message_date}></span></td>
+		    </tr>
+ -->
 	  	</tbody>
 	</table>
+	<div class="fixed-bottom" style="margin-top:10px">
+		<div class="d-flex flex-row justify-content-start">
+		<form action="/msgDel" method=post id="msgDel">
+			<input type="hidden" id="checklist" name="checklist" value=""> 
+			<input type="button" class="btn btn-secondary btn-sm" value="삭제">
+		</form>
+		</div>
+		<div class="d-flex flex-row justify-content-center">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="#">2</a></li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+	</div>
 	<script th:inline="javascript">
+	// 전체선택
 	function selectAll(selectAll)  {
-		  const checkboxes 
+		var checkboxes 
 		       = document.getElementsByName('chk');
-		  
-		  checkboxes.forEach((checkbox) => {
-		    checkbox.checked = selectAll.checked;
-		  })
-		}
+		checkboxes.forEach((checkbox) => {
+			checkbox.checked = selectAll.checked;
+		});
+	}
+	</script>
+	<script th:inline="javascript">
+	// 선택된 쪽지 저장하는 메소드
+	function chkDel(){
+		var checklist = "";
+		$("input[name=chk]:checked").each(function(){
+			checklist += $(this).val() + "/";
+		});
+		
+		$('#checklist').val(checklist);
+	}
+	
+	// 삭제 버튼 클릭
+	$(document).ready(function(){
+		$('#msgDel').on('click',function(){
+			chkDel();
+			console.log($('#checklist').val());
+			
+			if($("input[name=chk]").is(":checked")){
+				console.log("체크있음");
+				$('#msgDel').submit();
+			}else{
+				console.log("체크없음");
+				return false;
+			}
+			
+		});
+		
+		
+	});
 	</script>
 </body>
 </html>
