@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org" />
+<th:block th:replace="/common/layout.html :: head('메인 페이지')"></th:block>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+div {
+	display: none;
+}
+
+div.div-container {
+	height: 40%;
+	padding-left: 60%;
+	padding-top: 12%;
+}
+
+footer.foot {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+.form-control {
+	
+}
+
+.blank {
+	width: 10px;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$('div').fadeIn(700);
+	});
+</script>
+<script type="text/javascript">
+	/* 닉네임 중복검사 */
+	$(document).ready(function() {
+		$("#nickcheck").click(function() {
+			var inputnickname = $("#user_nickname").val();
+			$.ajax({
+				type : "get",
+				url : "/nicknamecheck",
+				data : {
+					"user_nickname" : inputnickname
+				},
+				success : function(data) {
+					if (data == 1) {
+						$("#testarea").text("이미 있는 nick네임입니다");
+						console.log("1");
+					} else {
+						$("#testarea").text("사용할 수 있는 nick네임입니다");
+						console.log("0");
+					}
+				}
+			}); //ajax end
+		}); //click end
+	}); //function end
+</script>
+
+<script>
+	/* 유효성 검사  */
+	/* 비밀번호 일치 여부 */
+	$(document).ready(function() {
+		$("#join").submit(function() {
+			$("#user_email").attr("disabled", false);
+			var user_pass = $("#user_pass").val();
+			var passconfirm = $("#passconfirm").val();
+			if (user_pass !== passconfirm) {
+				console.log($("#testarea").val());
+				alert("비밀번호가 일치하지 않습니다");
+				$("passconfirm").focus();
+				return false;
+			}
+		})
+	});
+</script>
+
+<script th:inline="javascript">
+	/* 이메일인증에서 받은 이메일 입력 */
+	/*<![CDATA[*/
+	var email = /*[[${user_email}]]*/
+	console.log(email);
+	$(document).ready(function() {
+		$("#user_email").val(email);
+	})
+	/*]]>*/
+</script>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+	<div class="div-container">
+		<form id="join" th:action="@{/insert}" th:object="${member}"
+			method="post">
+			<table class="tab" border="0">
+				<tr>
+					<td>이메일</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text" name="user_email"
+						id="user_email" required disabled="true"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text" name="user_pass"
+						id="user_pass" required></td>
+				</tr>
+				<tr>
+					<td>비밀번호 확인</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text" name="passconfirm"
+						id="passconfirm" required></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text" name="user_name"
+						id="user_name" required></td>
+				</tr>
+				<tr>
+					<td>생년월일</td>
+					<td class="blank"></td>
+					<td><input type="date" name="user_birth" id="user_birth">
+					</td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td class="blank"></td>
+					<td><input type="radio" name="user_gender" id="man"
+						value="man" checked="checked"> <label>남자</label> <input
+						type="radio" name="user_gender" id="woman" value="woman">
+						<label>여자</label></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text" name="user_phone"
+						id="user_phone" required
+						placeholder="'-'없이 입력해 주세요 (ex:010-0000-0000 )"></td>
+				</tr>
+				<tr>
+					<td>게스트/호스트</td>
+					<td class="blank"></td>
+					<td><input type="radio" name="user_status" id="guest"
+						value="guest" checked="checked"> <label>게스트</label> <input
+						type="radio" name="user_status" id="host" value="host"> <label>호스트</label></td>
+				</tr>
+				<tr>
+					<td>닉네임</td>
+					<td class="blank"></td>
+					<td><input class="form-control" type="text"
+						name="user_nickname" id="user_nickname" required> <input
+						type="button" class="btn btn-outline-primary btn-sm" id="nickcheck" value="중복확인">
+						<div id="testarea"></div></td>
+				</tr>
+				<tr>
+					<td colspan="3"><input  type="submit" name="joinb" id="joinb"
+						class="btn btn-outline-primary" value="가입"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+<footer class="foot">
+	<th:block th:replace="/common/footer :: footer"></th:block>
+</footer>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org" />
+<th:block th:replace="/common/layout.html :: head('메인 페이지')"></th:block>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+<style>
+div.fadediv {
+	display: none;
+	height: 40%;
+	padding-left: 60%;
+	padding-top: 12%;
+}
+
+footer.foot {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$('div.fadediv').fadeIn(700);
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#nickcheck").click(function() {
+			var inputnickname = $("#user_nickname").val();
+			$.ajax({
+				type : "get",
+				url : "/nicknamecheck",
+				data : {
+					"user_nickname" : inputnickname
+				},
+				success : function(data) {
+					if (data == 1) {
+						$("#testarea").text("이미 있는 nick네임입니다");
+						console.log("1");
+					} else {
+						$("#testarea").text("사용할 수 있는 nick네임입니다");
+						console.log("0");
+					}
+				}
+			}); //ajax end
+		}); //click end
+	}); //function end
+	function deleteinfo() {
+		var confirmMessage = $("#confirmMessage").val();
+		if (confirmMessage === "지금탈퇴") {
+			alert("회원정보가 삭제되었습니다. \n이용해주셔서 감사합니다")
+			location.href = "/deleteinfo";
+		} else {
+			alert("이거 뭐라고 입력하지?");
+		}
+	}
+</script>
+<head>
+<meta charset="UTF-8">
+<title>회원 수정</title>
+</head>
+<body>
+	<form th:action="@{/updateuser}" th:object="${member}" method="post">
+		<div class="fadediv">
+			<table border="0">
+				<tr>
+					<td>이메일</td>
+					<td><input type="text" id="show_user_email"
+						class="form-control" th:value="${session.MemberBean.user_email}"
+						disabled="true"></td>
+				</tr>
+				<tr>
+					<input type="hidden" id="user_email" name="user_email"
+						th:value="${session.MemberBean.user_email}">
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td>
+						<!--비밀전호 일치 확인  --> <input type="password" id="user_pass"
+						class="form-control" name="user_pass"
+						th:value="${session.MemberBean.user_pass}">
+					</td>
+				</tr>
+				<tr>
+					<td>비밀번호 확인</td>
+					<td><input type="password" id="passconfirm" name="passconfirm"
+						class="form-control" th:value="${session.MemberBean.user_pass}"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" id="user_name" name="user_name"
+						class="form-control" th:value="${session.MemberBean.user_name}"></td>
+				</tr>
+
+				<tr>
+					<td>생년월일</td>
+					<td><input type="date" id="user_birth" name="user_birth"
+						th:value="${session.MemberBean.user_birth.substring(0,10)}">
+					</td>
+				</tr>
+
+				<tr>
+					<td>성별</td>
+					<td><input type="radio" name="user_gender" value="man"
+						th:checked="${(session.MemberBean.user_gender.equals('man'))}">
+						<label>남자</label> <input type="radio" name="user_gender"
+						value="woman"
+						th:checked="${(session.MemberBean.user_gender.equals('woman'))}">
+						<label>여자</label></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" id="user_phone" name="user_phone"
+						class="form-control" th:value="${session.MemberBean.user_phone}"></td>
+				</tr>
+				<tr>
+					<td>게스트/호스트</td>
+					<td><input type="radio" id="user_status" name="user_status"
+						th:value="${session.MemberBean.user_status}"
+						th:checked="${(session.MemberBean.user_status.equals('guest'))}"><label>guest</label>
+						<input type="radio" id="user_status" name="user_status"
+						th:value="${session.MemberBean.user_status}"
+						th:checked="${(session.MemberBean.user_status.equals('host'))}"><label>host</label>
+					</td>
+				</tr>
+
+				<tr>
+					<td>닉네임</td>
+					<td><input type="text" id="user_nickname" name="user_nickname"
+						class="form-control"
+						th:value="${session.MemberBean.user_nickname}"><input
+						type="button" class="btn btn-outline-primary btn-sm" id="nickcheck" value="중복확인">
+						<div id="testarea"></div></td>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="수정" class="btn btn-outline-primary">
+						<button type="button" class="btn btn-danger"
+							data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</button></td>
+				</tr>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true" width=>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header" align="center">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"
+									style="color: red" align="center">회원 탈퇴</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+
+							<h6>탈퇴 안내 : 회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</h6>
+							<span class="bi bi-check" style="color: red"><span
+								style="color: black;">회원 탈퇴를 하는경우 해당 아이디는 사용할 수 없습니다</span></span> <span
+								class="bi bi-check" style="color: red"><span
+								style="color: black;">탈퇴 후에도 게시판형 서비스에 등록한 게시물은 남아 있습니다.</span></span>
+							<span class="bi bi-check" style="color: red"><span
+								style="color: black;">탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.</span></span>
+							<span class="bi bi-check" style="color: red"><span
+								style="color: black;">탈퇴를 원하시면 "<span
+									style="text-decoration: underline; color: red;">지금탈퇴</span>"를
+									입력하세요
+							</span></span> <input type="text" id="confirmMessage">
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">취소</button>
+								<button type="button" class="btn btn-secondary"
+									onclick="deleteinfo()">회원 탈퇴</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</table>
+		</div>
+	</form>
+</body>
+<footer class="foot">
+	<th:block th:replace="/common/footer :: footer"></th:block>
+</footer>
+</html>
