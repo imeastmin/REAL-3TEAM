@@ -31,7 +31,8 @@
 			</div>
 	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean == null}">
 	        	<div class="dropdown">
-		  			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		  			<button class="btn btn-primary dropdown-toggle" type="button" 
+		  				data-bs-toggle="dropdown" aria-expanded="false" style="pointer-events: none">
 		    			<!--/* 테스트 코드 */-->
 		    			<span th:text="${session.nickname} +' 님'"></span>
 		    			<!--/* 실제 코드 */-->
@@ -50,7 +51,8 @@
 		<!--/* 호스트회원 */-->
 	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean != null}">
 	        	<div class="dropdown">
-		  			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		  			<button class="btn btn-primary dropdown-toggle" type="button" 
+		  				data-bs-toggle="dropdown" aria-expanded="false"  style="pointer-events: none">
 		    			<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
 		  			</button>
 		  			<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
@@ -72,4 +74,5 @@
         			}
     			</script>
 </header>
+</body>
 </html>

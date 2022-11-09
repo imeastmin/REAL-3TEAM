@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="peer.dao.message.MessageMapper">
+	<!-- 쪽지 리스트 -->
+	<select id="msgList" parameterType="int" resultType="list">
+<![CDATA[ 
+		select * from (select rownum as rnum, msg.* 
+			from (select * from message where message_receiver = #{user_num}
+				order by message_date desc) msg)
+		where rnum >= #{startPage} and rnum <= #{endPage}
+]]>
+	</select>
+	
+	<!-- 쪽지 전체 개수 -->
+	<select id="msgTotal" resultType="int">
+		select count(*) from message where message_receiver = #{user_num}
+	</select>
+	
+	<!-- 쪽지 작성하기&답장하기 -->
+	<insert id="">
+	    insert into message values(message_seq.nextval, #{message_sender}, #{message_receiver}, sysdate, #{message_content})
+	</insert>
+	
+	<!--  -->
+	<select id="transUser_num" parameterType="String" resultType="int">
+		select user_num from user_info where user_nickname = #{user_nickname}	
+	</select>
+	
+	<!-- 쪽지 상세보기 -->
+	<select id="msgOpen" parameterType="int" resultType="peer.model.message.MessageBean">
+		select * from message where message_num = #{message_num}
+	</select>
+	
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="msgDel" parameterType="int">
+		delete from message where message_num = #{message_num}
+	</delete>
+
+</mapper>
