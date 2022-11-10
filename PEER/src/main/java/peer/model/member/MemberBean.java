@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @Alias("member")
 public class MemberBean {
+
 	private int user_num;
 	private String user_email;
 	private String user_pass;
@@ -20,4 +21,6 @@ public class MemberBean {
 	private Date user_rege;
 	private String user_status;
 	private String user_authority;
+	private String user_birth;
+	
 }
