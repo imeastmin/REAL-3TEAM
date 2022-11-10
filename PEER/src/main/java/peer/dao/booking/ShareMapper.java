@@ -12,6 +12,9 @@ import peer.model.member.MemberBean;
 @Mapper
 public interface ShareMapper {
 	
+	/* 나의 예약내역 가져오기 */
+	List<ShareBean> getMyBooking(int id) throws Exception;
+	
 	/* 예약정보 불러오기 */
 	ShareBean getShareInfo(
 			@Param("id") int id, 
@@ -57,7 +60,6 @@ public interface ShareMapper {
 	
 	/* 쉐어 매칭확인 */
 	public int matching(int book_num) throws Exception;
-	
 	
 	/* 최종결정 - 쉐어확정 */
 	public int success(int book_num) throws Exception;
