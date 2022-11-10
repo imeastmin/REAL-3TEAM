@@ -7,10 +7,10 @@ import peer.model.member.MemberBean;
 @Mapper
 public interface MemberDaoImp {
 
-	int insert(MemberBean member);
+	public int insert(MemberBean member);
 
-	MemberBean searchinfo(String email);
+	public MemberBean searchinfo(String user_email);
 
-	MemberBean nicknamecheck(String user_nickname);
+	public MemberBean nicknamecheck(String user_nickname);
 
 }
