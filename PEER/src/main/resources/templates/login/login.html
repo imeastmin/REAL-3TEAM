@@ -1,9 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<header>
+	<th:block th:replace="/common/layout.html :: head('메인 페이지')"></th:block>
+	<th:block th:replace="/common/header :: header"></th:block>
+</header>
 <html leng="en">
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<style>
+div.div-container {
+	display: none;
+	height: 40%;
+	padding-left: 60%;
+	padding-top: 17%;
+}
+
+tr.sizing2 {
+	margin-right: 10%;
+}
+
+footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+.searchingE {
+	text-decoration: none;
+	position: relative;
+	color: gray;
+	right: -10%;
+}
+body.test {
+
+	height: 100vh;	
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$('div').fadeIn(700);
+	});
+</script>
+
+<!-- 카카오 로그인 -->
+<script>
+	Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascript키를 사용해준다.
+	function kakaoLogin() {
+		Kakao.Auth.loginForm({
+			success : function(response) {
+				Kakao.API.request({
+					url : '/v2/user/me',
+					success : function(response) {
+						var sethref = "/loginsuccess?user_email="
+								+ response.kakao_account.email;
+						location.href = sethref;
+					},
+					fail : function(error) {
+						console.log(error)
+					},
+				})
+			},
+			fail : function(error) {
+				console.log(error)
+			},
+		})
+	}
+</script>
+<!-- 일반 로그인  -->
 <script>
 	$(document)
 			.ready(
@@ -45,11 +114,12 @@
 															success : function(
 																	data) {
 																if (data == 1) {
-																		$("#login").submit();																	
-																/* 이부분을 post빙식으로 변경 */
-																	var location2 = "/loginsuccess?user_email="
+																	$("#login")
+																			.submit();
+																	/* 이부분을 post빙식으로 변경 */
+																	var sethref = "/loginsuccess?user_email="
 																			+ user_email;
-																	location.href = location2; /* 여기서 이메일 session 공유 */ 
+																	location.href = sethref; /* 여기서 이메일 session 공유 */
 																} else if (data == -2) {
 																	$("#result")
 																			.text(
@@ -59,6 +129,10 @@
 																			.focus();
 																	return false;
 																} else if (data == -1) {
+																	$("#result")
+																			.attr(
+																					"style",
+																					"color: red;")
 																	$("#result")
 																			.text(
 																					"회원정보가 일치하지 않습니다");/* 아이디가 없는 경우 */
@@ -73,36 +147,60 @@
 										});
 					});
 </script>
-
 <title>로그인</title>
-
 </head>
-<body>
-	<form id="login">
-		<table border="0" class="tab">
-			<tr>
-				<td>id</td>
-				<td><input type="text" id="user_email"></td>
-			</tr>
-			<tr>
-				<td>password</td>
-				<td><input type="text" id="user_pass"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><div id="result"></div></td>
-			</tr>
-			<tr>
-				<td><input type="button" value="로그인" id="submit"></td>
-				<td><input type="button" value="회원가입"
-					onclick="location.href='/emailAuth'"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="button" value="카카오 button"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="button" value="google button"></td>
-			</tr>
-		</table>
-	</form>
+<body class ="test">
+	<div class="div-container">
+		<div class="div-item">
+			<form id="login" class="login">
+				<table border="0" class="tab">
+					<tr>
+						<td class="sizing1">E-Mail</td>
+						<td class="sizing2"><input type="email" class="form-control"
+							id="user_email"></td>
+					</tr>
+					<tr>
+						<td class="sizing1">Password</td>
+						<td class="sizing2"><input type="password"
+							class="form-control" id="user_pass"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><div id="result" style="color: black;"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input class="btn btn-outline-primary"
+							type="button" value="Login" id="submit"> <input
+							class="btn btn-outline-primary" type="button" value="Join"
+							onclick="location.href='/emailAuth'"> <a
+							class="searchingE" onclick="location.href='/findid'">이메일 찾기</a> <span
+							class="searchingE">| </span><a class="searchingE"
+							onclick="location.href='/findpass'">비밀번호 찾기</a></td>
+					</tr>
+					<tr>
+						<td><div class="socialbutton">
+								<a onclick="kakaoLogin()"><img src="/img/kakao button.png"></a>
+							</div></td>
+						<td>
+							<div class="socialbutton" id="naver_id_login" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 </body>
+<!-- 네이버 로그인 -->
+<script type="text/javascript">
+	var naver_id_login = new naver_id_login("o4ZYTkFOJwW0NUVNtIhq",
+			"http://localhost/callback");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 3, 40);
+	naver_id_login.setDomain("YOUR_SERVICE_URL");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
+</script>
+<footer> 
+	<!-- <th:block th:replace="/common/footer :: footer"></th:block> -->
+</footer>
 </html>
