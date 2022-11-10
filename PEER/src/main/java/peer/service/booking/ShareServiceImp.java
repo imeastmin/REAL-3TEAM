@@ -16,6 +16,13 @@ public class ShareServiceImp implements ShareService {
 	@Autowired
 	private ShareMapper shareMapper;
 	
+	/* 나의 예약내역 갸져오기 */
+	public List<ShareBean> getMyBooking(int id) throws Exception {
+		/* 진입확인 */
+		System.out.println("Service - getMyBooking");
+		
+		return shareMapper.getMyBooking(id);
+	}
 
 	/* 쉐어 대기중인 대기열 리스트 구현 */
 	public List<TotalBean> getQueList(int id, int book_num) throws Exception {
