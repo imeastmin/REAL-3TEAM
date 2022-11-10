@@ -50,14 +50,10 @@
 	margin: 0;
 }
 
-.bodywrap {
-	position: relative;
-	min-height: 600px;
-}
 
 .footer {
 	width: 100%;
-	position: relative;
+	position: absolute;
 	bottom: 0;
 	left: 0;
 }

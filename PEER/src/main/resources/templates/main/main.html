@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>session</h1>
-	<p th:text="${session.MemberBean.user_num}"></p>
-	<input type="button" onclick="moveMemverUpdate()" value="회원수정">
-</body>
-</html>
-<script type="text/javascript">
-	function moveMemverUpdate() {
-		location.href = "/passwordCheck";
-	}
-</script>
+  <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Insert title here</title>
+    </head>
+    <body>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+		console.log(/*[[${user_num}]]*/);
+    /*]]>*/
+    </script>
+      <p th:text="${user_num}"></p>
+    </body>
+  </html>
 </html>
