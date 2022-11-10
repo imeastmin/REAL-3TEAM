@@ -19,14 +19,20 @@ public class MessageServiceImpl implements MessageService{
 	
 	// 쪽지  전체 개수
 	@Override
-	public int msgTotal() throws Exception {
-		return mm.msgTotal();
+	public int msgTotal(int user_num) throws Exception {
+		return mm.msgTotal(user_num);
 	}
 	
 	// 쪽지 보내기&답장하기 
 	@Override
-	public String msgSend() throws Exception {
-		return null;
+	public String msgSend(MessageBean msg) throws Exception {
+		return mm.msgSend(msg);
+	}
+	
+	// 회원번호에서 닉네임 추출하기
+	@Override
+	public String nicktoUser_num(int message_receiver_num) throws Exception {
+		return mm.nicktoUser_num(message_receiver_num);
 	}
 
 	// 쪽지 상세보기
@@ -39,11 +45,6 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public void msgDel(int message_num) throws Exception {
 		mm.msgDel(message_num);
-	}
-	// 닉네임에서 회원번호 추출하기
-	@Override
-	public int transUser_num(String user_nickname) throws Exception {
-		return mm.transUser_num(user_nickname);
 	}
 
 

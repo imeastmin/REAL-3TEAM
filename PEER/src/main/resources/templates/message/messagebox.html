@@ -13,21 +13,9 @@
 	    </tr>
 	  	</thead>
   	  	<tbody>
-		    <tr>
-		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk' value=9></div></th>
-		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
-		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
-		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
-		    </tr>
-		    <tr>
-		      	<th scope="col" id="msgchk"><div class=col-1><input type="checkbox" name='chk' value=10></div></th>
-		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;">한글닉네임열자리까지</span></td>
-		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇOtto</span></td>
-		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;">보낸시간111</span></td>
-		    </tr>
-<!--
-			/* 받은 쪽지가 없을 경우 */		
-	<th:block th:if="${msglist == null}">
+  	  	
+		<!--/* 받은 쪽지가 없을 경우 
+	<th:block th:if="${#lists.size("msglist") == 0}">
 		<tr>
 	        <th scope="col" id="msgchk"><div class=col-1></div></th>
 	        <td scope="col" id="msgsender"></td>
@@ -37,19 +25,24 @@
 		</tr>
 		</tbody>
 	</th:block>
+		*/-->		
 		    
-			/* 받은 쪽지가 있을 경우 */		
-	<th:block th:if="${msglist != null}">
-		    <tr th:each="msg : ${msglist}">
-		      	<th scope="col" id="msgchk" ><div class=col-1><input type="checkbox" name='chk' value="${msglist.message_num}"></div></th>
-		      	<td scope="col" id="msgsender"><span class="d-inline-block text-truncate" style="max-width: 100px;" 
-		      		th:text=${msglist.sender_nickname}></span></td>
+		<!--/* 받은 쪽지가 있을 경우 
+	<th:block th:if="${#lists.size("msglist") > 0}">
+		    <tr th:each="msglist : ${msglist}">
+		      	<th scope="col" id="msgchk" ><div class=col-1><input type="checkbox" name='chk' th:value="${msglist.message_num}"></div></th>
+		      	<td scope="col" id="msgsender">
+		      	<a onclick="msgwritePopup()">
+		      	<span class="d-inline-block text-truncate" style="max-width: 100px;" 
+		      		th:text=${msglist.message_sender_nick}></span></a></td>
+		      	<a href="#">
 		      	<td scope="col" id="msgcontent"><span class="d-inline-block text-truncate" style="max-width: 280px;" 
-		      		th:text=${msglist.message_content}></span></td>
+		      		th:text=${msglist.message_content}></span></a></td>
 		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;" 
 		      		th:text=${msglist.message_date}></span></td>
 		    </tr>
- -->
+		*/-->	
+
 	  	</tbody>
 	</table>
 	<div class="fixed-bottom" style="margin-top:10px">
@@ -57,8 +50,8 @@
 		<div class="d-flex flex-row justify-content-start">
 		<form action="/msgdel" method=post id="msgDel">
 			<!--/* 컨트롤러로 전달되는 값 */-->	
-			<input type="hidden" id="checklist" name="checklist" value=""> 
-			<input type="hidden" name="page" value=""> 
+			<input type="hidden" id="checklist" name="checklist" th:value=""> 
+			<input type="hidden" name="page" th:value="${pg.page}"> 
 			<input type="button" class="btn btn-secondary btn-sm" value="삭제">
 		</form>
 		</div>
@@ -84,6 +77,12 @@
 	</div>
 	</th:block>
 	<script th:inline="javascript">
+	// 쪽지 보내기 팝업창
+	function msgwritePopup(){
+		window.open("/msgwrite?message_sender_num=9901","쪽지보내기","width=580, height=600, top=210, left=710");
+		//window.open("/msgwrite?message_sender_num="+${msglist.message_sender_num}","쪽지보내기","width=580, height=600, top=210, left=710");
+	}
+	
 	// 전체선택
 	function selectAll(selectAll)  {
 		var checkboxes 
@@ -92,8 +91,7 @@
 			checkbox.checked = selectAll.checked;
 		});
 	}
-	</script>
-	<script th:inline="javascript">
+	
 	// 선택된 쪽지 저장하는 메소드
 	function chkDel(){
 		var checklist = "";

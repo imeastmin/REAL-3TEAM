@@ -4,7 +4,7 @@
 	<select id="msgList" parameterType="int" resultType="list">
 <![CDATA[ 
 		select * from (select rownum as rnum, msg.* 
-			from (select * from message where message_receiver = #{user_num}
+			from (select * from message where message_receiver_num = #{user_num}
 				order by message_date desc) msg)
 		where rnum >= #{startPage} and rnum <= #{endPage}
 ]]>
@@ -12,17 +12,18 @@
 	
 	<!-- 쪽지 전체 개수 -->
 	<select id="msgTotal" resultType="int">
-		select count(*) from message where message_receiver = #{user_num}
+		select count(*) from message where message_receiver_num = #{user_num}
 	</select>
 	
 	<!-- 쪽지 작성하기&답장하기 -->
-	<insert id="">
-	    insert into message values(message_seq.nextval, #{message_sender}, #{message_receiver}, sysdate, #{message_content})
+	<insert id="msgSend">
+	    insert into message values(message_seq.nextval, #{message_sender_num}, #{message_sender_nick},
+	    	 #{message_receiver_num}, #{message_receiver_nick}, sysdate, #{message_content})
 	</insert>
 	
 	<!--  -->
-	<select id="transUser_num" parameterType="String" resultType="int">
-		select user_num from user_info where user_nickname = #{user_nickname}	
+	<select id="nicktoUser_num" parameterType="int" resultType="String">
+		select user_nickname from user_info where user_num = #{message_receiver_num}	
 	</select>
 	
 	<!-- 쪽지 상세보기 -->

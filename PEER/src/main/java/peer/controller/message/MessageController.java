@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import peer.model.member.MemberBean;
@@ -21,59 +23,86 @@ public class MessageController {
 	@Autowired(required=false)
 	private MessageService ms;
 	
-	 
 	// 쪽지 메인 페이지
-	@RequestMapping("/message")
-	public String message(Model model, HttpSession session) throws Exception {
-/*
+	@RequestMapping(value= {"/message", "/message/{page}"})
+	public String message(@PathVariable(name="page", required=false) Integer page, Model model, HttpSession session) throws Exception {
 		// 세션 불러오기
 		MemberBean user_info = new MemberBean();
-		user_info = session.getAttribute("");
+		user_info = (MemberBean)session.getAttribute("MemberBean");
 		
 		// 세션에서 user_num 추출
-		int user_num = user_info.getUser_num()
+		int user_num = user_info.getUser_num();
 		 
 		// 리스트에 쪽지 전체 담기
 		// 전체 쪽지수
-		int msgTotal = ms.msgTotal(user_num); 
-
-		Pagination pg = new Pagination();
+		int msgTotal = ms.msgTotal(user_num);
 		
-		// 전체 페이지수 설정
-		int pglimit = pg.getPageLimit();
-		int pageTotal = (msgTotal%pglimit == 0)? msgTotal/pglimit:(msgTotal/pglimit) +1 
-		pg.setPageTotal(pageTotal);
+		if (page == null) page = 1; 
+			
+		Pagination pg = new Pagination(page, msgTotal);
 		
-		// 시작 쪽지 번호 설정
-		int startPage = msgTotal;
-		int endPage = startPage - pglimit + 1; 
-		
-		// List에 쪽지 담기
-		List<MessageBean> msglist = ms.msgList(user_num, startPage, endPage);
+		List<MessageBean> msglist = ms.msgList(user_num, pg.getStartPage(), pg.getEndPage());
 		
 		model.addAttribute("msglist", msglist);
-*/	
-		return "/message/messagebox";
+		model.addAttribute("pg", pg);
+	
+		//return "/message/messagebox";
+		return "message/messagebox?page=" + pg.getPage();
 	}
 	
-	// 쪽지 보내기 답장하기
-	@RequestMapping("/msgsend")
-	public String msgSend(String user_nickname, String message_content, HttpSession session) {
+	// 쪽지 보내기 폼
+	@RequestMapping("/msgwrite")
+	public String msgWrite(HttpServletRequest request, Model model, HttpSession session) {
+		MemberBean test = new MemberBean();
+		test = (MemberBean)session.getAttribute("MemberBean");
 		
-	// 세션 불러오기
-	// MemberBean user_info = new MemberBean();
-	// user_info = session.getAttribute("");
+		System.out.println(test);
+		System.out.println(test.getUser_num());
+		System.out.println(test.getUser_nickname());
+		// 탈퇴한 회원인지 체크
+		System.out.println(request.getAttribute("message_sender_num"));
+		// 쪽지 작성할 회원번호 체크 
+		//int message_receiver_num = request.getAttribute("message_sender_num");
+		//String message_receiver_nick = request.getAttribute(name);
+		
+		//model.addAttribute("message_receiver_num", message_receiver_num);
+		//model.addAttribute("message_receiver_nick", message_receiver_nick);
+		
+		
+		return "message/messagewrite";
+	}
 	
-	// user_nickname을 message_receiver으로 변환하기
-	// int message_receiver = ms.transUser_num(user_nickname);
+	
+/*	
+	// 쪽지 보내기 & 답장하기
+	@RequestMapping("/msgsend")
+	public String msgSend(int message_receiver_num, HttpSession session) throws Exception {
 		
-	// MessageBean 생성
-	// MessageBean msg = new MessageBean();
-	// msg = 
+		// 세션 불러오기
+		MemberBean user_info = new MemberBean();
+		user_info = (MemberBean)session.getAttribute("MemberBean");
+
+		System.out.println("send"+message_receiver_num);
 		
-	// 세션에서 user_num 추출해서 message_sender에 담기
-	// msg.setMessage_sender(user_info.getUser_num());
-		return null;
+		// receiver_num에서 nickname 추출하기
+		String message_receiver_nick = ms.nicktoUser_num(message_receiver_num);
+			
+		// MessageBean 생성
+		MessageBean msg = new MessageBean();
+		msg.setMessage_receiver_nick(message_receiver_nick);
+			
+		// 세션에서 user_num, user_nickname 추출해서 MessageBean에 담기
+		msg.setMessage_sender_num(user_info.getUser_num());
+		msg.setMessage_sender_nick(user_info.getUser_nickname());
+		System.out.println(msg.getMessage_num());
+		System.out.println(msg.getMessage_sender_num());
+		System.out.println(msg.getMessage_sender_nick());
+		System.out.println(msg.getMessage_receiver_num());
+		System.out.println(msg.getMessage_receiver_nick());
+		System.out.println(msg.getMessage_content());
+		ms.msgSend(msg);
+	
+		return "/msgwrite?close=1";
 	}
 	
 	
@@ -82,6 +111,8 @@ public class MessageController {
 	public String msgOpen(int message_num, Model model) throws Exception {
 		MessageBean msg = new MessageBean();
 		msg = ms.msgOpen(message_num);
+		
+		model.addAttribute("msg",msg);
 		return null;
 	}
 	
@@ -99,8 +130,11 @@ public class MessageController {
 			}
 		}
 		
+		
+		
 		// 뒤로가기나 새로고침으로 다시 접근하는 것 방지
 		rattr.addAttribute("page", page);
 		return "redirect:/message/messagebox?page={page}";
 	}
+*/
 }

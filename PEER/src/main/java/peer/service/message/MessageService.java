@@ -9,13 +9,13 @@ public interface MessageService {
 	public List<MessageBean> msgList(int user_num, int startPage, int endPage) throws Exception;
 	
 	// 쪽지 전체 개수
-	public int msgTotal() throws Exception;
+	public int msgTotal(int user_num) throws Exception;
 	
 	// 쪽지 보내기&답장하기
-	public String msgSend() throws Exception;
+	public String msgSend(MessageBean msg) throws Exception;
 	
-	// 닉네임에서 회원번호 추출하기
-	public int transUser_num(String user_nickname) throws Exception;
+	// 회원번호에서 닉네임 추출하기
+	public String nicktoUser_num(int message_receiver_num) throws Exception;
 	
 	// 쪽지 상세보기
 	public MessageBean msgOpen(int message_num) throws Exception;
