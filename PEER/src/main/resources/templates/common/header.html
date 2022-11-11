@@ -15,9 +15,9 @@
 							<img src="img/peer_logo.png" width="80px"></svg>
 					</a>
 
-					<ul
+					<ul style="margin-left: 30px;"
 						class="nav col-12 col-lg-auto me-lg-auto mb-1 justify-content-center mb-md-0">
-						<li><a href="#" class="nav-link px-2 text-secondary"><span><b>게시판</b></span></a></li>
+						<li><a href="#" class="nav-link px-2 text-secondary"><span><b>커뮤니티</b></span></a></li>
 					</ul>
 
 					<div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"></div>
@@ -25,24 +25,21 @@
 					<!-- 비로그인시 -->
 					<div class="text-end" th:if="${session.MemberBean == null}">
 						<button type="button" class="btn btn-primary"
-							onclick="location.href='#'">
+							onclick="location.href='/login'">
 							<b>로그인</b>
 						</button>
 					</div>
 					<!-- 로그인시 -->
 					<!-- 일반회원 -->
-					<div th:if="${session.MemberBean == null}">
+					<div th:if="${session.MemberBean != null}">
 						<button class="btn btn-outline-dark">위시리스트</button>
 					</div>
 					<div class="text-end" style="margin-left: 10px"
-						th:if="${session.MemberBean == null}">
+						th:if="${session.MemberBean != null} and ${session.MemberBean.user_status.equals('게스트')}">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button"
 								data-bs-toggle="dropdown" aria-expanded="false">
-								<!-- 테스트 코드 -->
-								<span th:text="${session.nickname} +' 님'"></span>
-								<!-- 실제 사용할 코드 -->
-								<!-- <span th:text="${session.MemberBean.user_nickname} +' 님'"></span> -->
+								<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 								<li><a class="dropdown-item" href="#"
@@ -57,14 +54,12 @@
 					</div>
 					<!-- 호스트회원 -->
 					<div class="text-end" style="margin-left: 10px"
-						th:if="${session.MemberBean == null}">
+						th:if="${session.MemberBean != null} and ${session.MemberBean.user_status.equals('호스트')}">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button"
 								data-bs-toggle="dropdown" aria-expanded="false">
-								<!-- 테스트 코드 -->
-								<span th:text="${session.nickname} +' 님'"></span>
 								<!-- 실제 사용할 코드 -->
-								<!-- <span th:text="${session.MemberBean.user_nickname} +' 님'"></span> -->
+								<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 								<li><a class="dropdown-item" href="#"
@@ -80,8 +75,8 @@
 						<script>
 							function messagePopup() {
 								window
-										.open("#", "쪽지",
-												"width=400, height=400, top=20, left=20");
+										.open("/msgwrite", "쪽지",
+												"width=580, height=600, top=200, left=700");
 							}
 						</script>
 					</div>

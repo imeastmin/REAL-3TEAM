@@ -23,47 +23,15 @@ public class ShareController {
 	@Autowired
 	private ShareServiceImp shareService;
 	
-
-	/*@RequestMapping("Index")
-	public String Index() {
-		return "index";
-	}*/
-	
-	
-	/* 인터셉터 */
-	@RequestMapping("Call.Interceptor")
-	public String interceptor() {
-		return "check";
-	}
-	
-	/* 로그인 페이지 */
-	@RequestMapping("/")
-	public String login() {
-		return "login";
-	}
-	
-	/* 로그인 세션설정 */
-	@RequestMapping("Login")
-	public String loginSession(HttpSession session,
-							   String id) {
-		System.out.println("LoginSession");
-		session.setAttribute("id", id);
-		
-		return "redirect:MyBooking.do";
-	}
-	
-	/* 에러 */
-	@RequestMapping("Error")
-	public String error() {
-		return "error";
-	}
-	
 	
 	/* 예약내역 페이지 */
 	@RequestMapping("MyBooking.do")
 	public String myBooking(HttpSession session,
 						    Model model) throws Exception {
-		int id = Integer.parseInt((String)session.getAttribute("id"));
+		
+		MemberBean memberBean = (MemberBean)session.getAttribute("MemberBean");
+		
+		int id = memberBean.getUser_num();
 		List<ShareBean> MyBooking = shareService.getMyBooking(id);
 		System.out.println("Service MYBOOKING DATA - " + MyBooking);
 		

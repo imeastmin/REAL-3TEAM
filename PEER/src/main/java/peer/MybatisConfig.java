@@ -31,7 +31,7 @@ public class MybatisConfig {
 
 			factoryBean.setDataSource(dataSource);
 			factoryBean.setMapperLocations(
-					new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*.xml")
+					new PathMatchingResourcePatternResolver().getResources("classpath:mapper/**/*.xml")
 			);
 
 			factoryBean.setTypeAliasesPackage("peer.model"); /* Alias 설정 */
