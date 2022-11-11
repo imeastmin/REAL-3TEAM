@@ -2,10 +2,14 @@ package peer.service.booking;
 
 import java.util.List;
 
+import peer.model.booking.ShareBean;
 import peer.model.booking.TotalBean;
 import peer.model.member.MemberBean;
 
 public interface ShareService {
+	
+	/* 나의 예약정보 가져오기 */
+	public List<ShareBean> getMyBooking(int id) throws Exception;
 	
 	/* 대기열 */
 	public List<TotalBean> getQueList(int id, int book_num) throws Exception;
