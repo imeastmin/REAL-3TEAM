@@ -83,7 +83,7 @@ public class MemberController {
 	public String movemain(HttpSession session, Model model) {
 		MemberBean member = (MemberBean) session.getAttribute("MemberBean");
 		System.out.println(member);
-		return "main/main";
+		return "main";
 	}
 
 	// 이메일 인증 page로 이동
