@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- header 부분 -->
+<!--/* header 부분 */-->
 <div th:fragment="header" class="#">
 	<body>
 <header class="p-3 text-bg-light">
@@ -17,62 +17,65 @@
 
         <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"></div>
 
-		<!-- 비로그인시 -->
+		<!--/* 비로그인시 */-->
         <div class="text-end" th:if="${session.MemberBean == null}">
-        	<button type="button" class="btn btn-primary" 
+        	<button type="button" class="btn btn-primary"  id="headerbutton"
         		onclick="location.href='#'"><b>로그인</b></button>
         </div>
-		<!-- 로그인시 -->
-		<!-- 일반회원 -->
+		<!--/* 로그인시 */-->
+		<!--/* 일반회원 */-->
 			<div th:if="${session.MemberBean == null}">
-	  			<button class="btn btn-outline-dark">
+	  			<a th:href="@{#}"><button class="btn btn-outline-dark" id="wishlist">
 	    			위시리스트
-	  			</button>
+	  			</button></a>
 			</div>
 	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean == null}">
 	        	<div class="dropdown">
-		  			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    			<!-- 테스트 코드 -->
-		    			<span th:text="${session.nickname} +' 님'"></span>
-		    			<!-- 실제 사용할 코드 -->
-		    			<!-- <span th:text="${session.MemberBean.user_nickname} +' 님'"></span> -->
+		  			<button class="btn btn-primary dropdown-toggle" type="button" id="headerbutton"
+		  				data-bs-toggle="dropdown" aria-expanded="false" style="pointer-events: none">
+		    			<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
 		  			</button>
 		  			<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 		    			<li><a class="dropdown-item" href="#" onclick="messagePopup();  return false">쪽지</a></li>
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup2();  return false">쪽지쓰기</a></li>
 		    			<li><a class="dropdown-item" href="#">예약 확인</a></li>
 		    			<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
-		    			<!-- 드롭다운 구분선 -->
+		    			<!--/* 드롭다운 구분선 */-->
 		    			<li><hr class="dropdown-divider"></li>
 		    			<li><a class="dropdown-item" href="#">로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
-		<!-- 호스트회원 -->
-	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean == null}">
+		<!--/* 호스트회원 */-->
+	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean != null}">
 	        	<div class="dropdown">
-		  			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    			<!-- 테스트 코드 -->
-		    			<span th:text="${session.nickname} +' 님'"></span>
-		    			<!-- 실제 사용할 코드 -->
-		    			<!-- <span th:text="${session.MemberBean.user_nickname} +' 님'"></span> -->
+		  			<button class="btn btn-primary dropdown-toggle" type="button" id="headerbutton"
+		  				data-bs-toggle="dropdown" aria-expanded="false"  style="pointer-events: none">
+		    			<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
 		  			</button>
 		  			<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 		    			<li><a class="dropdown-item" href="#" onclick="messagePopup();  return false">쪽지</a></li>
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup2();  return false">쪽지쓰기</a></li>
 		    			<li><a class="dropdown-item" href="#">숙소 관리</a></li>
 		    			<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
-		    			<!-- 드롭다운 구분선 -->
+		    			<!--/* 드롭다운 구분선 */-->
 		    			<li><hr class="dropdown-divider"></li>
 		    			<li><a class="dropdown-item" href="#">로그아웃</a></li>
 					</ul>
 				</div>
-		    	<!-- 쪽지 팝업창 -->
-		    	<script>
-        			function messagePopup(){
-            			window.open("#","쪽지","width=400, height=400, top=20, left=20");
-        			}
-    			</script>
+		    	<!--/* 쪽지 팝업창 */-->
 			</div>
       </div>
     </div>
+		    	<script>
+        			function messagePopup(){
+            			window.open("/message","쪽지","width=580, height=600, top=200, left=700");
+        			}
+        			// 테스트코드
+        			function messagePopup2(){
+            			window.open("/msgwrite","쪽지쓰기","width=580, height=600, top=200, left=700");
+        			}
+    			</script>
 </header>
+</body>
 </html>
