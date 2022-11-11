@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<title>house_update</title>
+</head>
+<body>
+<div id="hcont_wrap" align="center">
+		<h2 class="hcont_title">숙소 정보보기</h2>
+		<table id="hcont_t">
+			<tr>
+				<th>숙소 번호</th>
+				<td th:text="${hcont.house_num}"></td>
+			</tr>
+			<tr>
+				<th>숙소 이름</th>
+				<td th:text="${hcont.house_name}"></td>
+			</tr>
+			<tr>
+				<th><div>지도</div></th>
+				<td><div id="map" style="width:200%;height:350px;"></div></td>
+
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td th:text="${hcont.house_address}"></td> <Br>
+			</tr>
+			<tr>
+				<th>숙소 사진</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>숙소 유형</th>
+				<td th:text="${hcont.house_form}"></td>	
+			</tr>
+			<tr>
+				<th>쉐어 가능여부</th>
+				<td>
+ 				<div th:if="${hcont.house_share == '1'}">쉐어 불가능</div>
+				<div th:unless="${hcont.house_share == '2'}">쉐어 가능</div></td>	
+			</tr>
+			<tr>
+				<th>사용 가능 인원</th>
+				<td th:text="${hcont.house_capacity}+명"></td>
+			</tr>
+						<tr>
+				<th>성수기 기간</th>
+				<td ></td>
+			</tr>
+			<tr>
+				<th>숙소 가격</th>
+				<td align="center"> 
+				비성수기(주중): <br>
+				비성수기(주말): <br>
+				성수기(주중): <br>
+				성수기(주말): <br>
+				</td>
+			</tr>
+			<tr>
+				<th>숙소 상세 정보</th>
+				<td th:text="${hcont.house_detail}"></td>
+			</tr>					
+			<tr>
+				<th>숙소 추가 정보</th>
+				<td>
+					<pre><div th:text="${hcont.house_detail2}"></div></pre>
+				</td>
+			</tr>
+		</table>
+
+		<div id="hcont_menu">
+			<a th:href="@{/house_cont(house_num=${hcont.house_num},page=${page},state='upd')}" th:text="수정"></a>	
+			<a th:href="@{/house_cont(house_num=${hcont.house_num},page=${page},state='del')}" th:text="삭제"></a>		
+			<a th:href="@{/host_house_list(page=${page})}" th:text="목록"></a>
+		</div>
+	</div>
+	
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5efe9f5d0b275d90cddaffeb298d18d1&libraries=services"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(/*[[${hcont.house_y}]]*/, /*[[${hcont.house_x}]]*/), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };  
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        var coords = new kakao.maps.LatLng(/*[[${hcont.house_y}]]*/, /*[[${hcont.house_x}]]*/);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map, position: coords
+        });
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+
+        var iwContent = '<div style="width: 288px; height:115px;">'
+        	   + '<div class="info">'
+        	   + '<div class="title">'+/*[[${hcont.house_name}]]*/+'</div>'
+        	   + '<div class="body">'
+        	   + '<div class="img">'
+        	   + '<img src="img/hero-slider-5.jpg" width="73" height="70">'
+        	   + '</div>'
+        	   + '<div class="desc">'
+        	   + '<div class="ellipsis">'+/*[[${hcont.house_address}]]*/+'</div>'
+        	   + '<div><a href="https://www.choongang.co.kr/" target="_blank" class="link">홈페이지</a></div>'
+        	   + '</div>' + '</div>' + '</div>' + '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        	iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+        	//인포윈도우를 생성합니다
+        	var infowindow = new kakao.maps.InfoWindow({
+        	    content : iwContent,
+        	    removable : iwRemoveable
+        	});
+
+        	// 마커에 클릭이벤트를 등록합니다
+        	kakao.maps.event.addListener(marker, 'click', function() {
+        	      // 마커 위에 인포윈도우를 표시합니다
+        	      infowindow.open(map, marker);  
+        	});
+        
+ /*]]>*/ 
+</script>
+
+</body>
+</html>
