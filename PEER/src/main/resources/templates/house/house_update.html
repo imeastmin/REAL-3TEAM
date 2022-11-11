@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>house_update</title>
+</head>
+<body>
+
+<form method="post" action="house_edit_ok" onSubmit="return house_check()">
+  <input type="hidden" name="house_num" th:value="${hcont.house_num}" />
+  <input type="hidden" name="page" th:value="${page}" />
+house_update페이지
+
+</form>
+</body>
+</html>

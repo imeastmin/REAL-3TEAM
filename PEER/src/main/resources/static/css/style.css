@@ -1,6 +1,4 @@
 body {
-/*   height:100vh;
-  display:block; */
   font-family: "Inter", sans-serif;
   line-height: 1.5;
   background: #ffffff;
@@ -23,6 +21,13 @@ body {
   body.offcanvas-menu:before {
     opacity: 1;
     visibility: visible; }
+
+/* div 공통 */
+.d_wrap{
+	padding: 7rem 0 10rem 0;
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
 
 .bg-primary {
   background-color: #1A374D !important; }
@@ -561,12 +566,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 .burger:focus {
   outline: none; }
 
-/* div 공통 */
-.d_wrap{
-	padding: 7rem 0 10rem 0;
-    margin-top: 80px;
-    margin-bottom: 100px;
-}
 
 .hero {
   padding: 7rem 0 10rem 0;
@@ -910,7 +909,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   	background: #fff;
 }
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 16px;font-weight: bold;}
+
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: hidden;}
@@ -950,6 +951,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 .custom_zoomcontrol span:first-child{
 	border-bottom:1px solid #bfbfbf;
 	}
+
+  #map iframe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%; }
+
+
 
 .quick-contact-item [class*="flaticon-"] {
   font-size: 2rem;
