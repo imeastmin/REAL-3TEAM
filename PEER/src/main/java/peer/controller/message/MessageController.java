@@ -8,10 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import peer.model.member.MemberBean;
 import peer.model.message.MessageBean;
@@ -24,8 +22,8 @@ public class MessageController {
 	private MessageService ms;
 	
 	// 쪽지 메인 페이지
-	@RequestMapping(value= {"/message", "/message/{page}"})
-	public String message(@PathVariable(name="page", required=false) Integer page, Model model, HttpSession session) throws Exception {
+	@RequestMapping("/message")
+	public String message(Model model, HttpSession session) throws Exception {
 		// 세션 불러오기
 		MemberBean user_info = new MemberBean();
 		user_info = (MemberBean)session.getAttribute("MemberBean");
@@ -35,19 +33,23 @@ public class MessageController {
 		 
 		// 리스트에 쪽지 전체 담기
 		// 전체 쪽지수
-		int msgTotal = ms.msgTotal(user_num);
-		
-		if (page == null) page = 1; 
+//		int msgTotal = ms.msgTotal(user_num);
+		int msgTotal = ms.msgTotal(9900);
+		int page = 0;
+		if (page == 0) page = 1; 
 			
 		Pagination pg = new Pagination(page, msgTotal);
+		System.out.println(pg.getStartPage());
+		System.out.println(pg.getEndPage());
 		
-		List<MessageBean> msglist = ms.msgList(user_num, pg.getStartPage(), pg.getEndPage());
-		
-		model.addAttribute("msglist", msglist);
-		model.addAttribute("pg", pg);
+//		List<MessageBean> msglist = ms.msgList(user_num, pg.getStartPage(), pg.getEndPage());
+//		
+//		model.addAttribute("msglist", msglist);
+//		model.addAttribute("pg", pg);
 	
+		return null; 
 		//return "/message/messagebox";
-		return "message/messagebox?page=" + pg.getPage();
+		//return "message/messagebox?page=" + pg.getPage();
 	}
 	
 	// 쪽지 보내기 폼
@@ -60,7 +62,7 @@ public class MessageController {
 		System.out.println(test.getUser_num());
 		System.out.println(test.getUser_nickname());
 		// 탈퇴한 회원인지 체크
-		System.out.println(request.getAttribute("message_sender_num"));
+		
 		// 쪽지 작성할 회원번호 체크 
 		//int message_receiver_num = request.getAttribute("message_sender_num");
 		//String message_receiver_nick = request.getAttribute(name);
