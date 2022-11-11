@@ -96,16 +96,13 @@
         //data-api options will be overwritten with custom javascript options
         options = $.extend(this.element.data(), options);
 
-        //html template for the picker UI
+        //html template for the picker UI 
+        // right 부분 삭제
         if (typeof options.template !== 'string' && !(options.template instanceof $))
             options.template =
         '<div class="daterangepicker">' +
         '<div class="ranges"></div>' +
         '<div class="drp-calendar left">' +
-        '<div class="calendar-table"></div>' +
-        '<div class="calendar-time"></div>' +
-        '</div>' +
-        '<div class="drp-calendar right">' +
         '<div class="calendar-table"></div>' +
         '<div class="calendar-time"></div>' +
         '</div>' +
@@ -680,10 +677,8 @@
             } else {
                 this.rightCalendar.calendar = calendar;
             }
-
-            //
+          
             // Display the calendar
-            //
 
             var minDate = side == 'left' ? this.minDate : this.startDate;
             var maxDate = this.maxDate;
@@ -704,7 +699,8 @@
                 html += '<th></th>';
             }
 
-            var dateHtml = this.locale.monthNames[calendar[1][1].month()] + calendar[1][1].format(" YYYY");
+            // 달력 상단 (예시 : 2022년 11월)
+            var dateHtml = calendar[1][1].format("YYYY년 ") + this.locale.monthNames[calendar[1][1].month()]; 
 
             if (this.showDropdowns) {
                 var currentMonth = calendar[1][1].month();
@@ -739,8 +735,8 @@
                 dateHtml = monthHtml + yearHtml;
             }
 
-            html += '<th colspan="5" class="month">' + dateHtml + '</th>';
-            if ((!maxDate || maxDate.isAfter(calendar.lastDay)) && (!this.linkedCalendars || side == 'right' || this.singleDatePicker)) {
+            html += '<th colspan="5" class="month">' + dateHtml + '</th>';					// modify : right -> left
+            if ((!maxDate || maxDate.isAfter(calendar.lastDay)) && (!this.linkedCalendars || side == 'left' || this.singleDatePicker)) {
                 html += '<th class="next available"><span></span></th>';
             } else {
                 html += '<th></th>';
