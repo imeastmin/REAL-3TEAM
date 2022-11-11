@@ -14,11 +14,14 @@ public class HouseController {
 	@Autowired
 	private HouseServiceImpl houseService;
 	
-//	@RequestMapping("/")
-//	public String test() {
-//		return "house/index";
-//	}
-//	
+
+	@RequestMapping("/")
+	public String test() {
+		return "house/index";
+	}
+	
+
+
 	// 숙소 등록 폼
 	@RequestMapping("house_insert")
 	public String house_insert() {
