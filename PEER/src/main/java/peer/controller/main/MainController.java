@@ -13,18 +13,7 @@ public class MainController {
 		return "main";
 	}
 	
+	/* 인터셉터 구현 - 김동민 */
 	
-	/* 인터셉터 */
-	/* @RequestMapping("Call.Interceptor")
-	public String interceptor() {
-		return "check";
-	}*/
-	
-	
-	/* 에러 */
-	/*@RequestMapping("Error")*/
-	public String error() {
-		return "error";
-	}
-
+	/* 에러페이지 구현 - 김동민 */
 }

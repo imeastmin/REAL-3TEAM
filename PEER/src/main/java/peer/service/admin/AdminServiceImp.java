@@ -14,19 +14,16 @@ public class AdminServiceImp implements AdminService {
 	private AdminMapper AdminMapper;
 	
 	/* 유저목록 */
-	@Override
 	public List<MemberBean> getUsers() throws Exception {
 		return AdminMapper.getUsers();
 	}
 	
 	/* 계정정지 */
-	@Override
 	public int suspension(int user_num) throws Exception {
 		return AdminMapper.suspension(user_num);
 	}
 
 	/* 계정 활성화 */
-	@Override
 	public int access(int user_num) throws Exception {
 		return AdminMapper.access(user_num);
 	}
