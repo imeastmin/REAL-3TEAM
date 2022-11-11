@@ -15,7 +15,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 public class MybatisConfig {
 
-	@MapperScan /* Mapper 어노테이션 인식을 위해서 반드시 기입 - 에러발생 이유 */
+	@MapperScan(basePackages = {"peer.dao"}) /* Mapper 어노테이션 인식을 위해서 반드시 기입 - 에러발생 이유 */
 	@Configuration /* 환경설정 어노테이션 */
 	@PropertySource("classpath:/application.properties")
 	public class DataAccessConfig {
@@ -31,7 +31,7 @@ public class MybatisConfig {
 
 			factoryBean.setDataSource(dataSource);
 			factoryBean.setMapperLocations(
-					new PathMatchingResourcePatternResolver().getResources("classpath:mapper/**/*.xml")
+					new PathMatchingResourcePatternResolver().getResources("classpath:static/mapper/**/*.xml")
 			);
 
 			factoryBean.setTypeAliasesPackage("peer.model"); /* Alias 설정 */
