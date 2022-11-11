@@ -81,7 +81,7 @@ footer.foot {
 			}
 			if ($("#user_email").val() != "") {
 				var user_email = $("#user_email").val();
-				var url = "/searchinfo?user_email=" + user_email;
+				var url = "/searchemailnomal?user_email=" + user_email;
 				location.href = url;
 			}
 		})
@@ -92,8 +92,8 @@ footer.foot {
 			}
 			if ($("#AuthCode").val() != "") {
 				if($("#AuthCode").val()==EAuthCode){
-					var joinpara = '/join?user_email='+user_email;
-				location.href =joinpara ;
+					var showpassword = '/searchemail?user_email='+user_email;
+				location.href =showpassword ;
 				}
 				if($("#AuthCode").val()!=EAuthCode){
 					$("#message").text("인증번호가 일치하지 않습니다");
@@ -114,7 +114,7 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 				Kakao.API.request({
 					url : '/v2/user/me',
 					success : function(response) {
-						var sethref = "/join?user_email="
+						var sethref = "/searchemail?user_email="
 								+ response.kakao_account.email;
 						location.href = sethref;
 					},
@@ -136,7 +136,7 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 			<tr>
 				<td width="80" class="sizelow">이메일</td>
 				<td colspan="2"><input class="form-control" type="text"
-					name="user_email" id="user_email"></td>
+					name="user_email" id="user_email" required="required"></td>
 				<td class="sizebutton"><input class="btn btn-outline-primary"
 					type="button" name="sendingemail" id="sendingemail" value="인증"
 					disabled="true"></td>
@@ -168,7 +168,7 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 <!-- 네이버 로그인 -->
 <script type="text/javascript">
 	var naver_id_login = new naver_id_login("o4ZYTkFOJwW0NUVNtIhq",
-			"http://localhost/callback2");
+			"http://localhost/callback3");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("white", 3, 40);
 	naver_id_login.setDomain("YOUR_SERVICE_URL");
@@ -176,8 +176,8 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 	naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
-<!-- <footer class="foot">
-	<th:block th:replace="/common/footer :: footer"></th:block>
-</footer> -->
+<footer class="foot">
+	<!-- <th:block th:replace="/common/footer :: footer"></th:block> -->
+</footer>
 </html>
 
