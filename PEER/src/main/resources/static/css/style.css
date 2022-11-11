@@ -1,6 +1,4 @@
 body {
-/*   height:100vh;
-  display:block; */
   font-family: "Inter", sans-serif;
   line-height: 1.5;
   background: #ffffff;
@@ -23,6 +21,12 @@ body {
   body.offcanvas-menu:before {
     opacity: 1;
     visibility: visible; }
+    
+.d_wrap{
+	padding: 7rem 0 10rem 0;
+    margin-top: 80px;
+    margin-bottom: 100px;
+}
 
 .bg-primary {
   background-color: #1A374D !important; }

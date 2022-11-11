@@ -1,45 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- header 부분 -->
+<!--/* header 부분 */-->
 <div th:fragment="header" class="#">
 	<body>
-<div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="peer"><img src="img/peer_logo.png" width="62px" height="25px"></svg>
-      </a>
+<header class="p-3 text-bg-light">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-left justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          	<svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><img src="img/peer_logo.png" width="80px"></svg>
+        </a>
 
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-      </ul>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-1 justify-content-center mb-md-0">
+          	<li><a href="#" class="nav-link px-2 text-secondary"><span><b>게시판</b></span></a></li>
+        </ul>
 
-      <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
-      </div>
-    </header>
-  </div>	
-      		
-			
-			<!-- 위시리스트  -->
-			<div class="wishlist">
-				<button type="button" class="btn btn-outline-secondary btn"
-						style="-bs-btn-padding-y: .10rem; - -bs-btn-padding-x: .2rem; - -bs-btn-font-size: .15rem;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23"
-						fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 20">
-  					<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" /></svg>
-				</button>
+        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"></div>
+
+		<!--/* 비로그인시 */-->
+        <div class="text-end" th:if="${session.MemberBean == null}">
+        	<button type="button" class="btn btn-primary"  id="headerbutton"
+        		onclick="location.href='#'"><b>로그인</b></button>
+        </div>
+		<!--/* 로그인시 */-->
+		<!--/* 일반회원 */-->
+			<div th:if="${session.MemberBean == null}">
+	  			<a th:href="@{#}"><button class="btn btn-outline-dark" id="wishlist">
+	    			위시리스트
+	  			</button></a>
 			</div>
-		<!-- 로그인시 -->
-		<!-- 비로그인시 -->
-      </ul>
-      
-    </nav>
-</div>
-
+	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean == null}">
+	        	<div class="dropdown">
+		  			<button class="btn btn-primary dropdown-toggle" type="button" id="headerbutton"
+		  				data-bs-toggle="dropdown" aria-expanded="false" style="pointer-events: none">
+		    			<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
+		  			</button>
+		  			<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup();  return false">쪽지</a></li>
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup2();  return false">쪽지쓰기</a></li>
+		    			<li><a class="dropdown-item" href="#">예약 확인</a></li>
+		    			<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
+		    			<!--/* 드롭다운 구분선 */-->
+		    			<li><hr class="dropdown-divider"></li>
+		    			<li><a class="dropdown-item" href="#">로그아웃</a></li>
+					</ul>
+				</div>
+			</div>
+		<!--/* 호스트회원 */-->
+	        <div class="text-end" style="margin-left:10px" th:if="${session.MemberBean != null}">
+	        	<div class="dropdown">
+		  			<button class="btn btn-primary dropdown-toggle" type="button" id="headerbutton"
+		  				data-bs-toggle="dropdown" aria-expanded="false"  style="pointer-events: none">
+		    			<span th:text="${session.MemberBean.user_nickname} +' 님'"></span>
+		  			</button>
+		  			<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup();  return false">쪽지</a></li>
+		    			<li><a class="dropdown-item" href="#" onclick="messagePopup2();  return false">쪽지쓰기</a></li>
+		    			<li><a class="dropdown-item" href="#">숙소 관리</a></li>
+		    			<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
+		    			<!--/* 드롭다운 구분선 */-->
+		    			<li><hr class="dropdown-divider"></li>
+		    			<li><a class="dropdown-item" href="#">로그아웃</a></li>
+					</ul>
+				</div>
+		    	<!--/* 쪽지 팝업창 */-->
+			</div>
+      </div>
+    </div>
+		    	<script>
+        			function messagePopup(){
+            			window.open("/message","쪽지","width=580, height=600, top=200, left=700");
+        			}
+        			// 테스트코드
+        			function messagePopup2(){
+            			window.open("/msgwrite","쪽지쓰기","width=580, height=600, top=200, left=700");
+        			}
+    			</script>
+</header>
+</body>
 </html>
