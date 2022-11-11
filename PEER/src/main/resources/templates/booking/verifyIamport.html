@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제페이지</title>
+<style type="text/css">
+#bt {
+	border-radius: 5px;
+}
+
+#a {
+	text-align: left;
+	background-color: yellow;
+}
+
+#b {
+	text-align: center;
+	background-color: yellow;
+}
+
+#c {
+	text-align: right;
+	background-color:;
+}
+</style>
+
+<!-- 달력(calendar03.html)을 불러올 준비-->
+<script type="text/javascript">
+	//페이지가 로드되면 실행한다.
+
+	$(document).ready(function() {
+
+		$("#contents").load("calendar03.html");
+
+		//~이렇게 한줄만 해주면 알아서 contents에 calendar03.html파일을 넣어 준다.
+
+	});
+</script>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+
+<link rel="stylesheet" href="/css/calendar03.css">
+
+</head>
+<body>
+
+	<!-- jQuery -->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+	<!-- 아임포트 결제api를 호출할 준비 -->
+	<!-- iamport.payment.js -->
+	<script type="text/javascript"
+		src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+	<div>
+		<table width="1100" height="100" border="10" align="center">
+			<tr>
+				<!-- 메인화면 상단과 동일하게 할 것 -->
+				<td width="200" id="b">로고</td>
+				<td width="500" align="center">검색창</td>
+				<td width="100" height="100" align="center"><a
+					href="index.html">프로필<img></a></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<!-- 숙소명 -->
+		<table width="800" height="100" align="center">
+			<tr>
+				<td height="50">숙소명</td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<!-- 주소, 공유하기, 위시리스트 버튼 -->
+		<table width="800" height="100" align="center">
+			<tr>
+				<td width="600" height="50">주소</td>
+				<td width="80"><a href="index.html">공유하기</a></td>
+				<td width="100"><a href="img/hearton.png"><img width="100"
+						height="90" src="img/wish/heartoff.png">위시리스트</a></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<!-- 사진 테이블 -->
+		<table width="800" height="400" border="10" align="center">
+			<tr>
+				<td width="350" rowspan="2"></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<!-- 호스트명, 숙소 정보 -->
+		<table width="800" height="200" align="center">
+			<tr align="left">
+				<td>호스트명</td>
+			</tr>
+			<tr>
+				<td>숙소 정보</td>
+			</tr>
+		</table>
+	</div>
+
+	<table style="width: 600px;" border="1" align="center">
+		<tr>
+			<!-- 캘린더 예약 -->
+			<td align="center">예약날짜 <script
+					src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
+				<div class="container px-1 px-sm-5 mx-auto"
+					style="width: 710px; height: 300px;" align="center">
+
+					<form autocomplete="off" id="calendar_pick">
+						<div class="flex-row d-flex justify-content-center">
+							<div class="col-lg-6 col-11">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control input1" id='checkin' placeholder="체크인" readonly> 
+									<input type="text" class="form-control input2" id='checkout' placeholder="체크아웃" readonly>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div> <script type="text/javascript" src="/js/calendar03.js"></script> <!-- 달력에만 자바스크립트 적용 -->
+				인원 수 <input type="number" id="people01" min="1" max="8"
+				placeholder="0"> <select name="people01"
+				style="width: 50px; height: 30px;">
+					<option value=1 selected>1
+					<option value=2>2
+					<option value=3>3
+					<option value=4>4
+					<option value=5>5
+					<option value=6>6
+					<option value=7>7
+					<option value=8>8
+			</select>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div align="center">
+					<br>
+					<!-- 예약하기 버튼 -->
+					<button id="iamportPayment" onclick="iamportPayment"
+						style="width: 100px; height: 40px; border-radius: 4px;">예약하기</button>
+				</div> <br>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+	<br>
+	<br>
+	
+	<!-- 결제api인 paying.js 파일 불러오기 -->
+<script type="text/javascript">
+	
+$(document).ready(function() {
+	$("#iamportPayment").click(function() {
+		iamportPayment(); // 버튼 클릭하면 호출, #iamport는 iamport()함수를 호출
+	});
+}) // 버튼 클릭하면 실행
+
+var msg;
+
+function iamportPayment() {
+    
+	IMP.init('imp80310113'); // 아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+	IMP.request_pay({ // param / rsp안의 변수들
+		pg : "html5_inicis", // pg사명
+		pay_method : "card", // 결제방식
+		merchant_uid : "99" + new Date().getTime(),// BOOK_NUM(BOOKING테이블,식별번호)
+		name : "productName", // "${HOUSE_NAME}"(HOUSE테이블)
+		amount : 100, // "${HOUSE_PRICE}*day"(HOUSE_PRICE테이블)
+		buyer_email : "buyerEmail", // "${USER_EMAIL}"(user_info테이블)
+		buyer_name : "buyerName", // "${USER_NAME}"(user_info테이블)
+		buyer_tel : "01012345678", // "${USER_PHONE}"(user_info테이블)
+		buyer_addr : '서울'
+	//homecontroller와 연결
+	}, function(rsp) { // callback
+		/** 결제 검증 **/
+		console.log(rsp);
+        $.ajax({
+            type: "POST",
+            url: "/verifyIamport/" + rsp.imp_uid,
+        }).done(function(data){
+			console.log(data);
+			
+			// https://api.iamport.kr/payments/imp_448280090638
+			//고유 imp_uid : imp_448280090638
+			// 토큰인증
+			// 		https://api.iamport.kr/users/getToken?_token=ca7a8169a4fc45a2e801e865c6c642c1926f925e
+            // rsp.paid_amount와 result.response.amount(서버 검증) 비교 후 로직 실행
+            
+            // https://api.iamport.kr/payments/status/all?limit=20&sorting=-started&_token=ca7a8169a4fc45a2e801e865c6c642c1926f925e
+            //		
+            if(rsp.paid_amount == data.response.amount){
+                alert("결제가 완료되었습니다.");
+            } else{
+                alert("결제에 실패했습니다. \n" + "에러 메시지 : " + rsp.error_message);
+            }
+        });
+	});
+	
+}
+
+
+</script>
+
+</body>
+</html>

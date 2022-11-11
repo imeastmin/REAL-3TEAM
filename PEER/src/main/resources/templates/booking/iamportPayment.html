@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+
+$("#iamportPayment").click(function() {
+	iamportPayment(); // 버튼 클릭하면 호출, #iamport는 iamport()함수를 호출
+});
+//}) // 버튼 클릭하면 실행
+
+var msg;
+
+function iamportPayment() {
+
+console.log("결제 진입");
+console.log();
+
+IMP.init('imp80310113'); // 아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+IMP.request_pay({ // param / rsp안의 변수들
+	pg : "html5_inicis", // pg사명
+	pay_method : "card", // 결제방식
+	merchant_uid : "99" + new Date().getTime(),// BOOK_NUM(BOOKING테이블,식별번호)
+	name : "peer하우스", // "${HOUSE_NAME}"(HOUSE테이블)
+	amount : 100, // "${HOUSE_PRICE}*day"(HOUSE_PRICE테이블)
+	buyer_email : "sky66951@naver.com", // "${USER_EMAIL}"(user_info테이블)
+	buyer_name : "홍길동", // "${USER_NAME}"(user_info테이블)
+	buyer_tel : "01012345678" // "${USER_PHONE}"(user_info테이블)
+
+// m_redirect_url: m_redirect
+// confirm_url : 'https://www.naver.com/'
+}, function(rsp) { // callback
+	
+//	console.log(rsp);
+	//결제검증
+	
+	if (rsp.success) {		
+		
+		// [1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+		/*
+		 * jQuery.ajax({ url: "/payments/complete", //cross-domain error가
+		 * 발생하지 않도록 주의해주세요 type: 'POST', dataType: 'json', data: { imp_uid :
+		 * rsp.imp_uid //기타 필요한 데이터가 있으면 추가 전달 } }).done(function(data) {
+		 * //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우 if (
+		 * everythings_fine ) { msg = '결제가 완료되었습니다.'; msg += '\n고유ID : ' +
+		 * rsp.imp_uid; msg += '\n상점 거래ID : ' + rsp.merchant_uid; msg +=
+		 * '\결제 금액 : ' + rsp.paid_amount; msg += '카드 승인번호 : ' +
+		 * rsp.apply_num;
+		 * 
+		 * alert(msg); } else { //[3] 아직 제대로 결제가 되지 않았습니다. //[4] 결제된 금액이 요청한
+		 * 금액과 달라 결제를 자동취소처리하였습니다. } });
+		 */
+
+//		jQuery.ajax({
+//			url: "{payresult.html}",
+//			method: "POST",
+//            headers: { "Content-Type": "application/json" },
+//            data: {
+//                imp_uid: rsp.imp_uid,
+//                merchant_uid: rsp.merchant_uid
+//            }
+//		}).done(function (data) {
+//	          // 가맹점 서버 결제 API 성공시 로직
+//	    })
+		
+		
+		// 성공시 이동할 페이지 아래에 적기
+		 alert("결제가 완료되었습니다. \n" +
+				"\nimp_uid : " + rsp.imp_uid +
+		 		"\n예약번호 : " + rsp.merchant_uid +
+		 		"\n결제가격 : " + rsp.paid_amount +
+		 		"\n구매자이메일 : " + rsp.buyer_email);
+
+		location.replace("payresult");
+//		// 결제 완료창으로 이동 후 정보띄우기
+
+        
+	} else {
+		msg = '결제에 실패하였습니다. ';
+		msg += rsp.error_msg;
+
+		alert(msg);
+	}
+});
+}
+*
+/*
+$(document).ready(function(){
+	 payment();
+});
+
+	// iamport API
+	function payment(data) {
+		var o_no = ${orderNo};
+		
+		IMP.init('imp80310113');               //아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+	    IMP.request_pay({                      // param
+	        pg: "${otd.o_pay_type}",                //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+	        pay_method: "card",     //지불 방법
+	        merchant_uid: "${orderNo}",     //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+	        name: "peer하우스", 
+	        seller: "${otd.s_no}", 
+	        amount: "${otd.o_pay_price}", //금액
+	        buyer_email : "${sessionScope.m_email}", 
+	        buyer_name : "${ml.m_name}",
+	        buyer_tel : "${ml.m_tel}",
+	        buyer_postcode : "${di.d_post}",
+	        buyer_addr : "${di.d_address} ${di.d_detail_address}"
+	       
+	    }, function (rsp) {         // callback
+	        if (rsp.success) {     // 결제 성공 시 
+	        	$.ajax({
+	        		url : "/bookInsert",
+	        		type : 'post',
+	        		dataType : 'json',
+	        		data :{"book_num":book_num},	// o_no = book_num
+	        		success : function(result){
+	        			if(result == 2){
+	        				var msg = "결제가 완료되었습니다.";
+	        			    alert(msg);
+	        			    location.replace="/payresult";
+	        			}
+	        		}
+	        	}); // ajax() end
+	        
+
+	        } else {               // 결제 실패 시
+	        	$.ajax({
+	        		url : 'orderDelete.do',
+	        		type : 'post',
+	        		dataType : 'json',
+	        		data : {"o_no":o_no},
+	        		success : function(result){
+	        			if(result == 1){
+	        				var msg = "결제에 실패하였습니다.";
+	        	        	msg += ' 원인 : '+rsp.error_msg;
+	        				alert(msg);
+	        		        location.href="main.do";
+	        			}
+	        		}
+	        	}); // ajax() end
+	        	
+	        }
+	   });
+   }
+*/
+</script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+</body>
+</html>

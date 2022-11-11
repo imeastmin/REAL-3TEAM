@@ -17,6 +17,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	
+	// 결제 api 위해 추가
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -29,6 +32,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	
+	
+	
+	// 아임포트
+	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
+	implementation 'com.github.User:Repo:Tag'
+	//토큰불러오기
+	implementation 'org.json:json:20160810'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 tasks.named('test') {

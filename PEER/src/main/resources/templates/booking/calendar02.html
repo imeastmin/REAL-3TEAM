@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/css/calendar02.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+ 
+</head>
+
+<body>
+
+
+<main>
+
+  <h1><span class="fontawesome-plane"></span> Moon Flights</h1>
+  
+  <h2>Select your flight dates below</h2>
+  
+  <div class="input-daterange input-group" id="flight-datepicker">
+  
+    <div class="form-item">
+      <label>Depart on</label><span class="fontawesome-calendar"></span>
+      <input class="input-sm form-control" id="start-date" type="text" name="start" placeholder="Select depart date" data-date-format="DD, MM d"/><span class="date-text date-depart"></span>
+    
+    </div>
+    <div class="form-item">
+    
+      <label>Return on</label><span class="fontawesome-calendar"></span>
+      <input class="input-sm form-control" id="end-date" type="text" name="end" placeholder="Select return date" data-date-format="DD, MM d"/><span class="date-text date-return"></span>
+
+    </div>
+
+  </div>
+  
+</main>
+  <script type="text/javascript" src="/js/calendar02.js"></script>  
+</body>
+
+</html>

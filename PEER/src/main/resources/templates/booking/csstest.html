@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- js -->
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/daterangepicker.js"></script>
+<script src="js/typed.js"></script>
+<script src="js/custom.js"></script>
+
+
+
+
+<!-- header 부분 -->
+
+<div th:fragment="header">
+   <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+         <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+         </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+   </div>
+   <nav class="site-nav">
+      <div class="container">
+         <div class="site-navigation">
+            <a href="main" class="logo m-0">Peer <span class="text-primary"></span></a>
+            <a href="#" class="community ml-3">Community<span class="text-primary"></span></a>
+            <!-- 커뮤니티 바로가기   -->
+
+            <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
+               <a href="#"></a>
+               <li class="has-children"><a href="#">Login</a>
+               <a href="#"class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light"
+                  data-toggle="collapse" data-target="#main-navbar"> <span></span>
+               </a>
+            </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+
+<link rel="stylesheet" href="/css/calendar03.css">
+<link rel="stylesheet" href="css/daterangepicker.css">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- footer 부분 -->
+<th:block th:fragment="footer">
+   <footer class="footer">
+      <div class="site-footer">
+         <div class="inner first">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-6 col-lg-4">
+                     <div class="widget">
+                        <h3 class="heading">About Tour</h3>
+                        <p>Far far away, behind the word mountains, far from the
+                           countries Vokalia and Consonantia, there live the blind texts.</p>
+                     </div>
+                     <div class="widget">
+                        <ul class="list-unstyled">
+                           <li><span><a
+                                 href="https://open.kakao.com/o/sheZgiKe"> <img
+                                    src="img/kakao.png" width="40px" height="40px"></img></a></span></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-2 pl-lg-5">
+                     <div class="widget">
+                        <h3 class="heading">Pages</h3>
+                        <ul class="links list-unstyled">
+                           <li><a href="#">Blog</a></li>
+                           <li><a href="#">About</a></li>
+                           <li><a href="#">Contact</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-2">
+                     <div class="widget">
+                        <h3 class="heading">Resources</h3>
+                        <ul class="links list-unstyled">
+                           <li><a href="#">Blog</a></li>
+                           <li><a href="#">About</a></li>
+                           <li><a href="#">Contact</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                     <div class="widget">
+                        <h3 class="heading">Contact</h3>
+                        <ul class="list-unstyled quick-info links">
+                           <li class="email"><a href="#">peer@test.com</a></li>
+                           <li class="phone"><a href="#">+82 010-123-4567</a></li>
+                           <li class="address"><a href="#">서울특별시 마포구 신촌로 176</a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+
+         <div class="inner dark">
+            <div class="container">
+               <div class="row text-center">
+                  <div class="col-md-8 mb-3 mb-md-0 mx-auto">
+                     <p>
+                        Copyright &copy;
+                        <script>
+                           document.write(new Date().getFullYear());
+                        </script>
+                        . All Rights Reserved. &mdash; Designed with love by <a
+                           href="https://untree.co" class="link-highlight">Untree.co</a>
+                        <!-- License information: https://untree.co/license/ -->
+                        Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                     </p>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </footer>
+   </body>
+</th:block>
+</html>

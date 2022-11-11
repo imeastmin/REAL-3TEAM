@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input id="input" type="text" oninput="myFunction()">
+</body>
+<script>
+	function myFunction() {
+		let value = document.getElementById('input').value;
+		console.log(value);
+	}
+</script>
+
+<form>
+	예약날짜
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
+	<div class="container px-1 px-sm-5 mx-auto" style="width: 710px; height: 300px;" align="center">
+
+		<div id="calendar_pick" autocomplete="off">
+			<div class="flex-row d-flex justify-content-center">
+				<div class="col-lg-6 col-11">
+					<div class="input-group input-daterange">
+						<input type="text" class="form-control input1" id="checkin"
+							placeholder="체크인" readonly> <input type="text"
+							class="form-control input2" id="checkout" placeholder="체크아웃"
+							readonly>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+	
+	<script type="text/javascript" src="/js/calendar03.js"></script>
+	<!-- 달력에만 자바스크립트 적용 -->
+	인원 수 <input type="number" id="people01" min="1" max="8" placeholder="0">
+</form>
+</body>
+</html>

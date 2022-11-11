@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+ 
+<link rel="stylesheet" href="/css/calendar03.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+<div class="container px-1 px-sm-5 mx-auto">
+  <form id="datepick" method="post" autocomplete="off">
+    <div class="flex-row d-flex justify-content-center">
+      <div class="col-lg-6 col-11">
+        <div class="input-group input-daterange">
+          <input id="checkin" type="text" class="form-control input1" placeholder="Start Date" oninput="myFunction1()" readonly>
+          <input type="text" class="form-control input2" placeholder="End Date" readonly>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<input id="input" type="text" oninput="myFunction()">
+
+<script type="text/javascript">
+
+function myFunction() {
+	let value = document.getElementById('input').value;
+	console.log(value);
+}
+
+function myFunction1(){
+	let value = document.getElementById('form-control input1').value;
+	console.log(value);
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('.input-daterange').datepicker({
+	    format: 'yyyy-mm-dd',
+	    autoclose: true,
+	    startDate: '0d',
+	    endDate: '+60d',
+	    clearBtn: true,		//날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션
+	    showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
+	    title: '날짜선택', //캘린더 상단에 보여주는 타이틀
+	    todayHighlight: true, //오늘 날짜에 하이라이팅 기능 기본값 :false
+	    language: 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
+	    
+	});
+
+	});
+</script>
+
+</body>
+</html>

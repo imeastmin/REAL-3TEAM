@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookns">
+
+<!-- 예약 테이블에 등록 -->
+<insert id="bookingInsert" parameterType="String">
+insert into BOOKING(BOOK_NUM, USER_NUM, HOUSE_NUM, CHECKIN, CHECKOUT, REQUEST) 
+values(booking_seq.nextval, 1, 1, '22/11/11', '22/11/12', 1)
+</insert>
+
+<!-- 예약 정보 불러오기 -->
+<select id="bookinglistSelect">
+select book_num from booking where book_num = 1000000000
+</select>
+
+<!-- 숙소 가격 불러오기 -->
+<select id="houseprice_select" parameterType="int" resultType="int">
+	select house_price from house_price where house_num = #{house_num}
+</select>
+
+<!-- 숙소 번호 불러오기 -->
+<select id="housenumview" parameterType="Integer" resultType="Integer">
+	select house_num from house where = 9;
+</select>
+
+
+
+</mapper>

@@ -10,4 +10,6 @@ public class PayresultController {
 	public String payresult() {
 		return "booking/payresult";
 	}
+	
+	
 }
