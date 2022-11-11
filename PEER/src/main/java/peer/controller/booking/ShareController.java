@@ -2,7 +2,8 @@ package peer.controller.booking;
 
 import java.util.List;
 
-import javax.websocket.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import peer.model.booking.ShareBean;
 import peer.model.booking.TotalBean;
 import peer.model.member.MemberBean;
 import peer.service.booking.ShareServiceImp;
@@ -21,13 +23,54 @@ public class ShareController {
 	@Autowired
 	private ShareServiceImp shareService;
 	
-	@RequestMapping("/")
-	public String INDEX() {
+
+	/*@RequestMapping("Index")
+	public String Index() {
 		return "index";
+	}*/
+	
+	
+	/* 인터셉터 */
+	@RequestMapping("Call.Interceptor")
+	public String interceptor() {
+		return "check";
 	}
+	
+	/* 로그인 페이지 */
+	@RequestMapping("/")
+	public String login() {
+		return "login";
+	}
+	
+	/* 로그인 세션설정 */
+	@RequestMapping("Login")
+	public String loginSession(HttpSession session,
+							   String id) {
+		System.out.println("LoginSession");
+		session.setAttribute("id", id);
+		
+		return "redirect:MyBooking.do";
+	}
+	
+	/* 에러 */
+	@RequestMapping("Error")
+	public String error() {
+		return "error";
+	}
+	
+	
 	/* 예약내역 페이지 */
 	@RequestMapping("MyBooking.do")
-	public String myBooking() {
+	public String myBooking(HttpSession session,
+						    Model model) throws Exception {
+		int id = Integer.parseInt((String)session.getAttribute("id"));
+		List<ShareBean> MyBooking = shareService.getMyBooking(id);
+		System.out.println("Service MYBOOKING DATA - " + MyBooking);
+		
+		model.addAttribute("MyBooking", MyBooking);
+		model.addAttribute("id", id);
+		
+
 		return "share/mybooking";
 	}
 	
@@ -54,6 +97,12 @@ public class ShareController {
 		
 		/* 쉐어 신청 확인 */
 		TotalBean propose = shareService.propose(id, book_num);
+
+		int propose_shareCheck = 0;
+		if(propose != null) {
+			propose_shareCheck = propose.getShare_check();
+		}
+
 		System.out.println("Controller PROPOSE DATA - " + propose);
 		
 		/* 쉐어 매칭 확인*/
@@ -61,9 +110,24 @@ public class ShareController {
 		System.out.println("Controller MATCHING DATA - " + matching);
 		
 		
-
+		/* 신청이력 확인 */
+		if(propose != null && matching == 1 && propose_shareCheck == 1) {
+			model.addAttribute("propose", propose);
+			return "share/match_proposer";
+		}
+		
+		/* 쉐어를 진행하지 않은 상태 */
+		if(matching == 1 && proposer == null) {
+			
+			model.addAttribute("id", id);
+			model.addAttribute("book_num", book_num);
+			model.addAttribute("QueMember", QueMember);
+			return "share/queue_list";
+		}
+		
 		/* 매칭확인 */
-		if(matching == 2) {
+		if(matching == 2 && proposer != null) {
+
 			Integer confirm = shareService.confirmCancle(book_num);
 			System.out.println("Controller CONFIRM DATA - " + confirm);
 			
@@ -85,14 +149,9 @@ public class ShareController {
 			return "share/result";
 		}
 		
-		/* 신청이력 확인 */
-		if(propose != null) {
-			model.addAttribute("propose", propose);
-			return "share/match_proposer";
-		}
-		
 		/* 신청자 확인 */ 
-		if(proposer != null) {
+		if(proposer != null && matching == 1) {
+
 			/* 쉐어 신청자 정보 가져오기 */
 			MemberBean proposerInfo = shareService.getMemberInfo(Integer.parseInt(proposer));
 			System.out.println("Controller PROPOSERINFO DATA - " + proposerInfo);
@@ -103,22 +162,9 @@ public class ShareController {
 			model.addAttribute("proposerInfo", proposerInfo);
 			return "share/match_propose";
 		}
-		
-		/* 쉐어를 진행하지 않은 상태 */
-		if(matching == 1 && proposer == null) {
-		
-			model.addAttribute("id", id);
-			model.addAttribute("book_num", book_num);
-			model.addAttribute("proposer", proposer);
-			model.addAttribute("QueMember", QueMember);
-			return "share/queue_list";
-		}
-		/* 페이지에 공유 */
-		model.addAttribute("id", id);
-		model.addAttribute("book_num", book_num);
-		model.addAttribute("proposer", proposer);
-		model.addAttribute("QueMember", QueMember);
-		return "share/queue_list";
+
+		return "index";
+
 	}
 	
 	
@@ -186,13 +232,17 @@ public class ShareController {
 			return "share/match_approve";
 		}
 		
-		return "share/match_refuse";
+		return "share/match_cancle";
+
 	}
 	
 	
 	/* 쉐어 최종결정 */
 	@GetMapping("ShareResult.do")
-	public String shareSuccess(String type, int book_num) throws Exception{
+
+	public String shareSuccess(String type, 
+							   int book_num) throws Exception{
+
 		/* 진입확인 */
 		System.out.println("Controller - ShareResult.do");
 		System.out.println("Controller SHARERESULT TYPE DATA - " + type);

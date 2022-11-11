@@ -49,11 +49,3 @@
 	display: inline-block !important;
 	margin: 0;
 }
-
-
-.footer {
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-}

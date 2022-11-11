@@ -20,4 +20,5 @@ public class MemberBean {
 	private Date user_rege;
 	private String user_status;
 	private String user_authority;
+	private Date user_birth;
 }
