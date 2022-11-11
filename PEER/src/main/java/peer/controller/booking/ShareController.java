@@ -23,7 +23,6 @@ public class ShareController {
 	@Autowired
 	private ShareServiceImp shareService;
 	
-
 	/*@RequestMapping("Index")
 	public String Index() {
 		return "index";
@@ -70,7 +69,6 @@ public class ShareController {
 		model.addAttribute("MyBooking", MyBooking);
 		model.addAttribute("id", id);
 		
-
 		return "share/mybooking";
 	}
 	
@@ -97,12 +95,10 @@ public class ShareController {
 		
 		/* 쉐어 신청 확인 */
 		TotalBean propose = shareService.propose(id, book_num);
-
 		int propose_shareCheck = 0;
 		if(propose != null) {
 			propose_shareCheck = propose.getShare_check();
 		}
-
 		System.out.println("Controller PROPOSE DATA - " + propose);
 		
 		/* 쉐어 매칭 확인*/
@@ -127,7 +123,6 @@ public class ShareController {
 		
 		/* 매칭확인 */
 		if(matching == 2 && proposer != null) {
-
 			Integer confirm = shareService.confirmCancle(book_num);
 			System.out.println("Controller CONFIRM DATA - " + confirm);
 			
@@ -151,7 +146,6 @@ public class ShareController {
 		
 		/* 신청자 확인 */ 
 		if(proposer != null && matching == 1) {
-
 			/* 쉐어 신청자 정보 가져오기 */
 			MemberBean proposerInfo = shareService.getMemberInfo(Integer.parseInt(proposer));
 			System.out.println("Controller PROPOSERINFO DATA - " + proposerInfo);
@@ -164,7 +158,6 @@ public class ShareController {
 		}
 
 		return "index";
-
 	}
 	
 	
@@ -233,16 +226,13 @@ public class ShareController {
 		}
 		
 		return "share/match_cancle";
-
 	}
 	
 	
 	/* 쉐어 최종결정 */
 	@GetMapping("ShareResult.do")
-
 	public String shareSuccess(String type, 
 							   int book_num) throws Exception{
-
 		/* 진입확인 */
 		System.out.println("Controller - ShareResult.do");
 		System.out.println("Controller SHARERESULT TYPE DATA - " + type);
