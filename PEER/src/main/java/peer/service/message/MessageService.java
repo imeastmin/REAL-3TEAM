@@ -12,10 +12,13 @@ public interface MessageService {
 	public int msgTotal(int user_num) throws Exception;
 	
 	// 쪽지 보내기&답장하기
-	public String msgSend(MessageBean msg) throws Exception;
+	public void msgSend(MessageBean msg) throws Exception;
+	
+	// 회원 권한(상태) 체크
+	public int userCheck(int user_num) throws Exception;
 	
 	// 회원번호에서 닉네임 추출하기
-	public String nicktoUser_num(int message_receiver_num) throws Exception;
+	public String nickFromNum(int user_num) throws Exception;
 	
 	// 쪽지 상세보기
 	public MessageBean msgOpen(int message_num) throws Exception;

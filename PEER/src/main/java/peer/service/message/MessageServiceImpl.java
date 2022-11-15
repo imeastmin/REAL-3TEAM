@@ -27,14 +27,19 @@ public class MessageServiceImpl implements MessageService{
 	
 	// 쪽지 보내기&답장하기 
 	@Override
-	public String msgSend(MessageBean msg) throws Exception {
-		return mm.msgSend(msg);
+	public void msgSend(MessageBean msg) throws Exception {
+		mm.msgSend(msg);
+	}
+	
+	// 회원 권한(상태) 체크
+	public int userCheck(int user_num) throws Exception {
+		return mm.userCheck(user_num);
 	}
 	
 	// 회원번호에서 닉네임 추출하기
 	@Override
-	public String nicktoUser_num(int message_receiver_num) throws Exception {
-		return mm.nicktoUser_num(message_receiver_num);
+	public String nickFromNum(int user_num) throws Exception {
+		return mm.nickFromNum(user_num);
 	}
 
 	// 쪽지 상세보기

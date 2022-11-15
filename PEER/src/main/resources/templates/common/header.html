@@ -32,7 +32,9 @@
 					<!-- 로그인시 -->
 					<!-- 일반회원 -->
 					<div th:if="${session.MemberBean != null}">
-						<button class="btn btn-outline-dark">위시리스트</button>
+						<button  type="button" class="btn btn-outline-dark"
+							onclick="location.href='#'">
+							위시리스트</button>
 					</div>
 					<div class="text-end" style="margin-left: 10px"
 						th:if="${session.MemberBean != null} and ${session.MemberBean.user_status.equals('게스트')}">
@@ -43,7 +45,7 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 								<li><a class="dropdown-item" href="#"
-									onclick="messagePopup();  return false">쪽지</a></li>
+									onclick="messagePopup();  return false;">쪽지</a></li>
 								<li><a class="dropdown-item" href="#">예약 확인</a></li>
 								<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
 								<!-- 드롭다운 구분선 -->
@@ -63,7 +65,7 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu" id="main-dropdown">
 								<li><a class="dropdown-item" href="#"
-									onclick="messagePopup();  return false">쪽지</a></li>
+									onclick="messagePopup();  return false;">쪽지</a></li>
 								<li><a class="dropdown-item" href="#">숙소 관리</a></li>
 								<li><a class="dropdown-item" href="#">회원 정보 수정</a></li>
 								<!-- 드롭다운 구분선 -->
@@ -72,16 +74,15 @@
 							</ul>
 						</div>
 						<!-- 쪽지 팝업창 -->
-						<script>
-							function messagePopup() {
-								window
-										.open("/msgwrite", "쪽지",
-												"width=580, height=600, top=200, left=700");
-							}
-						</script>
 					</div>
 				</div>
 			</div>
+		<script>
+			function messagePopup() {
+				window.open("/message.Intercept", "쪽지",
+					"width=580, height=600, top=200, left=700, directories=no, status=no");
+			}
+		</script>
 		</header>
 	</body>
 </div>
