@@ -1,22 +1,20 @@
 package peer.controller.house;
 
 import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import peer.model.house.HouseBean;
 import peer.model.house.HousepriceBean;
+import peer.model.member.MemberBean;
 import peer.service.house.HouseServiceImpl;
 
 @Controller
@@ -33,21 +32,16 @@ public class HouseController {
 	@Autowired
 	private HouseServiceImpl houseService;
 
-	@RequestMapping("house")
-	public String test() {
-		return "house/index";
-	}
-
 	// 숙소 등록 폼
-	@RequestMapping("house_insert")
+	@RequestMapping("house_insert.Interceptor")
 	public String house_insert() {
 		return "house/house_insert";
 	}
 
 	// 숙소 등록
-	@RequestMapping("house_insert_ok")
-	public String house_insert_ok(@RequestParam("myfile") List<MultipartFile> mpf, MultipartHttpServletRequest request,
-			HouseBean h, HousepriceBean hp, String address, String tbox3, String photo, double house_x, double house_y)
+	@RequestMapping("house_insert_ok.Interceptor")
+	public String house_insert_ok(@RequestParam("myfile") List<MultipartFile> mpf, MultipartHttpServletRequest request, 
+			HouseBean h, HousepriceBean hp,String address, String tbox3, double house_x, double house_y)
 			throws Exception {
 		// 주소값+상세주소
 		address += (" " + tbox3);
@@ -56,51 +50,52 @@ public class HouseController {
 		// x, y 좌표
 		System.out.println("x,y: " + house_x + "," + house_y);
 
-		// 사진파일 업로드
-		System.out.println("mpf:" + mpf);
-		System.out.println("request:" + request.getAttribute("myfile"));
-		String path = request.getSession().getServletContext().getRealPath("resources");
-		String root = path + "\\" + "img";
+		// 파일 업로드
+		if(mpf.size()!=0) {
+			
+			String path = System.getProperty("user.dir")+"/src/main/resources/static/house_files";
+			// fileList에 중복제거를 위해 uuid를 통해 새로운 파일네임 부여
+			List<String> fileList = new ArrayList<>();
+			for (int i = 0; i < mpf.size(); i++) {
+				String originFile = mpf.get(i).getOriginalFilename();
+				String ext = originFile.substring(originFile.lastIndexOf("."));
+				String changeFile = UUID.randomUUID().toString() + ext;
 
-		System.out.println("path:" + path);
-		System.out.println("root:" + root);
+				fileList.add(changeFile);
 
-		File fileCheck = new File(root);
-
-		if (!fileCheck.exists())
-			fileCheck.mkdirs();
-
-		List<String> fileList = new ArrayList<>();
-
-		// fileList에 중복제거를 위해 uuid를 통해 새로운 파일네임 부여  
-		for (int i = 0; i < mpf.size(); i++) {
-			String originFile = mpf.get(i).getOriginalFilename();
-			String ext = originFile.substring(originFile.lastIndexOf("."));
-			String changeFile = UUID.randomUUID().toString() + ext;
-
-			fileList.add(changeFile);
-
+			}
+			System.out.println("fileList:" + fileList);
+			
+			// 파일 업로드
+			String fileName = "";
+			for (int i = 0; i < mpf.size(); i++) {
+				File saveFile = new File(path, fileList.get(i));
+				mpf.get(i).transferTo(saveFile);
+				
+				fileName += "/house_files/"+fileList.get(i) + ",";
+			}
+			h.setHouse_photo(fileName);
+			System.out.println("house_photo:"+h.getHouse_photo());
 		}
-		photo = fileList.toString();
-		h.setHouse_photo(photo);
-		System.out.println("fileList:" + fileList);
-
-		for (int i = 0; i < mpf.size(); i++) {
-			File uploadFile = new File(root + "\\" + fileList.get(i));
-			mpf.get(i).transferTo(uploadFile);
-		}
-
-		System.out.println("다중 파일 업로드 성공!");
-
-		System.out.println("house_insert_ok");
+		
 		houseService.insert(h, hp);
+		System.out.println("house_insert_ok");
 		return "redirect:/host_house_list";
 	}
 
 	// 호스트 숙소 목록
-	@RequestMapping("host_house_list")
-	public String list(Model model, HttpServletRequest request) throws Exception {
+	@RequestMapping("host_house_list.Interceptor")
+	public String list(Model model,
+					   HttpServletRequest request,
+					   HttpSession session) throws Exception {
 
+//		MemberBean memberBean = (MemberBean)session.getAttribute("MemberBean");
+//		String status = memberBean.getUser_status();
+//		
+//		if(!status.equals("호스트")) {
+//			return "house/status";
+//		}
+		
 		List<HouseBean> hosthouselist = new ArrayList<HouseBean>();
 
 		int page = 1;
@@ -142,31 +137,48 @@ public class HouseController {
 	}
 
 	// 숙소 상세보기 (상세보기,수정폼,삭제폼)
-	@RequestMapping(value = "house_cont", method = RequestMethod.GET)
+	@RequestMapping(value = "house_cont.Interceptor", method = RequestMethod.GET)
 	public String house_cont(@RequestParam("house_num") int house_num, 
 							@RequestParam("page") String page,
 							@RequestParam("state") String state, 
-							Model model) throws Exception {
+							Model model, Model model2) throws Exception {
 		System.out.println("house_num:" + house_num);
-
-		HouseBean house = houseService.house_cont(house_num); // 상세정보 구하기
-
+		HouseBean house = houseService.house_cont(house_num); // house 상세정보 구하기
+		HousepriceBean hprice = houseService.hprice_cont(house_num); // houseprice 상세정보 구하기
+		
+		
+		String pho = house.getHouse_photo();
+		String[] photo = pho.split(",");
+		System.out.println(photo[0]);
+		
+		String[] detail = house.getHouse_detail().split(",");
 		
 		model.addAttribute("hcont", house);
+		model.addAttribute("photo", photo);
+		model.addAttribute("detail", detail);
+		model2.addAttribute("hpcont", hprice);
 		model.addAttribute("page", page);
-
+		model2.addAttribute("page", page);
 		if (state.equals("cont")) { // 상세폼
 //			String house_cont = house.getHouse_detail2().replace("\n", "<br>");
 //			model.addAttribute("house_cont", house_cont);
 			return "house/house_cont";
-		} else if (state.equals("upd")) { // 수정폼
-			return "house/house_update";
 		} else if (state.equals("del")) { // 삭제폼
 			return "house/house_delete";
 		}
 		return null;
 	}
-	
-	
+
+	// 등록된 숙소 삭제 
+	@RequestMapping(value = "/house_del_ok.Interceptor", method = RequestMethod.POST)
+	public String board_del_ok(@RequestParam("house_num") int house_num,
+							   @RequestParam("page") int page,
+							   Model model) throws Exception {
+
+		System.out.println("houseDelete_ok");
+		houseService.del_ok(house_num);	
+		
+		return "redirect:/host_house_list?page=" + page;
+	}
 	
 }

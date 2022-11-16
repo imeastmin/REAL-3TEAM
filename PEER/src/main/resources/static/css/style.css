@@ -1,15 +1,11 @@
-*{
-	font-family:'NanumSquare'!important; 
-	font-weight: bolder;
-}
-body{
-/*	height:100vh;
-	display:block; */
-	font-family:'NanumSquare'!important;
-	line-height: 1.5;
-	background: #ffffff;
-	overflow-x: hidden;
-	font-size: 14px; }
+body {
+/*   height:100vh;
+  display:block; */
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  background: #ffffff;
+  overflow-x: hidden;
+  font-size: 14px; }
   body:before {
     content: "";
     position: fixed;
@@ -60,13 +56,7 @@ a.text-primary {
     color: #1A374D !important; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
-  font-family:'NanumSquare'!important; }
-
-/* 검색 버튼 css */
-input[type="submit"]{
-	font-family:'NanumSquare'!important;
-	font-weight: bolder;
-}
+  font-family: "Source Serif Pro", serif; }
 
 .btn {
   padding-top: 12px;
@@ -74,8 +64,7 @@ input[type="submit"]{
   padding-left: 30px;
   padding-right: 30px;
   border-radius: 30px;
-  font-size: 14px; 
-  }
+  font-size: 14px; }
   .btn:active, .btn:focus {
     outline: none;
     -webkit-box-shadow: none;
@@ -428,7 +417,7 @@ input[type="submit"]{
       .site-mobile-menu .site-nav-wrap .arrow-collapse:before {
         font-size: 14px;
         z-index: 20;
-        font-family:'NanumSquare'!important;
+        font-family: "icomoon";
         content: "\e313";
         position: absolute;
         top: 50%;
@@ -579,10 +568,10 @@ input[type="submit"]{
     margin-bottom: 100px;
 }
 
-/* 메인 페이지 */
 .hero {
   padding: 7rem 0 10rem 0;
   background: #6998AB;
+  margin-top:80px; /* 마진 탑 추가 */
   margin-bottom: 100px; }
   .hero.hero-inner {
     padding: 9rem 0 7rem 0;
@@ -617,7 +606,7 @@ input[type="submit"]{
     -webkit-box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
     box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
     height: 608px;
-    margin-bottom: -100px; }
+    margin-bottom: -200px; }
     @media (max-width: 991.98px) {
       .hero .slides {
         left: 0; } }
@@ -859,7 +848,9 @@ input[type="submit"]{
 /* 지도 */
 #map {
   width: 100%;
-  height: 100vh;
+  height: 750px;
+  margin-top:80px;
+  margin-bottom:80px;
   display : inline-block;
   }
 
@@ -870,7 +861,7 @@ input[type="submit"]{
 	background-color: #222222;
 	position: absolute;
 	left: 50%;
-	bottom: 1%;
+	bottom: 2%;
 	padding: 3px 14px;
 	z-index: 2;
 	border-radius: 30px;
@@ -895,39 +886,38 @@ input[type="submit"]{
 /* 지도에 표시된 숙소 리스트 */
 #map_list{
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
+  height: 750px;
+  margin-top:80px;
+  margin-bottom:80px;
 }
-#map_list a{
-	color: #000000;
-	text-decoration: none;
+#map_list ul{
+	list-style: none;
+	display : inline-block;
+	font-size:16px;
 }
-.card{
-	width:261px;
-	height: 360px !important;
-	margin: 10px !important;
-}
-.card img{
-	height:250px !important;
+#map_list ul:hover{
+	cursor: pointer;
 }
    
 /* 마커 */
 .info {
-  	width: 288px;
-  	height: 115px;
+  	width: 286px;
+  	height: 120px;
   	border-radius: 5px;
+  	border-bottom: 2px solid #ccc;
   	border-right: 1px solid #ccc;
   	overflow: hidden;
   	background: #fff;
 }
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
     .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 16px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}    .info .close:hover {cursor: pointer;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;font-size: 14px;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
     .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .info .img {position: absolute;top: 2px;left: 2px;width: 75px;height: 80px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info .link {color: #5085BB;}
 	#map > div:nth-child(2) > div > div:nth-child(6) > div:nth-child(2) > img{
 	width:20px;
@@ -1177,7 +1167,7 @@ input[type="submit"]{
     position: relative;
     background: #ffffff; }
     .custom-accordion .accordion-item .btn-link:before {
-      font-family:'NanumSquare'!important; 
+      font-family: 'icomoon';
       content: "\f067";
       position: absolute;
       top: 50%;
@@ -1189,7 +1179,7 @@ input[type="submit"]{
       font-weight: 700;
       color: #1A374D; }
       .custom-accordion .accordion-item .btn-link[aria-expanded="true"]:before {
-        font-family:'NanumSquare'!important; 
+        font-family: 'icomoon';
         content: "\f068";
         position: absolute;
         color: #1A374D;
@@ -1242,11 +1232,11 @@ input[type="submit"]{
   background: #ccc; }
 
 .control input:checked ~ .control__indicator {
-  background: #3232FF; } /* 색 변경 */
+  background: #1A374D; }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: #3232FF; } /* 색 변경 */
+  background: #204560; }
 
 .control input:disabled ~ .control__indicator {
   background: #e6e6e6;
@@ -1254,7 +1244,7 @@ input[type="submit"]{
   pointer-events: none; }
 
 .control__indicator:after {
-  font-family:'NanumSquare'!important; 
+  font-family: 'icomoon';
   content: '\2714'; /* 일반, 쉐어 체크 이모티콘 */
   position: absolute;
   display: none;
@@ -1402,7 +1392,7 @@ input[type="submit"]{
   position: relative; }
   .list-check li:before {
     content: "\e5ca";
-    font-family:'NanumSquare'!important; 
+    font-family: 'icomoon';
     position: absolute;
     top: -.3rem;
     font-size: 20px;
@@ -1461,7 +1451,7 @@ input[type="submit"]{
       font-size: 14px;
       margin-bottom: 20px;
       color: #000000;
-      font-family:'NanumSquare'!important;  }
+      font-family: "Inter", sans-serif; }
     .site-footer .widget .social li {
       display: inline-block; }
       .site-footer .widget .social li a {
@@ -1500,7 +1490,7 @@ input[type="submit"]{
       left: 0;
       position: absolute;
       content: "";
-      font-family:'NanumSquare'!important; 
+      font-family: 'icomoon';
       color: #6998AB; }
     .site-footer ul.quick-info li.email:before {
       content: "\2709"; } /* 이모티콘 */

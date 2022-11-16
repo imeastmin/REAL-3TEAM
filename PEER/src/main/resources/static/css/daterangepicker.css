@@ -18,10 +18,10 @@
 }
 
 /* 주말 색상 표기 */
-.daterangepicker th:nth-child(1), .daterangepicker td:nth-child(1){
+.daterangepicker th:nth-child(1){
   color:red; /* 일요일 빨간색 추가 */
 } 
-.daterangepicker th:nth-child(7), .daterangepicker td:nth-child(7){
+.daterangepicker th:nth-child(7){
   color:blue; /* 토요일 파란색 추가 */
 } 
 
@@ -191,8 +191,7 @@
   color: #ccc;
 }
 
-
-.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.-date {
+.daterangepicker td.off, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date, .daterangepicker td.off.end-date {
   background-color: #fff;
   border-color: transparent;
   color: #999;
