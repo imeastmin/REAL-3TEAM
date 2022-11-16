@@ -46,7 +46,7 @@ public class WishController {
 		
 		return "/wishlist/";
 	}
-	
+/*	
 	// 위시 리스트 불러오기
 	@RequestMapping("/wishlist.Intercept")
 	public String wishlist(Model model, HttpSession session) throws Exception {
@@ -76,4 +76,5 @@ public class WishController {
 
 		return "/wishlist/mywishlist";
 	}
+*/	
 }

@@ -4,12 +4,15 @@
 <th:block th:replace="/common/layout.html :: head('쪽지')"></th:block>
 <th:block th:replace="/common/header :: header"></th:block>
 <body>
-<div class="hero">
+<div style="margin-top:200px;min-height:400px">
 	<!--/* 위시리스트가 없을시*/-->
 	<div th:if="${#lists.isEmpty(wishlist)}" style="display: flex; justify-content: center; align-items:center;">
-		<h3>위시리스트가 없습니다</h3>
+		<h2>위시리스트가 없습니다</h2>
+		<div>
+		<br><br><br><br>
 		<button type="button"  class="btn btn-outline-dark btn-sm" style="margin-left:10px" 
 			id="wishlist" th:onclick="history.back(-1)">돌아가기</button>
+		</div>
 	</div>
 	<!--/* 위시리스트가 있을시*/-->
 	<div th:if="${!#lists.isEmpty(wishlist)}">
