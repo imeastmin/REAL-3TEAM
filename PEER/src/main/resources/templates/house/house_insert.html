@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
-<head>
-
+<th:block th:replace="/common/layout.html :: head('Peer')"></th:block>
+<th:block th:replace="/common/header :: header"></th:block>
 <link rel="stylesheet" href="css/daterangepicker.css">
-
-<meta charset="UTF-8">
-<title>house_insert</title>
-</head>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
 
 <body>
 
-	<form action="house_insert_ok" method="post" name="houseinfo"
+<div class="wrap" style="margin-bottom: 10%;">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2 style="font-family: 'NanumSquare';">자신의 숙소를 등록해보세요!</h2>
+      <div>
+      	<img src="/img/house/host.png" width="350px" style="margin-top: 25px;">
+      </div>
+      <h3 class="mt-4" style="font-family: 'NanumSquare';">이동하기</h3>
+      <p style="font-family: 'NanumSquare';">즐거운 여행으로 가는 지름길!</p>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" style="font-size: 9pt;">상단으로 이동</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">메인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="BoardList.do">커뮤니티</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">고객센터</a>
+        </li>
+      </ul>
+      <hr class="d-sm-none">
+    </div>
+    <div class="col-sm-8">
+      <h2 style="font-family: 'NanumSquare';">숙소 등록하기</h2>
+      
+      <form action="house_insert_ok.Interceptor" method="post" name="houseinfo"
 		enctype="multipart/form-data">
 		<input type="hidden" name="house_x" value=""> <input
 			type="hidden" name="house_y" value="">
 
-		<table border=2 align="center">
-			<tr bgcolor="blanchedalmond">
+		<table align="center" class="table table-borderless" style="vertical-align: middle;">
+			<tr align="center" bgcolor="">
 				<!-- 첫줄 -->
-				<td align="center" colspan="2" style="color: black">숙소 등록 폼</td>
 			</tr>
 			<tr>
 				<th>숙소 이름</th>
 				<th><input type="text" id="house_name" name="house_name"
-					autofocus="autofocus" required="required"></th>
+					autofocus="autofocus" required="required" class="form-control"></th>
 			</tr>
 			<tr>
 				<th>
@@ -145,19 +170,29 @@
 				<th>주소</th>
 				<!-- zib코드 입력-->
 				<td id="house_address"><input type="text" id="tbox1"
-					placeholder="우편번호" size=8> <input type="button"
-					onclick="addrFind()" value="우편번호 찾기"><br> <input
-					type="text" name="tbox2" id="tbox2" placeholder="주소" size=28><br>
-					<input type="text" name="tbox4" id="tbox4" placeholder="참고항목"
-					size=28> <input type="text" id="tbox3" name="tbox3"
-					placeholder="상세주소" required="required"> <input
+					placeholder="우편번호" class="form-control" style="width: 200px;">
+					
+					<input type="button" class="btn btn-primary btn-sm" 
+					onclick="addrFind()" value="우편번호 찾기"><br> 
+					
+					<input class="form-control" style="width: 200px;"
+					type="text" name="tbox2" id="tbox2" placeholder="주소" size=28>
+					
+					<input class="form-control" style="width: 150px;" type="text" name="tbox4" id="tbox4" placeholder="참고항목"
+					size=28> 
+					
+					<input type="text" id="tbox3" name="tbox3" class="form-control" style="width: 200px;" 
+					placeholder="상세주소" required="required"> 
+					
+					<input
 					type="hidden" id="address" name="address" value=""></td>
 			</tr>
 
 			<tr>
 				<th>숙소 사진 등록</th>
 				<td><div id='att_zone'></div>
-				<input type='file' name="myfile" id='btnAtt' multiple='multiple' />ctrl키로 다중 선택하세요
+				<input class="btn btn-light" type='file' name="myfile" id='btnAtt' multiple='multiple' /><br>
+				<a style="font-size: 9pt; color: red;">* ctrl키로 다중 선택하세요</a>
 
   <script type="text/javascript">
   ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
@@ -236,70 +271,95 @@
 
 			<tr>
 				<th>숙소 유형</th>
-				<th><input type="radio" required="required" id="ht"
-					name="house_form" value="호텔">호텔 <input type="radio" id="ps"
-					name="house_form" value="펜션">펜션 <input type="radio" id="mt"
-					name="house_form" value="모텔">모텔 <input type="radio" id="gh"
+				<th><input type="radio" class="form-check-input" required="required" id="ht"
+					name="house_form" value="호텔">호텔&nbsp&nbsp&nbsp&nbsp
+					<input type="radio" id="ps" class="form-check-input" 
+					name="house_form" value="펜션">펜션&nbsp&nbsp&nbsp&nbsp <input type="radio" id="mt" class="form-check-input" 
+					name="house_form" value="모텔">모텔&nbsp&nbsp&nbsp&nbsp <input type="radio" id="gh" class="form-check-input" 
 					name="house_form" value="게스트하우스">게스트하우스</th>
 			</tr>
 			<tr>
 				<th>쉐어 가능여부</th>
-				<th><label for="house_share"> <input type="radio"
-						required="required" id="house_share" name="house_share" value="1">일반
-						<input type="radio" required="required" id="house_share"
+				<th><label for="house_share"> <input type="radio" class="form-check-input" 
+						required="required" id="house_share" name="house_share" value="1">일반&nbsp&nbsp&nbsp&nbsp
+						<input type="radio" required="required" id="house_share" class="form-check-input" 
 						name="house_share" value="2">쉐어
 				</label></th>
 			</tr>
 			<tr>
 				<th>사용 가능 인원</th>
-				<th><input type="number" id="house_capacity"
+				<th><input type="number" id="house_capacity" class="form-control" style="width: 150px;" 
 					name="house_capacity" max=20 min=1 required="required"></th>
 			</tr>
 			<tr>
 				<th>성수기 기간 설정</th>
-				<td align="center"><input type="text" name="daterange">
+				<td><input type="text" name="daterange" class="form-control" style="width: 300px;">
 				<script>
 				</script></td></tr>
 			<tr>
 				<th>숙소 가격</th>
-				<td align="center"> 
-				비성수기(주중): <input type="text"  id="hprice_bweek" name="hprice_bweek" pattern="[0-9]+" required placeholder="숫자만 입력하세요"><br>
-				비성수기(주말): <input type="text"  id="hprice_bweekend" name="hprice_bweekend" pattern="[0-9]+" required placeholder="숫자만 입력하세요"><br>
-				성수기(주중): <input type="text"  id="hprice_sweek" name="hprice_sweek" pattern="[0-9]+" required placeholder="숫자만 입력하세요"><br>
-				성수기(주말): <input type="text"  id="hprice_sweekend" name="hprice_sweekend" pattern="[0-9]+" required placeholder="숫자만 입력하세요"><br>
+				<td> 
+				<a style="font-size: 10pt; font-weight: bold;">비성수기(주중)</a> <input type="text"   class="form-control" style="width: 200px;" id="hprice_bweek" name="hprice_bweek" pattern="[0-9]+" required placeholder="숫자만 입력하세요."><br>
+				<a style="font-size: 10pt; font-weight: bold;">비성수기(주말)</a> <input type="text"   class="form-control" style="width: 200px;" id="hprice_bweekend" name="hprice_bweekend" pattern="[0-9]+" required placeholder="숫자만 입력하세요."><br>
+				<a style="font-size: 10pt; font-weight: bold;">성수기(주중)</a> <input type="text"   class="form-control" style="width: 200px;" id="hprice_sweek" name="hprice_sweek" pattern="[0-9]+" required placeholder="숫자만 입력하세요."><br>
+				<a style="font-size: 10pt; font-weight: bold;">성수기(주말)</a> <input type="text"   class="form-control" style="width: 200px;" id="hprice_sweekend" name="hprice_sweekend" pattern="[0-9]+" required placeholder="숫자만 입력하세요."><br>
 				</td>
 			</tr>
 			<tr>
 				<th>숙소 상세 정보</th>
-				<th><lable for="house_detail"> <input type="checkbox"
-						name="house_detail" value="WIFI">WIFI <input
-						type="checkbox" name="house_detail" value="커피머신">커피머신 <input
-						type="checkbox" name="house_detail" value="tv">TV <input
-						type="checkbox" name="house_detail" value="pc">PC <input
-						type="checkbox" name="house_detail" value="세탁기">세탁기 <BR>
-					<input type="checkbox" name="house_detail" value="주방조리가능">주방조리가능
-					<input type="checkbox" name="house_detail" value="조리도구">조리도구
-					<input type="checkbox" name="house_detail" value="세면도구">세면도구
-					<input type="checkbox" name="house_detail" value="주차장">주차장<br>
-					<input type="checkbox" name="house_detail" value="수영장">수영장
-					<input type="checkbox" name="house_detail" value="냉난방기">냉난방기
-					<input type="checkbox" name="house_detail" value="바베큐">바베큐
-					</lable></th>
+				<td><lable for="house_detail" class="form-check-label"> 
+				<input type="checkbox" class="form-check-input"name="house_detail" value="WIFI">WIFI &nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="커피머신">커피머신 &nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="TV">TV &nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="PC">PC &nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="세탁기">세탁기 <BR>
+					<input type="checkbox" class="form-check-input" name="house_detail" value="주방조리가능">주방조리가능&nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="조리도구">조리도구&nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="세면도구">세면도구&nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="주차장">주차장<br>
+					<input type="checkbox" class="form-check-input" name="house_detail" value="수영장">수영장&nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="냉난방기">냉난방기&nbsp&nbsp&nbsp&nbsp
+					<input type="checkbox" class="form-check-input" name="house_detail" value="바베큐">바베큐&nbsp&nbsp&nbsp&nbsp
+					</lable></td>
 			</tr>
 			<tr>
 				<th>숙소 추가 정보</th>
-				<td><textarea id="house_detail2" name="house_detail2" cols="55"
+				<td><textarea id="house_detail2" name="house_detail2" cols="55" class="form-control" 
 						rows="5" maxlength="700" value=""></textarea></td>
 			</tr>
 			<tr align=center>
-				<td colspan=2><input type="submit" value="숙소 등록"> <input
-					type="reset" value="다시입력"></td>
+				<td colspan=2><input type="submit" class="btn btn-primary btn-sm" value="숙소 등록"> 
+				<input type="reset" class="btn btn-secondary btn-sm" value="다시입력">
+				<input type="button" class="btn btn-outline-primary btn-sm" value="목록" onclick="location.href='host_house_list.Interceptor'"></td>
 			</tr>
 		</table>
 		<br>
 
 	</form>
 </body>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
 
 <!-- js -->
       <script src="js/jquery-3.4.1.min.js"></script>
@@ -315,5 +375,5 @@
       <script src="js/typed.js"></script>
       <script src="js/custom.js"></script>
 
-
+<th:block th:replace="/common/footer :: footer"></th:block>
 </html>
