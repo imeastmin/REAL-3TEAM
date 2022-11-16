@@ -21,21 +21,10 @@ table {
 	width: 380px;
 }
 
-div {
+div.dwrap {
 	display: none;
-}
-
-div.div-container {
 	height: 40%;
-	padding-left: 60%;
-	padding-top: 17%;
-}
-
-footer.foot {
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	left: 0;
+	align-content: center;
 }
 
 .sizelow {
@@ -44,7 +33,7 @@ footer.foot {
 </style>
 <script>
 	$(document).ready(function() {
-		$('div').fadeIn(700);
+		$('div.dwrap').fadeIn(700);
 	});
 </script>
 <title>이메일 인증</title>
@@ -130,39 +119,68 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 	}
 </script>
 </head>
+<th:block th:replace="/common/header :: header"></th:block>
 <body>
-	<div class="div-container">
-		<table id="tab" border="0">
-			<tr>
-				<td width="80" class="sizelow">이메일</td>
-				<td colspan="2"><input class="form-control" type="text"
-					name="user_email" id="user_email"></td>
-				<td class="sizebutton"><input class="btn btn-outline-primary"
-					type="button" name="sendingemail" id="sendingemail" value="인증"
-					disabled="true"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="3"><div id="emailcheck" style="color: red;"></div></td>
-			</tr>
-			<tr id="membernotex">
-				<td width="80" class="sizelow">인증번호</td>
-				<td colspan="2"><input type="text" name="AuthCode"
-					id="AuthCode" class="form-control" disabled="true" required
-					value=""></td>
-				<td class="sizebutton"><input class="btn btn-outline-primary"
-					type="button" name="Authbutton" id="Authbutton" value="확인"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td id="message" colspan="3" style="color: red"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><a onclick="kakaoLogin()"><img
-						src="/img/kakao_Auth_button.png"></a></td>
-				<td colspan="2" id="naver_id_login"></td>
-			</tr>
-		</table>
+	<div class="dwrap"
+		style="min-height: 500px; padding-top: 30px; padding-left: 200px;"
+		align="center">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2></h2>
+					<h5></h5>
+					<br>
+					<br>
+					<br>
+					<div class="fakeimg">
+						<img style="width: 200px;" src="/img/email-authentication.png">
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5>
+					<br>
+					<br>
+					<br>
+					<br>
+					<div class="fakeimg">
+						<table id="tab" border="0">
+							<tr>
+								<td width="80" class="sizelow">이메일</td>
+								<td colspan="2"><input class="form-control" type="text"
+									name="user_email" id="user_email"></td>
+								<td class="sizebutton"><input
+									class="btn btn-outline-primary" type="button"
+									name="sendingemail" id="sendingemail" value="인증"
+									disabled="true"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3"><div id="emailcheck" style="color: red;"></div></td>
+							</tr>
+							<tr id="membernotex">
+								<td width="80" class="sizelow">인증번호</td>
+								<td colspan="2"><input type="text" name="AuthCode"
+									id="AuthCode" class="form-control" disabled="true" required
+									value=""></td>
+								<td class="sizebutton"><input
+									class="btn btn-outline-primary" type="button" name="Authbutton"
+									id="Authbutton" value="확인"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td id="message" colspan="3" style="color: red"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><a onclick="kakaoLogin()"><img
+										src="/img/kakao_Auth_button.png"></a></td>
+								<td colspan="2" id="naver_id_login"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <!-- 네이버 로그인 -->
@@ -176,8 +194,8 @@ Kakao.init('8a3e3c0c80591a142efa68874e135cb3'); //발급받은 키 중 javascrip
 	naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
-<!-- <footer class="foot">
+<footer>
 	<th:block th:replace="/common/footer :: footer"></th:block>
-</footer> -->
+</footer>
 </html>
 

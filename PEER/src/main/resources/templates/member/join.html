@@ -5,21 +5,14 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
-div {
+div.dwrap {
 	display: none;
-}
-
-div.div-container {
 	height: 40%;
-	padding-left: 60%;
-	padding-top: 12%;
+	padding-left: 20%;
 }
 
-footer.foot {
-	width: 100%;
-	position: relative;
-	bottom: 0;
-	left: 0;
+div {
+	
 }
 
 .blank {
@@ -29,16 +22,10 @@ footer.foot {
 body {
 	position: relative;
 }
-
-input::placeholder {
-	color: red;
-	font-style: italic;
-	font-size: small;
-}
 </style>
 <script>
 	$(document).ready(function() {
-		$('div').fadeIn(700);
+		$('div.dwrap').fadeIn(700);
 	});
 </script>
 <script type="text/javascript">
@@ -157,83 +144,100 @@ input::placeholder {
 <meta charset="UTF-8">
 <title>회원가입</title>
 </head>
-<body>
-	<div class="div-container">
-		<form id="join" th:action="@{/insert}" th:object="${member}"
-			method="post">
-			<table class="tab" border="0">
-				<tr>
-					<td>이메일</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="text" name="user_email"
-						id="user_email" required disabled="true"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="password"
-						placeholder="8~16자 영문 대 소문자,숫자를 사용하세요." name="user_pass"
-						id="user_pass" required>
-						<div id=passfail style="color: red;"></div>
-						<div id=passsucc style="color: blue;"></div></td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="password"
-						name="passconfirm" id="passconfirm" required></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="text" name="user_name"
-						id="user_name" required></td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td class="blank"></td>
-					<td><input type="date" name="user_birth" id="user_birth"
-						required="required"></td>
-				</tr>
-				<tr>
-					<td>성별</td>
-					<td class="blank"></td>
-					<td><input type="radio" name="user_gender" id="man" value="남자"
-						checked="checked"> <label>남자</label> <input type="radio"
-						name="user_gender" id="woman" value="여자"> <label>여자</label></td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="text" name="user_phone"
-						id="user_phone" required placeholder="'-'을 추가해서 입력해 주세요">
-						<div id="phonefail" style="color: red;"></div></td>
-				</tr>
-				<tr>
-					<td>게스트/호스트</td>
-					<td class="blank"></td>
-					<td><input type="radio" name="user_status" id="guest"
-						value="게스트" checked="checked"> <label>게스트</label> <input
-						type="radio" name="user_status" id="host" value="호스트"> <label>호스트</label></td>
-				</tr>
-				<tr>
-					<td>닉네임</td>
-					<td class="blank"></td>
-					<td><input class="form-control" type="text"
-						name="user_nickname" id="user_nickname" required
-						placeholder="2~10자 이내로 입력하세요.">
-						<div id="nickfail" style="color: red;"></div>
-						<div id="nicksucc" style="color: blue;"></div></td>
-				</tr>
-				<tr>
-					<td colspan="3"><input type="submit" name="joinb" id="joinb"
-						class="btn btn-outline-primary" value="가입"></td>
-				</tr>
-			</table>
-		</form>
+<th:block th:replace="/common/header :: header"></th:block>
+<body><br><br><br>
+	<div class="dwrap" style="padding-left: 200px; ">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-sm-4" align="center">
+					<h2></h2>
+					<h5></h5><br><br><br><br>
+					<div class="fakeimg"><img style="width: 200px;" src="/img/join.png"></div>
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5>
+					<div class="fakeimg" style="min-height: 600px;" align="center">
+						<form id="join" th:action="@{/insert}" th:object="${member}"
+							method="post">
+							<table class="tab" border="0">
+								<tr>
+									<td>이메일</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="text"
+										name="user_email" id="user_email" required disabled="true"></td>
+								</tr>
+								<tr>
+									<td>비밀번호</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="password"
+										placeholder="8~16자 영문 대 소문자,숫자를 사용하세요." name="user_pass"
+										id="user_pass" required>
+										<div id=passfail style="color: red;"></div>
+										<div id=passsucc style="color: blue;"></div></td>
+								</tr>
+								<tr>
+									<td>비밀번호 확인</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="password"
+										name="passconfirm" id="passconfirm" required></td>
+								</tr>
+								<tr>
+									<td>이름</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="text"
+										name="user_name" id="user_name" required></td>
+								</tr>
+								<tr>
+									<td>생년월일</td>
+									<td class="blank"></td>
+									<td><input type="date" name="user_birth" id="user_birth"
+										required="required"></td>
+								</tr>
+								<tr>
+									<td>성별</td>
+									<td class="blank"></td>
+									<td><input type="radio" name="user_gender" id="man"
+										value="남자" checked="checked"> <label>남자</label> <input
+										type="radio" name="user_gender" id="woman" value="여자">
+										<label>여자</label></td>
+								</tr>
+								<tr>
+									<td>전화번호</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="text"
+										name="user_phone" id="user_phone" required
+										placeholder="'-'을 추가해서 입력해 주세요">
+										<div id="phonefail" style="color: red;"></div></td>
+								</tr>
+								<tr>
+									<td>게스트/호스트</td>
+									<td class="blank"></td>
+									<td><input type="radio" name="user_status" id="guest"
+										value="게스트" checked="checked"> <label>게스트</label> <input
+										type="radio" name="user_status" id="host" value="호스트">
+										<label>호스트</label></td>
+								</tr>
+								<tr>
+									<td>닉네임</td>
+									<td class="blank"></td>
+									<td><input class="form-control" type="text"
+										name="user_nickname" id="user_nickname" required
+										placeholder="2~10자 이내로 입력하세요.">
+										<div id="nickfail" style="color: red;"></div>
+										<div id="nicksucc" style="color: blue;"></div></td>
+								</tr>
+								<tr>
+									<td colspan="3"><input type="submit" name="joinb"
+										id="joinb" class="btn btn-outline-primary" value="가입"></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
-<footer class="foot">
-	<!-- <th:block th:replace="/common/footer :: footer"></th:block> -->
-</footer>
+<th:block th:replace="/common/footer :: footer"></th:block>
 </html>
