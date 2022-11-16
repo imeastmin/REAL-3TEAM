@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import peer.dao.booking.BookingDao;
+import peer.model.booking.BookingBean;
 
 @Service
-public class BookingService {
+public interface BookingService {
 
-	@Autowired
-	private BookingDao bookingdao;
+	public int bookingInsert(BookingBean bookingbean);
+	
 }

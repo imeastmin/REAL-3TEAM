@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 -->
+<th:block th:replace="/common/layout.html :: head('숙소정보 페이지')"></th:block>
+<th:block th:replace="/common/header :: header"></th:block>
 <head>
-<meta charset="UTF-8">
-<title>Host_house_list</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+
 </head>
-<body>
+<!-- 사용 하는곳 -->	
+
 	<!-- 호스트 숙소 리스트 -->
 	<div id="hhlist_wrap">
 		<h2 align="center" class="hhlist_title">Host_house_list</h2>
@@ -21,9 +28,9 @@
 				
 				<td th:text="${h.house_num}"></td>
 
-				<td ><div><a th:href="@{/house_cont(house_num=${h.house_num},page=${page},state='cont')}" th:text="${h.house_name}"></a></div>
+				<td ><div><a th:href="@{/HouseView(house_num=${h.house_num},page=${page},state='cont')}" th:text="${h.house_name}"></a></div>
 				</td>
-				
+
 				<td th:text="${h.house_address}"></td>
 			</tr>
 		</table>
@@ -53,5 +60,6 @@
 		<br>
 		
 	</div>
-</body>
+	
+<th:block th:replace="/common/footer :: footer"></th:block>
 </html>

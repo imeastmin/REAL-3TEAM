@@ -1,91 +1,81 @@
 package peer.controller.booking;
 
-import javax.servlet.http.HttpSession;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import peer.model.booking.BookingTabBean;
-import peer.model.booking.HouseViewBean;
-import peer.model.house.HouseBean;
-import peer.service.booking.BookingListService;
-import peer.service.booking.HouseViewService;
-import peer.service.booking.HouseViewServiceImp;
-import peer.service.house.HouseService;
+import peer.model.booking.BookingBean;
+import peer.model.member.MemberBean;
+import peer.service.booking.BookingService;
+import peer.service.member.MemberService;
+
 
 @Controller
 public class BookingController {
 
-	//계정정보 불러오기, 예약한것 데베에 삽입하기, 예약한것 예약내역에 나타내기
 	@Autowired
-	private BookingListService blservice;
-	
-	@Autowired
-	private HouseService hservice;
+	private MemberService ms;
 	
 	@Autowired
-	private HouseViewService hvservice;
+	private BookingService bs;
 	
-	// 숙소 상세 페이지에서 정보 불러오기
-	@RequestMapping(value="/HouseView")			// (데이터를 전달하기 위해 필요한 객체들, , , ...)
-	public String HouseView(Integer house_num, HttpSession session, String pageNum, HouseViewBean hvbean, Model model) throws Exception{
+	@RequestMapping(value="/paying")
+	public String paying() {
+		return "booking/paying";
+	}
+
+	@RequestMapping("bookingInsert.do")
+	public String bookingInsert(BookingBean bookingbean, @RequestParam("house_num") int house_num, Model model, HttpSession session)throws Exception {
 		
-		System.out.println("HouseView");
-		HouseViewBean houseview = hvservice.housenumview(house_num);		// 객체 가공할 함수
+		System.out.println("결제 성공 payingInsert");
+		MemberBean member = (MemberBean)session.getAttribute("MemberBean");	// 로그인된 유저정보 불러오기
 		
-		model.addAttribute("house", houseview);
-		model.addAttribute("house_num", house_num);
+		int user_num = member.getUser_num();
+		
+		bookingbean.setHouse_num(house_num);
+		bookingbean.setUser_num(user_num);
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd");	// checkin, checkout 날짜형 보기 편하게 하는 용
+		
+		System.out.println("book_num:" + bookingbean.getBook_num());
+		System.out.println("house_num:" + bookingbean.getHouse_num());
+		System.out.println("user_num:" + bookingbean.getUser_num());
+		System.out.println("checkin:" + simpleDateFormat.format(bookingbean.getCheckin()));
+		System.out.println("checkout:" + simpleDateFormat.format(bookingbean.getCheckout()));
+
+		System.out.println("house_price:" + bookingbean.getHouse_price());
+		System.out.println("total_price:" + bookingbean.getTotal_price());
 		
 		
-		return "booking/HouseView";
+		int result=0;
+		
+//		String user_email = (String)session.getAttribute("user_email");	// 해당 유저의 예약
+		
+		result = bs.bookingInsert(bookingbean);
+		if(result == 1) System.out.println("예약완료");
+		
+		model.addAttribute("result", result);
+				
+		return "booking/bookingInsert";
 	}
 	
+	@RequestMapping("/payresult")
+	public String payresult() {
+		return "booking/payresult";
+	}	
 	
-	
-	
-	// 예약 등록
-	@RequestMapping("/bookRequest")
-	public String bookRequest(BookingTabBean btbean, HttpSession session, Model model) throws Exception {
-		
-		
-		
-		
-		return "booking/iamportPayment";
+	@RequestMapping("/bookinglist")
+	public String bookinglist() {
+		return "booking/bookinglist";
 	}
-	
-	
-	
-	
-	
-	@RequestMapping("/bookInsert")
-	public String bookInsert(Integer book_num, Model model, HttpSession session) throws Exception{
-		System.out.println("결제성공bookInsert");
-		System.out.println("book_num:" + book_num);
-		return "booking/bookInsert";
-	}
-	
-	
-	
-	
-	
-	@RequestMapping("/bookDelete")
-	public String bookDelete(Integer book_num, Model model, HttpSession session) {
-		System.out.println("결제 취소 bookDelete");
-		System.out.println("book_num:"+book_num);
-		
-//		int result1 = os.orderProductDelete(o_no);
-		
-//		int result2 = os.orderDelete(o_no);
-//		System.out.println("result2:"+result2);
-		
-//		model.addAttribute("result", result2);
-		
-		return "order/orderDeleteResult";
-	}
+
 }

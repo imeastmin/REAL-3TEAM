@@ -14,26 +14,78 @@ CREATE TABLE user_info (
 	USER_BIRTH DATE NOT NULL
 	);
 
+drop table house;	
+
+select * from HOUSE;
+--SEQUENCE 생성
+create sequence house_seq
+increment by 1
+start with 1;
+
+-- house, house_price 테이블 생성
 CREATE TABLE HOUSE (
-	HOUSE_NUM	NUMBER(20)	NOT NULL,
-	USER_NUM	NUMBER(20)	NOT NULL,
-	HOUSE_NAME	VARCHAR2(20)	NOT NULL,
-	HOUSE_ADDRESS	VARCHAR2(20)	NOT NULL,
-	HOUSE_X_ABS	NUMBER(9,6)	NOT NULL,
-	HOUSE_Y_ABS	NUMBER(9,6)	NOT NULL,
-	HOUSE_PHOTO	VARCHAR2(20)	NOT NULL,
-	HOUSE_CAPACITY	NUMBER(5)	NOT NULL,
-	HOUSE_FORM	VARCHAR2(20)	NOT NULL,
-	HOUSE_DETAIL	VARCHAR2(300)	NOT NULL,
-	HOUSE_SHARE NUMBER(2) DEFAULT 1 NOT NULL,
-	HOUSE_AUTHORITY	NUMBER(2)	DEFAULT 1  NOT NULL
+   HOUSE_NUM NUMBER(20) NOT NULL,
+   USER_NUM NUMBER(20)   NOT NULL,
+   HOUSE_NAME VARCHAR2(20)   NOT NULL,
+   HOUSE_ADDRESS VARCHAR2(100)   NOT NULL,
+   HOUSE_X   NUMBER(9,6) NOT NULL,
+   HOUSE_Y   NUMBER(9,6) NOT NULL,
+   HOUSE_PHOTO   VARCHAR2(1000) NOT NULL,
+   HOUSE_CAPACITY NUMBER(5) NOT NULL,
+   HOUSE_FORM VARCHAR2(20) NOT NULL,
+   HOUSE_DETAIL VARCHAR2(300) NOT NULL,
+   HOUSE_DETAIL2 VARCHAR2(300),
+   HOUSE_SHARE NUMBER(2) DEFAULT 1 NOT NULL,
+   HOUSE_AUTHORITY   NUMBER(2)   DEFAULT 1  NOT NULL
 );
 
+ALTER TABLE HOUSE ADD CONSTRAINT PK_HOUSE PRIMARY KEY (
+   HOUSE_NUM
+);
+
+insert into HOUSE(house_num, USER_NUM, HOUSE_NAME, HOUSE_ADDRESS, HOUSE_X, HOUSE_Y, HOUSE_PHOTO, 
+HOUSE_CAPACITY, HOUSE_FORM, HOUSE_DETAIL, house_detail2, HOUSE_SHARE, HOUSE_AUTHORITY) 
+values(1, 1, '제주숙소', '고양시', 1, 1, 1, 1, 1, '좋음','good', 1, 1);
+
+insert into HOUSE(house_num, USER_NUM, HOUSE_NAME, HOUSE_ADDRESS, HOUSE_X, HOUSE_Y, HOUSE_PHOTO, 
+HOUSE_CAPACITY, HOUSE_FORM, HOUSE_DETAIL, HOUSE_SHARE, HOUSE_AUTHORITY) 
+values(2, 1, '서울숙소', '서울시', 1, 1, 1, 1, 1, '좋음', 2, 2);
+
+insert into HOUSE(house_num, USER_NUM, HOUSE_NAME, HOUSE_ADDRESS, HOUSE_X, HOUSE_Y, HOUSE_PHOTO, 
+HOUSE_CAPACITY, HOUSE_FORM, HOUSE_DETAIL, house_detail2, HOUSE_SHARE, HOUSE_AUTHORITY) 
+values(3, 1, '늘푸른하우스', '제주도', 2, 2, 2, 4, 4, '넓은 복층이 인기랍니다~!','goodgood', 2, 2);
+
+
+select * from HOUSE_PRICE;
 CREATE TABLE HOUSE_PRICE (
 	HOUSE_NUM	NUMBER(20)	NOT NULL,
 	HOUSE_BDAY	DATE	NOT NULL,
 	HOUSE_PRICE	NUMBER(20)	NOT NULL
 );
+insert into HOUSE_PRICE(house_num, house_bday, house_price) values(1, '22/11/30', 100);
+insert into HOUSE_PRICE(house_num, house_bday, house_price) values(2, '22/11/30', 100);
+insert into HOUSE_PRICE(house_num, house_bday, house_price) values(3, '22/11/30', 100);
+
+insert into house_price(house_num,daterange,hprice_bweek,hprice_bweekend,hprice_sweek,hprice_sweekend)
+values(house_seq.currval,#{daterange},#{hprice_bweek},#{hprice_bweekend},#{hprice_sweek},#{hprice_sweekend});
+
+drop table HOUSE_PRICE;
+
+select * from house_price;
+CREATE TABLE HOUSE_PRICE (
+   HOUSE_NUM   NUMBER(20) not null,
+   DATERANGE varchar2(50) not null,
+   HPRICE_BWEEK   NUMBER(20) not null,   
+   HPRICE_BWEEKEND   NUMBER(20) not null,   
+   HPRICE_SWEEK   NUMBER(20) not null,   
+   HPRICE_SWEEKEND   NUMBER(20) not null
+);
+insert into HOUSE_PRICE(house_num, daterange, hprice_bweek, hprice_bweekend, hprice_sweek, hprice_sweekend)
+values(1, 11, 100,200,300,400);
+insert into HOUSE_PRICE(house_num, daterange, hprice_bweek, hprice_bweekend, hprice_sweek, hprice_sweekend)
+values(2, 22, 100,200,300,400);
+insert into HOUSE_PRICE(house_num, daterange, hprice_bweek, hprice_bweekend, hprice_sweek, hprice_sweekend)
+values(3, 33, 100,200,300,400);
 
 CREATE TABLE HOUSE_REVIEW (
 	REVIEW_NUM	NUMBER(20)	NOT NULL,
@@ -127,15 +179,20 @@ CREATE TABLE BOARD_HOUSE (
 );
 
 
-
-
+select * from booking;
+alter table booking add total_price number(20) not null;
+alter table booking drop column checkin;
+alter table booking drop column checkout;
+alter table booking drop column request;
+alter table booking drop column user_num;
 CREATE TABLE BOOKING (
 	BOOK_NUM	NUMBER(20)	NOT NULL,
-	USER_NUM	NUMBER(20)	NOT NULL,
+	total_price number(20) not null,
+--	USER_NUM	NUMBER(20)	NOT NULL,
 	HOUSE_NUM	NUMBER(20)	NOT NULL,
-	CHECKIN	DATE	NOT NULL,
-	CHECKOUT	DATE	NOT NULL,
-	REQUEST	VARCHAR2(100)	NULL
+--	CHECKIN	DATE	NOT NULL,
+--	CHECKOUT	DATE	NOT NULL,
+--	REQUEST	VARCHAR2(100)	NULL
 );
 
 CREATE TABLE SHARE_BOOKING (
