@@ -8,6 +8,8 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -132,30 +134,30 @@ public class MemberController {
 		int EAuthCode = random.nextInt(10000000);
 
 		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.net";
-		String hostSMTPid = "joonsoung93";
-		String hostSMTPpwd = "ghkdwnstjd93>";
+		String hostSMTP = "smtp.naver.com";
+		String hostSMTPid = "nohteawon";
+		String hostSMTPpwd = "ryRn1125";
 
-		String fromEmail = "joonsoung93@google.com";
+		String fromEmail = "nohteawon@naver.com";
 		String fromName = "peer company";
 		String subject = "인증번호 시키신분~~~?";
 
-//		String mail = user_email;
-//
-//		HtmlEmail email = new HtmlEmail();
-//		email.setCharset(charSet);
-//		email.setSSL(true);
-//		email.setHostName(hostSMTP);
-//		email.setSmtpPort(465);
-//
-//		email.setAuthentication(hostSMTPid, hostSMTPpwd);
-//		email.setTLS(true);
-//		email.addTo(mail, charSet);
-//		email.setFrom(fromEmail, fromName, charSet);
-//		email.setSubject(subject);
-//		email.setHtmlMsg("<p align = 'center'>peer에 오신것을 환영합니다.</p><br>" + "<div align='center'> 인증번호 : " + EAuthCode
-//				+ "</div>");
-//		email.send();
+		String mail = user_email;
+
+		HtmlEmail email = new HtmlEmail();
+		email.setCharset(charSet);
+		email.setSSL(true);
+		email.setHostName(hostSMTP);
+		email.setSmtpPort(465);
+
+		email.setAuthentication(hostSMTPid, hostSMTPpwd);
+		email.setTLS(true);
+		email.addTo(mail, charSet);
+		email.setFrom(fromEmail, fromName, charSet);
+		email.setSubject(subject);
+		email.setHtmlMsg("<p align = 'center'>peer에 오신것을 환영합니다.</p><br>" + "<div align='center'> 인증번호 : " + EAuthCode
+				+ "</div>");
+		email.send();
 
 		model.addAttribute("user_email", user_email);
 		model.addAttribute("EAuthCode", EAuthCode);
@@ -277,36 +279,36 @@ public class MemberController {
 
 	// password 찾기
 	@RequestMapping("/searchpass")
-	public String searchpass(@RequestParam("user_email") String user_email, Model model) {
+	public String searchpass(@RequestParam("user_email") String user_email, Model model) throws EmailException {
 
 		Random random = new Random();
 		int EAuthCode = random.nextInt(10000000);
 
 		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.net";
-		String hostSMTPid = "joonsoung93";
-		String hostSMTPpwd = "ghkdwnstjd93>";
+		String hostSMTP = "smtp.naver.com";
+		String hostSMTPid = "nohteawon";
+		String hostSMTPpwd = "ryRn1125";
 
-		String fromEmail = "joonsoung93@google.com";
+		String fromEmail = "nohteawon@naver.com";
 		String fromName = "peer company";
 		String subject = "인증번호 시키신분~~~?";
 
-//		String mail = user_email;
-//
-//		HtmlEmail email = new HtmlEmail();
-//		email.setCharset(charSet);
-//		email.setSSL(true);
-//		email.setHostName(hostSMTP);
-//		email.setSmtpPort(465);
-//
-//		email.setAuthentication(hostSMTPid, hostSMTPpwd);
-//		email.setTLS(true);
-//		email.addTo(mail, charSet);
-//		email.setFrom(fromEmail, fromName, charSet);
-//		email.setSubject(subject);
-//		email.setHtmlMsg("<p align = 'center'>peer에 오신것을 환영합니다.</p><br>" + "<div align='center'> 인증번호 : " + EAuthCode
-//				+ "</div>");
-//		email.send();
+		String mail = user_email;
+
+		HtmlEmail email = new HtmlEmail();
+		email.setCharset(charSet);
+		email.setSSL(true);
+		email.setHostName(hostSMTP);
+		email.setSmtpPort(465);
+
+		email.setAuthentication(hostSMTPid, hostSMTPpwd);
+		email.setTLS(true);
+		email.addTo(mail, charSet);
+		email.setFrom(fromEmail, fromName, charSet);
+		email.setSubject(subject);
+		email.setHtmlMsg("<p align = 'center'>peer에 오신것을 환영합니다.</p><br>" + "<div align='center'> 인증번호 : " + EAuthCode
+				+ "</div>");
+		email.send();
 
 		model.addAttribute("user_email", user_email);
 		model.addAttribute("EAuthCode", EAuthCode);
