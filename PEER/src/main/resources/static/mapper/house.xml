@@ -34,10 +34,17 @@
 		select * from house where house_num=#{house_num}
 	</select>
 	
-<!-- 	<select id="gethousecont2" parameterType="int" resultType="peer.model.house.HousepriceBean">
+	<select id="getHpriceCont" parameterType="int" resultType="peer.model.house.HousepriceBean">
 		select * from house_price where house_num=#{house_num}
-	</select> -->
+	</select>
 	
+	<!-- 등록된 숙소 삭제 -->
+	<delete id="houseDelete" parameterType="int">
+		delete from house where house_num=#{house_num}
+	</delete>
+	<delete id="hpriceDelete" parameterType="int">
+		delete from house_price where house_num=#{house_num}
+	</delete>
 	
 </mapper>
 

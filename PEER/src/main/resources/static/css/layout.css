@@ -1,4 +1,4 @@
-.btn-primary {
+ #headerbutton{
 	outline: none !important;
 	box-shadow: none !important;
 	color: white; -
@@ -7,14 +7,14 @@
 	background-color: #3232FF !important;
 }
 
-.btn-primary:hover {
+#headerbutton:hover {
 	outline: none !important;
 	box-shadow: none !important; -
 	-bs-btn-hover-color: var(- -bs-white);
 	transform: scale(0.95);
 }
 
-.btn-primary:active {
+#headerbutton:active {
 	outline: none !important;
 	box-shadow: none !important; -
 	-bs-btn-hover-color: var(- -bs-white);
@@ -22,7 +22,7 @@
 	transform: scale(1);
 }
 
-.btn-outline-dark:hover {
+#wishlist:hover {
 	background-color: #ffffff !important;
 	color: #000000 !important;
 	outline: none !important;
@@ -31,7 +31,7 @@
 	transform: scale(0.95);
 }
 
-.btn-outline-dark:active {
+#wishlist:active {
 	outline: none !important;
 	box-shadow: none !important; -
 	-bs-btn-hover-color: var(- -bs-white);
@@ -39,7 +39,7 @@
 	transform: scale(1);
 }
 
-.btn-outline-dark:checked { -
+#wishlist:checked { -
 	-bs-btn-hover-color: var(- -bs-white);
 	color: white;
 	transform: scale(1);
@@ -50,14 +50,31 @@
 	margin: 0;
 }
 
-.bodywrap {
-	position: relative;
-	min-height: 600px;
-}
 
 .footer {
 	width: 100%;
 	position: relative;
 	bottom: 0;
 	left: 0;
+}
+
+#msgchk{
+	width:50px;
+}
+#msgsender{
+	width:100px;
+	text-align:center;
+}
+#msgcontent{
+	width:280px
+	text-align:center;
+}
+#msgdate{
+	width:150px
+	text-align:center;
+}
+
+.bodywrap {
+	position:relative; 
+	min-height:600px;
 }

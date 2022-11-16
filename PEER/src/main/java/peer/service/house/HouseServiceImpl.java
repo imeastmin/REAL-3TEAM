@@ -46,13 +46,18 @@ public class HouseServiceImpl implements HouseService {
 		
 		return house;
 	}
-//	public HousepriceBean house_cont2(int house_num) throws Exception {
-//
-//		HousepriceBean hprice = houseDao.gethousecont2(house_num);
-//
-//		return hprice;
-//	}
-//	
+	public HousepriceBean hprice_cont(int house_num) throws Exception {
+
+		HousepriceBean hprice = houseDao.getHpriceCont(house_num);
+
+		return hprice;
+	}
+	
+	// 등록된 숙소 삭제
+	public void del_ok(int house_num) throws Exception{			
+		houseDao.houseDelete(house_num);
+		houseDao.hpriceDelete(house_num);
+	}
 
 }
 
