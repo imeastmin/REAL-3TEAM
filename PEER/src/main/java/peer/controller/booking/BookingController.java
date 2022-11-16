@@ -77,5 +77,5 @@ public class BookingController {
 	public String bookinglist() {
 		return "booking/bookinglist";
 	}
-
+ 
 }
