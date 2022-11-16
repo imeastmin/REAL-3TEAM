@@ -16,7 +16,7 @@ public class HouseViewBean {
 
 	// 숙소 정보
     private int house_num;
-    private int user_num;
+    private int user_num;		//호스트유저번호
     private String user_name;	//호스트이름
     private String house_name;
     private String house_address;

@@ -20,38 +20,12 @@
 </head>
 <!-- 사용 하는곳 -->
 
-<div>
-	<!-- 숙소명 -->
-	<table style="width: 800; height: 100;" align="center">
-		<tr>
-			<td height="50"></td>
-		</tr>
-	</table>
-</div>
-<div>
-	<!-- 숙소명 -->
-	<table style="width: 800; height: 100; position: relative;"
-		align="center">
-		<tr>
-			<td height="100"></td>
-		</tr>
-	</table>
-</div>
-
-<div>
-	<!-- 숙소명 -->
-	<table class="community" style="width: 800; height: 100; align: left;">
-		<tr style="align: left;">
-			<td style="height: 50; align: left;"></td>
-		</tr>
-	</table>
-</div>
 
 <div>
 	<!-- 숙소명 -->
 	<table width="1100" height="100" align="center">
 		<tr>
-			<td class="community" width="70" height="50">숙소명 :</td>
+			<td class="community" width="100" height="50">숙소명 :</td>
 			<td class="community" th:text="${hcont.house_name}"></td>
 			<td class="community" width=""></td>
 		</tr>
@@ -62,7 +36,7 @@
 	<!-- 주소, 공유하기, 위시리스트 버튼 -->
 	<table width="1100" height="100" align="center">
 		<tr>
-			<td class="community" width="150" height="50">주소 :</td>
+			<td class="community" width="100" height="50">주소 :</td>
 			<td class="community" th:text="${hcont.house_address}"></td>
 			<td class="community" width="100" style="text-decoration: underline;">
 				<a th:href="@{/addwishlist.Intercept?house_num=}+${hcont.house_num}">
@@ -98,8 +72,8 @@
 	<table width="1100" height="500" align="center">
 		<div>
 			<tr align="left">
-				<td class="community" width=150>호스트명 : 준화 님</td>
-				<td class="community" th:text="${hcont.user_num}" width=""></td>
+				<td class="community" width="100">호스트명: </td>
+				<td class="community" th:text="${hostname.user_name}" width=""></td>
 				<td class="community" rowspan="2" width=550><br> <br>
 					
 					<div>
@@ -140,7 +114,7 @@
 					</div> <br></td>
 			</tr>
 		<tr>
-			<td width="150" class="community">숙소 정보 :</td>
+			<td width="100" class="community">숙소 정보 :</td>
 			<td class="community" th:text="${hcont.house_detail}" width=""></td>
 		</tr>
 		</div>

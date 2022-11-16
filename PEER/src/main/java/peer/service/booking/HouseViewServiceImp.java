@@ -25,27 +25,17 @@ public class HouseViewServiceImp implements HouseViewService {
 	@Autowired
 	private MemberDAO mR;
 	
-	@Override
-	public Integer getHouseNum(HouseViewBean houseview)throws Exception {
-		// TODO Auto-generated method stub
-		return hvdao.getHouseNum(houseview);
-	}
-
-	@Override
-	public HouseViewBean housenumview(Integer house_num) throws Exception {
-		// TODO Auto-generated method stub
-		return hvdao.housenumview(house_num);
-	}
-
-	@Override
-	public HouseViewBean getHouseinfo(HouseViewBean houseviewbean) throws Exception {
-		// TODO Auto-generated method stub
-		return hvdao.getHouseinfo(houseviewbean);
-	}
-	
+	// 숙소 가격 불러오기
 	public HousepriceBean hprice_cont(int house_num) throws Exception {
 		HousepriceBean hprice = houseDao.getHpriceCont(house_num);
 		return hprice;
+	}
+
+	// 호스트 이름 불러오기
+	@Override
+	public HouseViewBean getHostname(int house_num) throws Exception {
+		// TODO Auto-generated method stub
+		return hvdao.getHostname(house_num);
 	}
 
 	

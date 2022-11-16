@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import peer.model.booking.BookingBean;
+import peer.model.booking.HouseViewBean;
 import peer.model.house.HouseBean;
 import peer.model.house.HousepriceBean;
 import peer.model.member.MemberBean;
@@ -38,9 +40,11 @@ public class HouseViewController {
 	private MemberService ms;
 	
 	// 임시 숙소검색창
-	@RequestMapping("HouseListView")
-	public String list(Model model, HttpServletRequest request) throws Exception {
+	@RequestMapping("/HouseListView")
+	public String list(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
+		MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+		
 		List<HouseBean> hosthouselist = new ArrayList<HouseBean>();
 
 		int page = 1;
@@ -88,14 +92,14 @@ public class HouseViewController {
 								@RequestParam("page") String page,
 								@RequestParam("state") String state, 
 								HttpSession session,
-								Model model) throws Exception {
-			
-			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+								Model model) throws Exception {			
 			
 			HouseBean house = houseService.house_cont(house_num); // house 상세정보 구하기
 			
-			System.out.println();
+			HouseViewBean hostname = hvservice.getHostname(house_num);
+			
 			System.out.println("house_num:"+house.getHouse_num());
+			System.out.println("hostname:"+hostname.getUser_name());
 			System.out.println("house:"+house);
 			
 			HousepriceBean hprice = houseService.hprice_cont(house_num); // houseprice 상세정보 구하기
@@ -103,10 +107,12 @@ public class HouseViewController {
 			
 			model.addAttribute("hcont", house);
 			model.addAttribute("house_num", house.getHouse_num());
-			
+			model.addAttribute("hostname", hostname);
 			model.addAttribute("hpcont", hprice);
 			model.addAttribute("page", page);
 
+			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+			
 			if (state.equals("cont")) { // 상세폼
 
 				return "booking/HouseView";

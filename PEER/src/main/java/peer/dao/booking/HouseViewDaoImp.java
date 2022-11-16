@@ -20,31 +20,18 @@ public class HouseViewDaoImp implements HouseViewDao{
 	@Autowired
 	private SqlSession session;
 
-
-
-	@Override
-	public Integer getHouseNum(HouseViewBean houseview) throws Exception{
-		// TODO Auto-generated method stub
-		return session.selectOne("peer.dao.booking.HouseViewDao.housenum_select", houseview);
-	}
-
-	@Override
-	public HouseViewBean housenumview(Integer house_num) {
-		// TODO Auto-generated method stub
-		return session.selectOne("peer.dao.booking.HouseViewDao.housenumview", house_num);
-	}
-
-	@Override
-	public HouseViewBean getHouseinfo(HouseViewBean houseviewbean) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne("peer.dao.booking.HouseViewDao.getHouseinfo", houseviewbean);
-	}
-
-
+	// 숙소 가격 불러오기
 	@Override
 	public HousepriceBean getHpriceCont(int house_num) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	// 호스트 이름 불러오기
+	@Override
+	public HouseViewBean getHostname(int house_num) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("peer.dao.booking.HouseViewDao.getHostname", house_num);
 	}
 
 

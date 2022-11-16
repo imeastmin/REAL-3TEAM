@@ -69,7 +69,11 @@ public class BookingController {
 	}
 	
 	@RequestMapping("/payresult")
-	public String payresult() {
+	public String payresult()throws Exception {
+		
+		System.out.println("결제 결과");		
+		
+		
 		return "booking/payresult";
 	}	
 	

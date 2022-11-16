@@ -4,48 +4,29 @@
 <mapper namespace="peer.dao.booking.HouseViewDao">
 
 
-<!-- 예약 정보 불러오기 -->
-<select id="getbookinglist">
-select book_num from booking where book_num = 1000000000
-</select>
-
-<!-- 숙소 가격 불러오기 -->
-<select id="houseprice_select" parameterType="int" resultType="int">
-	select house_price from house_price where house_num = #{house_num}
-</select>
-
-<!-- 숙소 번호 불러오기 -->
- 
-<select id="housenumview" parameterType="int" resultType="int">
-	select house_num from house where house_num = #{house_num}
-</select>
-
-<!-- 숙소 정보 불러오기  * 오류남 * -->
-<select id="getHouseinfo" parameterType="int" resultType="peer.model.house.HouseBean">
-select * from house where house_num = #{house_num}
-</select>
-
 <!-- 유저 정보 불러오기 -->
 <select id="getUserinfo" parameterType="int" resultType="peer.model.member.MemberBean">
 select * from user_info where user_num = #{user_num} 
-
 </select>
+
 
 <!-- 호스트 이름 불러오기 -->
-<select id="getHostname" parameterType="peer.model.member.MemberBean" resultType="peer.model.member.MemberBean">
-select user_name from user_info where user_num = #{user_num}
+<select id="getHostname" parameterType="peer.model.house.HouseBean" resultType="peer.model.booking.HouseViewBean">
+select user_name from user_info where user_num = (select user_num from house where house_num = #{house_num})
 </select>
 
-<!-- 숙소 가격 불러오기 -->
-<select id="getPrice" parameterType="int" resultType="peer.model.house.HousepriceBean">
-select hprice_bweek from house_price where house_num = #{house_num}
-</select>
 
 <!-- 예약 정보 입력 -->
 <insert id="bookingInsert" parameterType="peer.model.booking.BookingBean">
 insert into booking(book_num, house_num, total_price, user_num, house_price, checkin, checkout) values(booking_seq.nextval, 
 #{house_num}, #{total_price}, #{user_num}, #{house_price}, #{checkin}, #{checkout})
 </insert>
+
+
+<!-- 예약 정보 결과창에 출력 -->
+<select id="bookingSelect" parameterType="peer.model.booking.BookingBean">
+select * from booking where book_num = (select booking_seq.currval from booking)
+</select>
 
 
 </mapper>

@@ -12,16 +12,10 @@ import peer.model.member.MemberBean;
 
 public interface HouseViewDao {
 	
-	// 숙소정보 불러오기
-
-	public Integer getHouseNum(HouseViewBean houseview) throws Exception;
-	
-	public HouseViewBean housenumview(Integer house_num) throws Exception;
-	
-	public HouseViewBean getHouseinfo(HouseViewBean houseviewbean) throws Exception;
-
-	// 숙소 상세 정보 구하기
+	// 숙소 가격 불러오기
 	public HousepriceBean getHpriceCont(int house_num) throws Exception;
 	
+	// 호스트 이름 불러오기
+	public HouseViewBean getHostname(int house_num) throws Exception;
 	
 }
