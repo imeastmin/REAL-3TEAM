@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 -->
+<th:block th:replace="/common/layout.html :: head('Peer')"></th:block>
+<th:block th:replace="/common/header :: header"></th:block>
+<!-- 사용 하는곳 -->
 
-<a href="main.html"><button class="btn btn-default">메인화면으로</button></a>
-<a href="index.html"><button class="btn btn-default">숙소로</button></a>
+<br><br><br><br><br><br><br>
 
+<p class="community" style="font-size:50px;" align="center">숙소예약이 완료되었습니다.</p> 
 
-</body>
+<br><br><br><br><br><br>
+
+<div align="center">
+<a href="/"><button class="community">메인화면</button></a>
+<a href="index.html"><button class="community">숙소</button></a>
+</div>
+
+<th:block th:replace="/common/footer :: footer"></th:block>
 </html>
+
