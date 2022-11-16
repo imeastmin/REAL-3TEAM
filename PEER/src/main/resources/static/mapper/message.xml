@@ -3,7 +3,7 @@
 
 <mapper namespace="peer.dao.message.MessageMapper">
 	<!-- 쪽지 리스트 -->
-	<select id="msgList" resultType="peer.model.message.MessageBean">
+	<select id="msgList" parameterType="int" resultType="peer.model.message.MessageBean">
 <![CDATA[ 
 		select * from (select rownum as rnum, msg.* 
 			from (select * from message where message_receiver_num = #{user_num}
@@ -13,7 +13,7 @@
 	</select>
 	
 	<!-- 쪽지 전체 개수 -->
-	<select id="msgTotal" resultType="int">
+	<select id="msgTotal" parameterType="int" resultType="int">
 		select count(*) from message where message_receiver_num = #{user_num}
 	</select>
 	
@@ -23,9 +23,14 @@
 	    	 #{message_receiver_num}, #{message_receiver_nick}, sysdate, #{message_content})
 	</insert>
 	
-	<!--  -->
-	<select id="nicktoUser_num" parameterType="int" resultType="String">
-		select user_nickname from user_info where user_num = #{message_receiver_num}	
+	<!-- 회원 권한 체크 -->
+	<select id="userCheck" parameterType="int" resultType="int">
+		select user_authority from user_info where user_num = #{user_num}
+	</select>
+	
+	<!-- 회원번호에서 닉네임 추출-->
+	<select id="nickFromNum" parameterType="int" resultType="String">
+		select user_nickname from user_info where user_num = #{user_num}	
 	</select>
 	
 	<!-- 쪽지 상세보기 -->
