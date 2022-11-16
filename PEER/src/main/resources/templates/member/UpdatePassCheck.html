@@ -6,21 +6,9 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <head>
 <style>
-div {
+div.dwrap {
 	display: none;
-}
-
-div.div-container {
-	height: 40%;
-	padding-left: 60%;
-	padding-top: 20%;
-}
-
-footer.foot {
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	left: 0;
+	
 }
 </style>
 <script>
@@ -33,42 +21,47 @@ footer.foot {
 		var user_pass = $("#user_pass").val();
 		var passConfirm = $("#passConfirm").val();
 		if (passConfirm === user_pass) {
-			location.href = "/memberUpdate"
+			location.href = "/memberUpdate.Intercept"
 		} else {
 			$("#text").text("비밀번호가 일치하지 않습니다")
 		}
 	}
 </script>
 <meta charset="UTF-8">
-<title>회원 수정</title>
 </head>
+<th:block th:replace="/common/header :: header"></th:block>
 <body>
-	<div class="div-container">
-		<table>
-			<tr>비밀번호 재확인
-			</tr>
-			<tr>
-				<td><input class="form-control" type="text" disabled="disabled"
-					th:value="${session.MemberBean.user_email}"> <input
-					type="hidden" th:value="${session.MemberBean.user_pass}"
-					id="user_pass" required="required"></td>
-			</tr>
-			<tr>
-				<td><input class="form-control" type="password"
-					id="passConfirm"></td>
+	<div class="dwrap">
+		<div class="position-relative">
+			<div  style="margin-top: 12%"  class="position-absolute top-100 start-50 translate-middle">
+				<table>
+					<tr>비밀번호 재확인
+					</tr>
+					<tr>
+						<td><input class="form-control" type="text"
+							disabled="disabled" th:value="${session.MemberBean.user_email}">
+							<input type="hidden" th:value="${session.MemberBean.user_pass}"
+							id="user_pass" required="required"></td>
+					</tr>
+					<tr>
+						<td><input class="form-control" type="password"
+							id="passConfirm"></td>
 
-			</tr>
-			<tr>
-				<td><div id="text" style="color: red;"></div></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="button" id="passcheck" value="확인"
-					class="btn btn-outline-primary" onclick="checkingpass()"></td>
-			</tr>
-		</table>
+					</tr>
+					<tr>
+						<td><div id="text" style="color: red;"></div></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button" id="passcheck"
+							value="확인" class="btn btn-outline-primary"
+							onclick="checkingpass()"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
-<footer class="foot">
+<footer class="fixed-bottom">
 	<th:block th:replace="/common/footer :: footer"></th:block>
 </footer>
 </html>

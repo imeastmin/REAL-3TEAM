@@ -5,17 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.tags.Param;
 
+import peer.model.member.Chart;
 import peer.model.member.MemberBean;
+import peer.model.member.UserLog;
 import peer.service.member.MemberService;
 
 @Controller
@@ -25,8 +31,9 @@ public class MemberController {
 	private MemberService ms;
 
 	// 로그인 page로 이동
-	@RequestMapping("/login")
-	public String gotologin() {
+	@RequestMapping("/login.Intercept")
+	public String searchinfo(HttpSession session) {
+		session.invalidate();
 		return "login/login";
 	}
 
@@ -35,6 +42,7 @@ public class MemberController {
 	@ResponseBody
 	public int searchinfo2(@RequestParam("user_email") String user_email, @RequestParam("user_pass") String user_pass,
 			Model model) {
+		System.out.println("호출 성공");
 		MemberBean findmember = ms.searchinfo(user_email);
 		if (findmember != null) {
 			if (user_pass.equals(findmember.getUser_pass())) {
@@ -65,13 +73,13 @@ public class MemberController {
 		return "login/callback3";
 	}
 
-	@GetMapping("/loginsuccess")
+	@RequestMapping("/loginsuccess")
 	public String SessionShare(@RequestParam("user_email") String user_email, HttpSession session) {
 		MemberBean member;
 		member = ms.searchinfo(user_email);
 		if (member != null) {
 			session.setAttribute("MemberBean", member);
-			return "redirect:/movemain";
+			return "redirect:/movemain.Intercept";
 		} else {
 			return "/login/userInfoNull";
 		}
@@ -79,10 +87,9 @@ public class MemberController {
 
 	// session공유 post로 변경하기 위함
 
-	@GetMapping("/movemain")
+	@GetMapping("/movemain.Intercept")
 	public String movemain(HttpSession session, Model model) {
 		MemberBean member = (MemberBean) session.getAttribute("MemberBean");
-		System.out.println(member);
 		return "main";
 	}
 
@@ -159,8 +166,7 @@ public class MemberController {
 	// 회원 가입 page로 이동
 	@RequestMapping("/join")
 	public String gotojoin(@RequestParam String user_email, Model model) {
-		MemberBean member;
-		member = ms.searchinfo(user_email);
+		MemberBean member = ms.searchinfo(user_email);
 		if (member != null) {
 			return "member/userex";
 		} else {
@@ -179,6 +185,7 @@ public class MemberController {
 		int nowyear = Integer.parseInt(sb.format(nowdate));
 
 		// 가입자 생년
+		System.out.println(member.getUser_birth());
 		String birth = member.getUser_birth().toString();
 		int birthyear = Integer.parseInt(birth.substring(0, 4));
 
@@ -190,20 +197,19 @@ public class MemberController {
 	}
 
 	// 회원정보 수정 전 비밀번호 확인
-	@RequestMapping("/passwordCheck")
-	public String passwordCheck(HttpSession session) {
-		session.getAttribute("MemberBean");
+	@RequestMapping("/passwordCheck.Intercept")
+	public String passwordCheck() {
 		return "member/UpdatePassCheck";
 	}
 
 	// 회원정보 수정으로 이동
-	@RequestMapping("/memberUpdate")
+	@RequestMapping("/memberUpdate.Intercept")
 	public String memberUpdate() {
 		return "member/memberUpdate";
 	}
 
 	// 회원 정보 수정 update
-	@RequestMapping("/updateuser")
+	@RequestMapping("/updateuser.Intercept")
 	public String updateuser(MemberBean member, Model model, HttpSession session) {
 
 		// 현재년도
@@ -220,19 +226,18 @@ public class MemberController {
 
 		int result = ms.updateuser(member);
 		if (result == 1) {
-			session.setAttribute("MemberBean", ms.searchinfo(member.getUser_email()));
+			session.invalidate();
 		}
-		return "redirect:/login";
+		return "redirect:/login.Intercept";
 	}
 
 	// 회원 탈퇴
-	@RequestMapping("/deleteinfo")
+	@RequestMapping("/deleteinfo.Intercept")
 	public String deleteinfo(HttpSession session) {
-		MemberBean member = (MemberBean) session.getAttribute("MemberBean");
+		MemberBean member = (MemberBean)session.getAttribute("MemberBean");
 		System.out.println(member.getUser_num());
-		int result = ms.deleteuser(member);
-		System.out.println(result);
-		return "redirect:/login";
+		int result = ms.deleteuser(member.getUser_num());
+		return "redirect:/login.Intercept";
 	}
 
 	// id 찾기 page로 이동
@@ -246,19 +251,18 @@ public class MemberController {
 	public String searchid(MemberBean member, Model model) {
 		// 폰번호를 입력하면 list로 받아서 검사해서 id 노출
 		String user_name = member.getUser_name();
-		System.out.println("user_name : " + user_name);
-		System.out.println("user_num : " + member.getUser_num());
 		ArrayList<MemberBean> list = ms.searchid(member.getUser_phone());
 		if (list.size() != 0) {
 			ArrayList<String> findid = new ArrayList<String>();
 			for (int a = 0; a < list.size(); a++) {
 				if (list.get(a).getUser_name().equals(user_name)) {
 					findid.add(list.get(a).getUser_email());
-					System.out.println("find email : " + list.get(a).getUser_email());
 				}
 			}
+			if (findid.size() == 0) {
+				return "/login/userInfoNull";
+			}
 			model.addAttribute("user_emails", findid);
-			System.out.println(findid);
 			return "/login/showid";
 		} else {
 			return "/login/userInfoNull";
@@ -315,7 +319,6 @@ public class MemberController {
 	public String searchemailnomal(@RequestParam("user_email") String user_email, Model model) {
 		MemberBean member = ms.searchinfo(user_email);
 		if (member == null) {
-			System.out.println("유저가 없을때");
 			return "member/usernone";
 		} else {
 			String sendingrequest = "redirect:/searchpass?user_email=" + user_email;
@@ -335,4 +338,79 @@ public class MemberController {
 		}
 	}
 
+	// 로그아웃
+	@RequestMapping("/logout.Intercept")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "main";
+	}
+
+// ----------------admin method------------------------	
+	// 어드민 로그인 이동 (버튼 없이 url 입력으로만 입장 가능)
+	@RequestMapping("/adminLogin")
+	public String adminLoing() {
+		return "login/adminlogin";
+	}
+
+	// 어드민 로그인 submit
+	@PostMapping("/admincheck")
+	public String admincheck(HttpServletRequest request, Model model) {
+		String user_email = request.getParameter("adminemail");
+		String user_pass = request.getParameter("adminpassword");
+		System.out.println("admin id : " + user_email);
+		System.out.println("admin password : " + user_pass);
+		MemberBean member = ms.admininfo(user_email);
+//------adminalert는 접근 제한 page--------------------------------------------------
+		if (member == null) {
+			System.out.println("member없음 작동");
+			return "login/adminalert";
+		}
+		if (member.getUser_pass().equals(user_pass) && member.getUser_authority() == 99) {
+			System.out.println("admin 입장성공");
+			return "redirect:/logview";
+		} else {
+			System.out.println("member정보 미일치 작동");
+			return "login/adminalert";
+		}
+
+	}
+
+	// 선택한 유저에 따른 로그 보기
+	@RequestMapping("/logview")
+	public String logview(Model model) {
+		ArrayList<String> userList = ms.getUser();
+		model.addAttribute("userList", userList);
+		return "login/logview";
+	}
+
+	// 아이디에 따른 log 정보 가져오기 (mapping name and count 포함)
+	@RequestMapping("/getlog")
+	public String getlog(int user_num, Model model) {
+		ArrayList<String> userList = ms.getUser();
+		ArrayList<UserLog> userloglist = ms.getlog(user_num);
+		ArrayList<Chart> userChartInfo = ms.getUserChartInfo(user_num);
+		int logcount = ms.totalLog(user_num);
+
+		// 차트에 넣기 위한 데이터 가공
+		String data = "['";
+		String labels = "['";
+		for (int a = 0; a < userChartInfo.size(); a++) {
+			if (a == (userChartInfo.size() - 1)) {
+				data += userChartInfo.get(a).getUser_do() + "'";
+				labels += userChartInfo.get(a).getCount_do() + "'";
+				data += "]";
+				labels += "]";
+			} else {
+				data += userChartInfo.get(a).getUser_do() + "','";
+				labels += userChartInfo.get(a).getCount_do() + "','";
+			}
+		}
+
+		model.addAttribute("data", data);
+		model.addAttribute("labels", labels);
+		model.addAttribute("userChartInfo", userChartInfo);
+		model.addAttribute("userList", userList);
+		model.addAttribute("userloglist", userloglist);
+		return "login/logview";
+	}
 }

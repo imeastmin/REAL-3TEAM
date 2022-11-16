@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="/common/layout.html :: head('메인 페이지')"></th:block>
-
+<link rel="shortcut icon" href="#">
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -9,12 +9,584 @@
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
+<style type="text/css">
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-family: Josefin Sans, Helvetica, Helvetica Neue, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+}
+.stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper {
+  position: relative;
+  color: #2395f3;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  padding-top: 0.65rem;
+  padding-left: 0.5rem;
+  padding-right: 0.36rem;
+  padding-bottom: 0.2rem;
+}
+.slash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  transform-origin: center center;
+  width: 0.15rem;
+  height: 145%;
+  background: fff;
+  z-index: 4;
+  animation: slash 6s ease-in infinite;
+}
+.slash:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.75rem;
+  height: 120%;
+  background: #fff;
+  z-index: -1;
+}
+.slash:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #2395f3;
+}
+.sides {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.sides .side {
+  position: absolute;
+  background: #2395f3;
+}
+.sides .side:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.15rem;
+  transform: translateX(-101%);
+  animation: side-top ease 6s infinite;
+}
+.sides .side:nth-child(2) {
+  top: 0;
+  right: 0;
+  width: 0.15rem;
+  height: 100%;
+  transform: translateY(-101%);
+  animation: side-right ease 6s infinite;
+}
+.sides .side:nth-child(3) {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.15rem;
+  transform: translateX(101%);
+  animation: side-bottom ease 6s infinite;
+}
+.sides .side:nth-child(4) {
+  top: 0;
+  left: 0;
+  width: 0.15rem;
+  height: 100%;
+  transform: translateY(101%);
+  animation: side-left ease 6s infinite;
+}
+.text {
+  position: relative;
+}
+.text--backing {
+  opacity: 0;
+}
+.text--left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 51%;
+  height: 100%;
+  overflow: hidden;
+}
+.text--left .inner {
+  transform: translateX(100%);
+  animation: text-left 6s ease-in-out infinite;
+}
+.text--right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.text--right .inner {
+  transform: translateX(-200%);
+  animation: text-right 6s ease-in-out infinite;
+}
+@-moz-keyframes slash {
+  0% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  13% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  16.6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+}
+@-webkit-keyframes slash {
+  0% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  13% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  16.6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+}
+@-o-keyframes slash {
+  0% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  13% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  16.6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+}
+@keyframes slash {
+  0% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  13% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+  }
+  16.6% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  }
+}
+@-moz-keyframes text-left {
+  0% {
+    transform: translateX(100%);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  58% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+@-webkit-keyframes text-left {
+  0% {
+    transform: translateX(100%);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  58% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+@-o-keyframes text-left {
+  0% {
+    transform: translateX(100%);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  58% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+@keyframes text-left {
+  0% {
+    transform: translateX(100%);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  58% {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+@-moz-keyframes text-right {
+  0% {
+    transform: translateX(-200%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  58% {
+    transform: translateX(-100%);
+  }
+  70% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+@-webkit-keyframes text-right {
+  0% {
+    transform: translateX(-200%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  58% {
+    transform: translateX(-100%);
+  }
+  70% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+@-o-keyframes text-right {
+  0% {
+    transform: translateX(-200%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  58% {
+    transform: translateX(-100%);
+  }
+  70% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+@keyframes text-right {
+  0% {
+    transform: translateX(-200%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  58% {
+    transform: translateX(-100%);
+  }
+  70% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+@-moz-keyframes side-top {
+  0%, 14% {
+    transform: translateX(-101%);
+  }
+  24%, 55% {
+    transform: translateX(0);
+  }
+  65% {
+    transform: translateX(101%);
+  }
+  100% {
+    transform: translateX(101%);
+  }
+}
+@-webkit-keyframes side-top {
+  0%, 14% {
+    transform: translateX(-101%);
+  }
+  24%, 55% {
+    transform: translateX(0);
+  }
+  65% {
+    transform: translateX(101%);
+  }
+  100% {
+    transform: translateX(101%);
+  }
+}
+@-o-keyframes side-top {
+  0%, 14% {
+    transform: translateX(-101%);
+  }
+  24%, 55% {
+    transform: translateX(0);
+  }
+  65% {
+    transform: translateX(101%);
+  }
+  100% {
+    transform: translateX(101%);
+  }
+}
+@keyframes side-top {
+  0%, 14% {
+    transform: translateX(-101%);
+  }
+  24%, 55% {
+    transform: translateX(0);
+  }
+  65% {
+    transform: translateX(101%);
+  }
+  100% {
+    transform: translateX(101%);
+  }
+}
+@-moz-keyframes side-right {
+  0%, 14%, 23% {
+    transform: translateY(-101%);
+  }
+  30%, 62% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(101%);
+  }
+  100% {
+    transform: translateY(101%);
+  }
+}
+@-webkit-keyframes side-right {
+  0%, 14%, 23% {
+    transform: translateY(-101%);
+  }
+  30%, 62% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(101%);
+  }
+  100% {
+    transform: translateY(101%);
+  }
+}
+@-o-keyframes side-right {
+  0%, 14%, 23% {
+    transform: translateY(-101%);
+  }
+  30%, 62% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(101%);
+  }
+  100% {
+    transform: translateY(101%);
+  }
+}
+@keyframes side-right {
+  0%, 14%, 23% {
+    transform: translateY(-101%);
+  }
+  30%, 62% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(101%);
+  }
+  100% {
+    transform: translateY(101%);
+  }
+}
+@-moz-keyframes side-bottom {
+  0%, 14%, 24%, 28% {
+    transform: translateX(101%);
+  }
+  37%, 70% {
+    transform: translateX(0);
+  }
+  79% {
+    transform: translateX(-101%);
+  }
+  100% {
+    transform: translateX(-101%);
+  }
+}
+@-webkit-keyframes side-bottom {
+  0%, 14%, 24%, 28% {
+    transform: translateX(101%);
+  }
+  37%, 70% {
+    transform: translateX(0);
+  }
+  79% {
+    transform: translateX(-101%);
+  }
+  100% {
+    transform: translateX(-101%);
+  }
+}
+@-o-keyframes side-bottom {
+  0%, 14%, 24%, 28% {
+    transform: translateX(101%);
+  }
+  37%, 70% {
+    transform: translateX(0);
+  }
+  79% {
+    transform: translateX(-101%);
+  }
+  100% {
+    transform: translateX(-101%);
+  }
+}
+@keyframes side-bottom {
+  0%, 14%, 24%, 28% {
+    transform: translateX(101%);
+  }
+  37%, 70% {
+    transform: translateX(0);
+  }
+  79% {
+    transform: translateX(-101%);
+  }
+  100% {
+    transform: translateX(-101%);
+  }
+}
+@-moz-keyframes side-left {
+  0%, 14%, 24%, 34%, 35% {
+    transform: translateY(101%);
+  }
+  44%, 79% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-101%);
+  }
+  100% {
+    transform: translateY(-101%);
+  }
+}
+@-webkit-keyframes side-left {
+  0%, 14%, 24%, 34%, 35% {
+    transform: translateY(101%);
+  }
+  44%, 79% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-101%);
+  }
+  100% {
+    transform: translateY(-101%);
+  }
+}
+@-o-keyframes side-left {
+  0%, 14%, 24%, 34%, 35% {
+    transform: translateY(101%);
+  }
+  44%, 79% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-101%);
+  }
+  100% {
+    transform: translateY(-101%);
+  }
+}
+@keyframes side-left {
+  0%, 14%, 24%, 34%, 35% {
+    transform: translateY(101%);
+  }
+  44%, 79% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-101%);
+  }
+  100% {
+    transform: translateY(-101%);
+  }
+}
+</style>
 <style>
-div.div-container {
+div.bodywrap {
 	display: none;
-	height: 40%;
-	padding-left: 60%;
-	padding-top: 10%;
 }
 
 tr.sizing2 {
@@ -26,11 +598,16 @@ tr.sizing2 {
 	position: relative;
 	color: gray;
 	right: -10%;
+	cursor: pointer;
+}
+
+.socialbutton {
+	cursor: pointer;
 }
 </style>
 <script>
 	$(document).ready(function() {
-		$('div').fadeIn(700);
+		$('div.bodywrap').fadeIn(700);
 	});
 </script>
 
@@ -102,11 +679,14 @@ tr.sizing2 {
 																if (data == 1) {
 																	$("#login")
 																			.submit();
-																	/* 이부분을 post빙식으로 변경 */
 																	var sethref = "/loginsuccess?user_email="
 																			+ user_email;
 																	location.href = sethref; /* 여기서 이메일 session 공유 */
 																} else if (data == -2) {
+																	$("#result")
+																			.attr(
+																					"style",
+																					"color: red;");
 																	$("#result")
 																			.text(
 																					"회원정보가 일치하지 않습니다");/* 비밀번호가 일치하지 않는 경우 */
@@ -118,7 +698,7 @@ tr.sizing2 {
 																	$("#result")
 																			.attr(
 																					"style",
-																					"color: red;")
+																					"color: red;");
 																	$("#result")
 																			.text(
 																					"회원정보가 일치하지 않습니다");/* 아이디가 없는 경우 */
@@ -137,44 +717,80 @@ tr.sizing2 {
 <th:block th:replace="/common/header :: header"></th:block>
 <body class="test">
 	<div class="bodywrap">
-		<div class="div-container">
-			<div class="div-item">
-				<form id="login" class="login">
-					<table border="0" class="tab">
-						<tr>
-							<td class="sizing1">E-Mail</td>
-							<td class="sizing2"><input type="email" class="form-control"
-								id="user_email"></td>
-						</tr>
-						<tr>
-							<td class="sizing1">Password</td>
-							<td class="sizing2"><input type="password"
-								class="form-control" id="user_pass"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><div id="result" style="color: black;"></div></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input class="btn btn-outline-primary"
-								type="button" value="Login" id="submit"> <input
-								class="btn btn-outline-primary" type="button" value="Join"
-								onclick="location.href='/emailAuth'"> <a
-								class="searchingE" onclick="location.href='/findid'">이메일 찾기</a>
-								<span class="searchingE">| </span><a class="searchingE"
-								onclick="location.href='/findpass'">비밀번호 찾기</a></td>
-						</tr>
-						<tr>
-							<td><div class="socialbutton">
-									<a onclick="kakaoLogin()"><img src="/img/kakao button.png"></a>
-								</div></td>
-							<td>
-								<div class="socialbutton" id="naver_id_login" />
-							</td>
-						</tr>
-					</table>
-				</form>
+		<!--  -->
+		<div class="container mt-5" align="center"
+			style="padding-top: 150px; padding-left:7%; min-height: 500px;">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2></h2><br><br>
+					<h5></h5>
+					<div class="fakeimg">
+						<div class="stage">
+							<div class="wrapper">
+								<div class="slash"></div>
+								<div class="sides">
+									<div class="side"></div>
+									<div class="side"></div>
+									<div class="side"></div>
+									<div class="side"></div>
+								</div>
+								<div class="text">
+									<div class="text--backing">PEER</div>
+									<div class="text--left">
+										<div class="inner">PEER</div>
+									</div>
+									<div class="text--right">
+										<div class="inner">PEER</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5>
+					<div class="fakeimg">
+						<table border="0" class="tab">
+							<tr>
+								<td class="sizing1">E-Mail</td>
+								<td class="sizing2"><input type="email"
+									class="form-control" id="user_email"></td>
+							</tr>
+							<tr>
+								<td class="sizing1">Password</td>
+								<td class="sizing2"><input type="password"
+									class="form-control" id="user_pass"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><div id="result"
+										style="color: black; display: block;"></div></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input class="btn btn-outline-primary"
+									type="button" value="Login" id="submit"> <input
+									class="btn btn-outline-primary" type="button" value="Join"
+									onclick="location.href='/emailAuth'"> <a
+									class="searchingE" onclick="location.href='/findid'">이메일 찾기</a>
+									<span class="searchingE">| </span><a class="searchingE"
+									onclick="location.href='/findpass'">비밀번호 찾기</a></td>
+							</tr>
+							<tr>
+								<td><div class="socialbutton">
+										<a onclick="kakaoLogin()"><img src="/img/kakao button.png"></a>
+									</div></td>
+								<td>
+									<div class="socialbutton" id="naver_id_login" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
+
+		<!--  -->
 	</div>
 </body>
 <!-- 네이버 로그인 -->
@@ -188,5 +804,7 @@ tr.sizing2 {
 	naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
-<th:block th:replace="/common/footer :: footer"></th:block>
+<footer>
+	<th:block th:replace="/common/footer :: footer"></th:block>
+</footer>
 </html>
