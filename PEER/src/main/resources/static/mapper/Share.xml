@@ -3,11 +3,6 @@
 
 <mapper namespace="peer.dao.booking.ShareMapper">
 
-	<!-- 예약내역 -->
-	<select id="getMyBooking" resultType="peer.model.booking.ShareBean">
-		select * from share_booking where user_num_1 = #{id} order by checkin desc
-	</select>
-
 	<!-- 예약정보 불러오기 -->
 	<select id="getShareInfo" resultType="peer.model.booking.ShareBean">
 		select * from share_booking where book_num = #{book_num} and user_num_1 = #{id}
