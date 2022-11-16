@@ -13,7 +13,5 @@ public class MainController {
 		return "main";
 	}
 	
-	/* 인터셉터 구현 - 김동민 */
 	
-	/* 에러페이지 구현 - 김동민 */
 }
