@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 -->
+<th:block th:replace="/common/layout.html :: head('숙소정보 페이지')"></th:block>
+<th:block th:replace="/common/header :: header"></th:block>
+<head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+
+</head>
+<!-- 사용 하는곳 -->	
+
+	<!-- 호스트 숙소 리스트 -->
+	<div id="hhlist_wrap">
+		<h2 align="center" class="hhlist_title">Host_house_list</h2>
+		
+		<table id="hhlist" align="center">
+		<tr><p align="center" th:text="'등록된 숙소: ' +  ${listcount} ">
+		<div align="center" class="butt"><button type="button" value="숙소 등록" onClick="location.href='house_insert'">숙소 등록</button></div></p></tr>
+			<tr align="center">
+				<th>숙소 번호/</th>
+				<th>숙소 이름/</th>
+				<th>숙소 주소</th>
+			</tr>
+			<tr th:each="h : ${hosthouselist}"  th:with="num=${listcount-(page-1)*10}" align="center">			
+				
+				<td th:text="${h.house_num}"></td>
+
+				<td ><div><a th:href="@{/HouseView(house_num=${h.house_num},page=${page},state='cont')}" th:text="${h.house_name}"></a></div>
+				</td>
+
+				<td th:text="${h.house_address}"></td>
+			</tr>
+		</table>
+		
+		<br>
+		<div align="center" id="hhlist_paging">			
+			<span th:if="${page <=1}" th:text="[이전]"></span>&nbsp;		
+			
+			<span th:if="${page>1}">
+				<a th:href="@{/host_house_list(page=${page-1})}" th:text="[이전]"></a>&nbsp;
+			</span>			
+			
+			<span th:each="a : ${#numbers.sequence(startpage, endpage)}">
+				<span th:if="${a == page }" th:text="${a}"></span>
+				<span th:if="${a != page }">
+					<a th:href="@{/host_house_list(page=${a})}" th:text="${a}"></a>&nbsp;
+				</span>
+			</span>							
+			
+			<span th:if="${page >= maxpage }" th:text="[다음]"></span>&nbsp;			
+			
+			<span th:if="${page < maxpage }">
+				<a th:href="@{/host_house_list(page=${page+1})}" th:text="[다음]"></a>&nbsp;
+			</span>		
+			
+		</div>
+		<br>
+		
+	</div>
+	
+<th:block th:replace="/common/footer :: footer"></th:block>
+</html>

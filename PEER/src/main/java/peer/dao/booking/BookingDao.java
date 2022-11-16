@@ -1,8 +1,12 @@
 package peer.dao.booking;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public class BookingDao {
+import peer.model.booking.BookingBean;
 
+public interface BookingDao {
+
+	public int bookingInsert(BookingBean bookingbean);
+	
+	
 }
