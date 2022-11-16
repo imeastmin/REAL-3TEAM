@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="/common/layout.html :: head('peer')"/>
+<th:block th:replace="/common/layout.html :: head('요청')"/>
 <th:block th:replace="/common/header.html :: header"/>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
 
@@ -40,10 +40,10 @@
 				<form>
 					<input type="button" class="btn btn-success" value="수락" 
 					th:onclick="|location.href=
-						'@{SignResult.do(type=Y, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
+						'@{SignResult.Intercept(type=Y, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
 					<input type="button" class="btn btn-danger" value="거절" 
 					th:onclick="|location.href=
-						'@{SignResult.do(type=N, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
+						'@{SignResult.Intercept(type=N, book_num=${book_num}, proposer=${proposerInfo.user_num})}'|"/>
 				</form>
 		<th:block>
 	</div>
