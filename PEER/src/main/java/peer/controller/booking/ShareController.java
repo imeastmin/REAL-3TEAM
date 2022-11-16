@@ -2,7 +2,6 @@ package peer.controller.booking;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import peer.model.booking.ShareBean;
 import peer.model.booking.TotalBean;
 import peer.model.member.MemberBean;
 import peer.service.booking.ShareServiceImp;
@@ -23,33 +21,13 @@ public class ShareController {
 	@Autowired
 	private ShareServiceImp shareService;
 	
-	
-	/* 예약내역 페이지 */
-	@RequestMapping("MyBooking.do")
-	public String myBooking(HttpSession session,
-						    Model model) throws Exception {
-		
-		MemberBean memberBean = (MemberBean)session.getAttribute("MemberBean");
-		
-		int id = memberBean.getUser_num();
-		List<ShareBean> MyBooking = shareService.getMyBooking(id);
-		System.out.println("Service MYBOOKING DATA - " + MyBooking);
-		
-		model.addAttribute("MyBooking", MyBooking);
-		model.addAttribute("id", id);
-		
-
-		return "share/mybooking";
-	}
-	
-	
 	/* 대기열 리스트 */
-	@RequestMapping(value = "Share.do", method = RequestMethod.POST)
+	@RequestMapping(value = "Share.Intercept", method = RequestMethod.POST)
 	public String getQueList(int id,
 							 int book_num,
 							 Model model) throws Exception{
 		/* 진입확인 */
-		System.out.println("Controller - GetQueList.do");
+		System.out.println("Controller - GetQueList.Intercept");
 		
 		/* Session ID + View Data 확인 */
 		System.out.println("Controller USER_NUM DATA - " + id);
@@ -137,13 +115,13 @@ public class ShareController {
 	
 	
 	/* PRG Pattern: 쉐어신청 - POST */
-	@PostMapping(value = "Sign.do")
+	@PostMapping(value = "Sign.Intercept")
 	public String sign(int user_num_1,
 					   int user_num_2,
 					   int book_num,
 					   Model model) throws Exception{
 		/* 진입확인 */
-		System.out.println("Controller - Sign.do");
+		System.out.println("Controller - Sign.Intercept");
 		System.out.println("Controller USER_NUM_1 DATA - " + user_num_1);
 		System.out.println("Controller USER_NUM_2 DATA - " + user_num_2);
 		System.out.println("Controller BOOK_NUM DATA - " + book_num);
@@ -153,23 +131,22 @@ public class ShareController {
 		System.out.println("Sign Result - " + result);
 		
 		
-		
-		return "redirect:ShareSign.do";
+		return "redirect:ShareSign.Intercept";
 	}
 	
 	
 	/* PRG Pattern: 쉐어신청 - GET */
-	@GetMapping(value = "ShareSign.do")
+	@GetMapping(value = "ShareSign.Intercept")
 	public String shareSign(Model model) {
-		System.out.println("Controller - ShareSign.do");
+		System.out.println("Controller - ShareSign.Intercept");
 		return "share/queue_sign";
 	}
 	
 	/* 쉐어신청 취소 */
-	@PostMapping("ProposeCancle.do")
+	@PostMapping("ProposeCancle.Intercept")
 	public String proposeCancle(int book_num) throws Exception{
 		/* 진입확인 */
-		System.out.println("Controller - ProposeCancle.do");
+		System.out.println("Controller - ProposeCancle.Intercept");
 		
 		int result = shareService.proposeCancle(book_num);
 		System.out.println("Service CANCLE-RESULT DATA - " + result);
@@ -179,13 +156,13 @@ public class ShareController {
 	
 	
 	/* 쉐어신청 수락 & 거절 */
-	@GetMapping(value = "SignResult.do")
+	@GetMapping(value = "SignResult.Intercept")
 	public String signResult(String type,
 							 int proposer,
 							 int book_num,
 							 Model model) throws Exception{
 		/* 진입확인 */
-		System.out.println("Controller - SignResult.do");
+		System.out.println("Controller - SignResult.Intercept");
 		
 		/* 요청 결과처리 */
 		int result = shareService.signResult(type, proposer, book_num);
@@ -206,13 +183,13 @@ public class ShareController {
 	
 	
 	/* 쉐어 최종결정 */
-	@GetMapping("ShareResult.do")
+	@GetMapping("ShareResult.Intercept")
 
 	public String shareSuccess(String type, 
 							   int book_num) throws Exception{
 
 		/* 진입확인 */
-		System.out.println("Controller - ShareResult.do");
+		System.out.println("Controller - ShareResult.Intercept");
 		System.out.println("Controller SHARERESULT TYPE DATA - " + type);
 		
 		/* 승인 */
