@@ -72,8 +72,8 @@
             direction: 'ltr',
             format: moment.localeData().longDateFormat('L'),
             separator: ' - ',
-            applyLabel: '확인', // 한글로
-            cancelLabel: '닫기', // 한글로
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
             weekLabel: 'W',
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment.weekdaysMin(),
@@ -108,8 +108,8 @@
         '</div>' +
         '<div class="drp-buttons">' +
         '<span class="drp-selected"></span>' +
-        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
         '<button class="cancelBtn" type="button"></button>' +
+        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
         '</div>' +
         '</div>';
 
