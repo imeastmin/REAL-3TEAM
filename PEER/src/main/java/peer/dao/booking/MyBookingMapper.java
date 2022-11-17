@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import peer.model.booking.BookingBean;
-import peer.model.booking.ShareBean;
+import peer.model.booking.MyBookingBean;
+import peer.model.booking.MyShareBean;
 
 @Mapper
 public interface MyBookingMapper {
 
-	List<ShareBean> getMyShareBooking(int id) throws Exception;
-	List<BookingBean> getMyBooking(int id) throws Exception;
+	List<MyShareBean> getMyShareBooking(int id) throws Exception;
+	List<MyBookingBean> getMyBooking(int id) throws Exception;
 }

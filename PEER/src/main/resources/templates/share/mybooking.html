@@ -5,7 +5,6 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
 
 <head>
-
 <style>
 	.wrap {
 		font-family: 'NanumSquare';
@@ -21,7 +20,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>peer</title>
 </head>
 <body>
 <div class="wrap" style="margin-bottom: 15%;">
@@ -53,9 +51,17 @@
 		    </div>
 		    <div class="col-sm-8">
 		      <h2 style="font-family: 'NanumSquare';">나의 예약</h2>
+		       <div class="alert alert-danger">
+					  <span style="font-size: 10pt;"><strong>주의사항!</strong> 
+					  쉐어를 결정하기 전까지 
+					  상대방과 충분한 커뮤니케이션 및 만남을 권고합니다.</span>
+				  </div>
 		      <br>
 		      
+		      
+		      <!-- 쉐어 예약내역 -->
 		      <span class="badge bg-success">쉐어 가능한 예약</span>
+		      
 		      <br><br>
 				<th:block th:if="${#lists.isEmpty(MyShareBooking)}">
 				 <div align="center" style="margin-top: 100px; margin-bottom: 100px;">
@@ -69,21 +75,26 @@
 						<th>숙소이름</th>
 						<th>체크인</th>
 						<th>체크아웃</th>
-						
+						<th></th>
 					</tr>
 				 <th:block th:each="myShare : ${MyShareBooking}">
 				 
 					<tr align="center" style="font-size: 10pt;">
 						
 						<td th:text="${myShare.book_num}"></td>
-						<td th:text="${myShare.house_num}"></td>
+						<td>
+							<a th:href="@{HouseView(house_num = ${myShare.house_num}, page=1, state=cont)}"
+							   style="text-decoration: none; color: black; vertical-align: middle;">[[${myShare.house_name}]]</a>
+						</td>
 						<td th:text="${#dates.format(myShare.checkin, 'YYYY-MM-dd')}"></td>
 						<td th:text="${#dates.format(myShare.checkout, 'YYYY-MM-dd')}"></td>
 						<td>
 						 <form method="post" action="Share.Intercept">
 							<input type="hidden" th:name="book_num" th:value="${myShare.book_num}">
 							<input type="hidden" th:name="id" th:value="${id}">
-							<input type="submit" class="btn btn-outline-primary btn-sm" style="margin-left: 30px; vertical-align: middle;" value="쉐어하기">
+								<input type="submit" class="btn btn-outline-primary btn-sm" style="margin-left: 30px; vertical-align: middle;" th:if="${myShare.share_check} == 1" value="쉐어하기">
+								<input type="submit" class="btn btn-outline-primary btn-sm" style="margin-left: 30px; vertical-align: middle;" th:if="${myShare.share_check} == 2" value="매칭중">
+								<span th:if="${myShare.share_check} == 3" class="badge bg-success">완료 </span>
 						 </form>	
 						</td>
 					</tr>
@@ -92,7 +103,7 @@
 				</table>
 				
 				
-				<!-- 일반예약 -->
+				<!-- 일반예약 내역-->
 				<span class="badge bg-secondary">일반예약</span>
 		     	 <br><br>
 				<th:block th:if="${#lists.isEmpty(MyBooking)}">
@@ -108,13 +119,15 @@
 						<th>숙소이름</th>
 						<th>체크인</th>
 						<th>체크아웃</th>
-						
 					</tr>
 				 <th:block th:each="myBooking : ${MyBooking}">
 				 
 					<tr align="center" style="font-size: 10pt;">
 						<td th:text="${myBooking.book_num}"></td>
-						<td th:text="${myBooking.house_num}"></td>
+						<td>
+							<a th:href="@{HouseView(house_num = ${myBooking.house_num}, page=1, state=cont)}"
+							   style="text-decoration: none; color: black; vertical-align: middle;">[[${myBooking.house_name}]]</a>
+						</td>
 						<td th:text="${#dates.format(myBooking.checkin, 'YYYY-MM-dd')}"></td>
 						<td th:text="${#dates.format(myBooking.checkout, 'YYYY-MM-dd')}"></td>
 					</tr>

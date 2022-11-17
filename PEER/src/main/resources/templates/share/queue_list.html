@@ -23,7 +23,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>peer</title>
 
 </head>
 <body>
@@ -70,8 +69,12 @@
 		    </div>
 		    <div class="col-sm-8">
 		      <h2 style="font-family: 'NanumSquare';">대기열</h2>
+			      <div class="alert alert-danger">
+					  <span style="font-size: 10pt;"><strong>주의사항!</strong> 
+					  쉐어를 결정하기 전까지 
+					  상대방과 충분한 커뮤니케이션 및 만남을 권고합니다.</span>
+				  </div>
 		      <br>
-		      
 		      
 		     	<!-- 대기열이 없을 때 -->
 				<div class="None" align="center">
@@ -88,7 +91,7 @@
 				<th:block th:if="${not #lists.isEmpty(QueMember)} and ${#strings.isEmpty(proposer)}">
 				
 				<form method="POST" action="Sign.Intercept">
-					<table class="table table-hover" style="margin-top: -15%;">
+					<table class="table" style="margin-top: -15%;">
 					
 						<tr align="center">
 							<td rowspan="2">
