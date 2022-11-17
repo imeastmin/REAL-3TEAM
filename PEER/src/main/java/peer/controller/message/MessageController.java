@@ -2,7 +2,6 @@ package peer.controller.message;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +90,7 @@ public class MessageController {
 		// 세션 불러오기
 		MemberBean user_info = new MemberBean();
 		user_info = (MemberBean)session.getAttribute("MemberBean");
-
 		
-			
 		// MessageBean 생성
 		MessageBean msg = new MessageBean();
 		
@@ -117,7 +114,7 @@ public class MessageController {
 	
 	// 쪽지 삭제
 	@RequestMapping("/msgdel")
-	public String msgDel(String checklist, int page) throws Exception {
+	public String msgDel(String checklist, int page, HttpSession session) throws Exception {
 
 		// '/'로 묶어둔 message_num 분리
 		String[] msg_num = checklist.split("/");
@@ -129,8 +126,24 @@ public class MessageController {
 			}
 		}
 		
+		// 세션 불러오기
+		MemberBean user_info = new MemberBean();
+		user_info = (MemberBean)session.getAttribute("MemberBean");
+		
+		// 세션에서 user_num 추출
+		int user_num = user_info.getUser_num();
+		
+		// 리스트에 쪽지 전체 담기
+		
+		// 전체 쪽지수
+		int msgTotal = ms.msgTotal(user_num);
+		
+		Pagination pg = new Pagination(msgTotal);
+		
+		// 삭제한 후 전체 페이지수가 바뀌었다면 돌아갈 페이지 변경
+		if (page > pg.getPageTotal()) page -= 1;
 		
 		
-		return "/message.Intercept?page="+page;
+		return "redirect:/message.Intercept?page="+page;
 	}
 }

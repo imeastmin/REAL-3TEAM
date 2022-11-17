@@ -7,9 +7,9 @@
 	  	<thead>
 	    <tr>
 	      <th scope="col" id="msgchk"><div class=col-1><input type="checkbox" onclick="selectAll(this)"></div></th>
-	      <td scope="col" id="msgsender">보낸회원</td>
-	      <td scope="col" id="msgcontent">내용</td>
-	      <td scope="col" id="msgdate">보낸시간</div></td>
+	      <td scope="col" id="msgsender" style="text-align:center;">보낸회원</td>
+	      <td scope="col" id="msgcontent" style="min-width:280px; text-align:center;">내용</td>
+	      <td scope="col" id="msgdate" style="text-align:center;">보낸시간</td>
 	    </tr>
 	  	</thead>
   	  	<tbody>
@@ -33,7 +33,7 @@
 		      	</th>
 		      	<td scope="col" id="msgsender">
 		      		<a th:onclick="msgwritePopup()">
-		      		<span class="d-inline-block text-truncate" style="max-width: 100px;" 
+		      		<span class="d-inline-block text-truncate" style="font-weight:normal; max-width: 100px;" 
 		      			th:text=${msglist.message_sender_nick}></span>	
 					<script th:inline="javascript">
 						// 쪽지 보내기 팝업창
@@ -46,10 +46,10 @@
 		      	</td>
 		      	<td scope="col" id="msgcontent">
 		      		<a th:href="@{/msgopen.Intercept?page={page}&message_num={message_num}(page=${pg.page}, message_num=${msglist.message_num})}">
-			      	<span class="d-inline-block text-truncate" style="max-width: 280px;" 
+			      	<span class="d-inline-block text-truncate" style="color:black; font-weight:normal; min-width:280px; max-width: 280px;" 
 			      		th:text=${msglist.message_content}></span></a>
 			    </td>
-		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="max-width: 150px;" 
+		      	<td scope="col" id="msgdate"><span class="d-inline-block text-truncate" style="font-weight:normal; max-width: 150px;" 
 		      		th:text="${#dates.format(msglist.message_date,'yy/MM/dd')}"></span></td>
 		    </tr>
 	
