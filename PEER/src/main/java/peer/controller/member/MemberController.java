@@ -365,14 +365,14 @@ public class MemberController {
 //------adminalert는 접근 제한 page--------------------------------------------------
 		if (member == null) {
 			System.out.println("member없음 작동");
-			return "login/adminalert";
+			return "admin/error";
 		}
 		if (member.getUser_pass().equals(user_pass) && member.getUser_authority() == 99) {
 			System.out.println("admin 입장성공");
-			return "redirect:/logview";
+			return "redirect:/call.AdminPage";
 		} else {
 			System.out.println("member정보 미일치 작동");
-			return "login/adminalert";
+			return "admin/error";
 		}
 
 	}

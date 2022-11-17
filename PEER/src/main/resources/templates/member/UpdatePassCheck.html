@@ -8,7 +8,6 @@
 <style>
 div.dwrap {
 	display: none;
-	
 }
 </style>
 <script>
@@ -32,31 +31,47 @@ div.dwrap {
 <th:block th:replace="/common/header :: header"></th:block>
 <body>
 	<div class="dwrap">
-		<div class="position-relative">
-			<div  style="margin-top: 12%"  class="position-absolute top-100 start-50 translate-middle">
-				<table>
-					<tr>비밀번호 재확인
-					</tr>
-					<tr>
-						<td><input class="form-control" type="text"
-							disabled="disabled" th:value="${session.MemberBean.user_email}">
-							<input type="hidden" th:value="${session.MemberBean.user_pass}"
-							id="user_pass" required="required"></td>
-					</tr>
-					<tr>
-						<td><input class="form-control" type="password"
-							id="passConfirm"></td>
+		<div class="container mt-5"
+			style="min-height: 500px; padding-top: 30px; padding-left: 200px;"
+			align="center">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2></h2>
+					<h5></h5>
+					<div class="fakeimg">
+						<img style="width: 200px;" src="/img/locker.jpg">
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5><br>
+					<div class="fakeimg">
+						<table>
+							<tr>비밀번호 재확인
+							</tr>
+							<tr>
+								<td><input class="form-control" type="text"
+									disabled="disabled" th:value="${session.MemberBean.user_email}">
+									<input type="hidden" th:value="${session.MemberBean.user_pass}"
+									id="user_pass" required="required"></td>
+							</tr>
+							<tr>
+								<td><input class="form-control" type="password"
+									id="passConfirm"></td>
 
-					</tr>
-					<tr>
-						<td><div id="text" style="color: red;"></div></td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="button" id="passcheck"
-							value="확인" class="btn btn-outline-primary"
-							onclick="checkingpass()"></td>
-					</tr>
-				</table>
+							</tr>
+							<tr>
+								<td><div id="text" style="color: red;"></div></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" id="passcheck"
+									value="확인" class="btn btn-outline-primary"
+									onclick="checkingpass()"></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
 			</div>
 		</div>
 	</div>
