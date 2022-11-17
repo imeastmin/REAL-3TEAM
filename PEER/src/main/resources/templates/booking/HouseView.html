@@ -3,7 +3,7 @@
 <!-- head('메인 페이지') 수정하면 수정한 타이틀 들어갑니다 -->
 <th:block th:replace="/common/layout.html :: head('숙소정보 페이지')"></th:block>
 <th:block th:replace="/common/header :: header"></th:block>
-<head>
+
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet"
@@ -15,26 +15,98 @@
 
 <!-- 달력 -->
 <link rel="stylesheet" href="/css/daterangepicker.css">
+<style type="text/css">
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+}
+
+/* Hide the images by default */
+.mySlides {
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.6%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+</style>
 
 
-</head>
 <!-- 사용 하는곳 -->
-
-
-<div>
-	<!-- 숙소명 -->
-	<table width="1100" height="100" align="center">
-		<tr>
-			<td class="community" width="100" height="50">숙소명 :</td>
-			<td class="community" th:text="${hcont.house_name}"></td>
-			<td class="community" width=""></td>
-		</tr>
-	</table>
-</div>
+<div class="container">
 
 <div>
 	<!-- 주소, 공유하기, 위시리스트 버튼 -->
 	<table width="1100" height="100" align="center">
+	
+		<tr>
+			<td colspan="3" align="left" class="community" th:text="${hcont.house_name}"></td>
+		</tr>
 		<tr>
 			<td class="community" width="100" height="50">주소 :</td>
 			<td class="community" th:text="${hcont.house_address}"></td>
@@ -44,34 +116,72 @@
 				</a>
 			</td>
 		</tr>
-	</table>
-</div>
-
-<div>
-	<!-- 사진 테이블 -->
-	<table width="1100" height="400" border=0 align="center">
+		
+		<!-- Photos -->
 		<tr>
-			<td width="30" rowspan="2"><img width="540" height="360"
-				src="img/book/houseimage1.png"></td>
-			<td><img width="260" height="160" src="img/book/houseimage2.png">
-			</td>
-			<td><img width="260" height="160" src="img/book/houseimage3.png">
-			</td>
-		</tr>
-		<tr>
-			<td><img width="260" height="160" src="img/book/houseimage4.png">
-			</td>
-			<td><img width="260" height="160" src="img/book/houseimage5.png">
-			</td>
-		</tr>
-	</table>
-</div>
+		<td>
+<!-- 			<div class="container">
+			  <div class="mySlides" th:each="p : ${photo}" align="center">
+			    <img th:src="${p}" width="400" height="300">
+			  </div>
+    
+			  <a class="prev" onclick="plusSlides(-1)">❮</a>
+			  <a class="next" onclick="plusSlides(1)">❯</a>
 
-<div>
-	<!-- 호스트명, 숙소 정보 -->
-	<table width="1100" height="500" align="center">
-		<div>
-			<tr align="left">
+			   <div class="caption-container">
+			    <p id="caption"></p>
+			  </div>
+  
+			  <div class="row">
+			    <div class="column" th:each="p : ${photo}">
+			      <img class="demo cursor" th:src="${p}" style="width:100%" onclick="currentSlide(i)">
+			    </div>
+	 		 </div>
+			</div>	 -->
+			
+			<script type="text/javascript">
+         var slideIndex = 1;
+         showSlides(slideIndex);
+         
+         // Auto Move Slide
+         var sec = 3000;
+         setInterval(function(){
+           slideIndex++;
+           showSlides(slideIndex);
+
+         }, sec);
+         
+         function plusSlides(n) {
+           showSlides(slideIndex += n);
+         }
+
+         function currentSlide(n) {
+           showSlides(slideIndex = n);
+         }
+
+         function showSlides(n) {
+           var i;
+           var slides = document.getElementsByClassName("mySlides");
+           var dots = document.getElementsByClassName("demo");
+           var captionText = document.getElementById("caption");
+           if (n > slides.length) {slideIndex = 1}
+           if (n < 1) {slideIndex = slides.length}
+           for (i = 0; i < slides.length; i++) {
+               slides[i].style.display = "none";
+           }
+           for (i = 0; i < dots.length; i++) {
+               dots[i].className = dots[i].className.replace(" active", "");
+           }
+           slides[slideIndex-1].style.display = "block";
+           dots[slideIndex-1].className += " active";
+           captionText.innerHTML = dots[slideIndex-1].alt;
+         }
+         </script>   
+         </td>
+		</tr>
+		
+		
+		<tr align="left">
 				<td class="community" width="100">호스트명: </td>
 				<td class="community" th:text="${hostname.user_name}" width=""></td>
 				<td class="community" rowspan="2" width=550><br> <br>
@@ -100,10 +210,6 @@
 								style="text-align: center;"> 박
 						</form>
 						
-						<form action="">
-							<input type="text" id="total_price" name="total_price">							
-						</form>
-						
 					</div>
 					<div align="center">
 						<br>
@@ -117,18 +223,15 @@
 			<td width="100" class="community">숙소 정보 :</td>
 			<td class="community" th:text="${hcont.house_detail}" width=""></td>
 		</tr>
-		</div>
 	</table>
 </div>
-
-
 <br>
 <br>
 <br>
 
 
 
-<th:block th:replace="/common/footer :: footer"></th:block>
+
 
 <script type="text/javascript">
 	function calc() {		// checkin, checkout 태그값 불러와서 날짜 차이값(=예약 일수) 계산
@@ -175,9 +278,6 @@
 	var msg;
 
 	function iamportPayment() {
-		alert("예약 날짜와 예약 인원을 확인해보세요!");
-		//이거 달면 결제 실행 안됨    
-		//    var book_num = ${book_num};
 
 		var days = $("#days").val();						// 예약 일수
 		var peoplenum = $("#peoplenum").val();				// 예약 인원수
@@ -191,17 +291,11 @@
 		var checkin1 = new Date(checkin);					// String값으로 받은 input
 		var checkout1 = new Date(checkout);					// 데이터베이스에 날짜 형식으로 전달하기 위해 선언
 		
-		alert(checkin1);
-		alert(checkout1);
-		alert("체크인:" + checkin);
-		alert("체크아웃:" + checkout);
 		alert(days+"박");
 		alert("인원:" + peoplenum+"명");
 
 		alert(hprice_bweek);
-		alert(hprice_bweekend);
-		alert(hprice_sweek);
-		alert(hprice_sweekend);
+
 		
 		function calcCost(){		// 예약 일수*예약 인원수*숙소1박당가격 = 구하는 함수
 			var cost = days * peoplenum * hprice_bweek;
@@ -274,4 +368,7 @@
 <script type="text/javascript" src="/js/daterangepicker.js"></script>
 <script type="text/javascript" src="/js/moment.min.js"></script>
 
+</div>
+
+<th:block th:replace="/common/footer :: footer"></th:block>
 </html>

@@ -15,4 +15,6 @@ public interface HouseViewService {
 	// 호스트 이름 불러오기
 	public HouseViewBean getHostname(int house_num) throws Exception;
 
+	//
+	public List gethouseList(int page) throws Exception;
 }

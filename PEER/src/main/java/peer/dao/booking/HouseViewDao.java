@@ -2,8 +2,7 @@ package peer.dao.booking;
 
 import java.util.List;
 
-
-import peer.model.booking.BookingListBean;
+ 
 import peer.model.booking.HouseViewBean;
 import peer.model.house.HouseBean;
 import peer.model.house.HousepriceBean;
@@ -17,5 +16,8 @@ public interface HouseViewDao {
 	
 	// 호스트 이름 불러오기
 	public HouseViewBean getHostname(int house_num) throws Exception;
+	
+	//
+	public List gethouseList(int page) throws Exception;
 	
 }

@@ -38,6 +38,10 @@ public class HouseViewServiceImp implements HouseViewService {
 		return hvdao.getHostname(house_num);
 	}
 
-	
+	@Override
+	public List gethouseList(int page) throws Exception {
+		// TODO Auto-generated method stub
+		return hvdao.gethouseList(page);
+	}
 	// 형식 / 함수 / 형식 / 변수
 }
