@@ -40,9 +40,15 @@ public class HouseController {
 
 	// 숙소 등록
 	@RequestMapping("house_insert_ok.Interceptor")
-	public String house_insert_ok(@RequestParam("myfile") List<MultipartFile> mpf, MultipartHttpServletRequest request, 
+	public String house_insert_ok(@RequestParam("myfile") List<MultipartFile> mpf,HttpSession session, MultipartHttpServletRequest request, 
 			HouseBean h, HousepriceBean hp,String address, String tbox3, double house_x, double house_y)
 			throws Exception {
+		
+		MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+	    int user_num = member.getUser_num();
+		
+	    h.setUser_num(user_num);
+	    
 		// 주소값+상세주소
 		address += (" " + tbox3);
 		h.setHouse_address(address);
@@ -53,7 +59,7 @@ public class HouseController {
 		// 파일 업로드
 		if(mpf.size()!=0) {
 			
-			String path = System.getProperty("user.dir")+"/src/main/resources/static/house_files";
+			String path = System.getProperty("user.dir")+"/src/main/resources/static/housefiles";
 			// fileList에 중복제거를 위해 uuid를 통해 새로운 파일네임 부여
 			List<String> fileList = new ArrayList<>();
 			for (int i = 0; i < mpf.size(); i++) {
@@ -80,7 +86,7 @@ public class HouseController {
 		
 		houseService.insert(h, hp);
 		System.out.println("house_insert_ok");
-		return "redirect:/host_house_list";
+		return "redirect:/host_house_list.Interceptor";
 	}
 
 	// 호스트 숙소 목록
@@ -88,14 +94,17 @@ public class HouseController {
 	public String list(Model model,
 					   HttpServletRequest request,
 					   HttpSession session) throws Exception {
-
-//		MemberBean memberBean = (MemberBean)session.getAttribute("MemberBean");
-//		String status = memberBean.getUser_status();
-//		
-//		if(!status.equals("호스트")) {
-//			return "house/status";
-//		}
+		// 세션
+		MemberBean memberBean = (MemberBean)session.getAttribute("MemberBean");
+		String status = memberBean.getUser_status();
+		int user_num = memberBean.getUser_num();
 		
+		// 호스트 게스트 판별
+		if(!status.equals("호스트")) {
+			return "house/status";
+		}
+		
+		// 호스트 숙소 리스트
 		List<HouseBean> hosthouselist = new ArrayList<HouseBean>();
 
 		int page = 1;
@@ -105,12 +114,12 @@ public class HouseController {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 
-		// 총 리스트 수를 받아옴.
-		int listcount = houseService.getListCount();
+		// user_num의 총 리스트 수를 받아옴.
+		int listcount = houseService.getListCount(user_num);
 		System.out.println("listcount:" + listcount);
 
-		// 페이지 번호(page)를 DAO클래스에게 전달한다.
-		hosthouselist = houseService.getHosthouseList(page); // 리스트를 받아옴.
+		// 페이지 번호(page)와 user_num을 DAO클래스에게 전달한다.
+		hosthouselist = houseService.getHosthouseList(page,user_num); // 리스트를 받아옴.
 
 		// 총 페이지 수.
 		int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림
@@ -178,7 +187,7 @@ public class HouseController {
 		System.out.println("houseDelete_ok");
 		houseService.del_ok(house_num);	
 		
-		return "redirect:/host_house_list?page=" + page;
+		return "redirect:/host_house_list.Interceptor?page=" + page;
 	}
 	
 }

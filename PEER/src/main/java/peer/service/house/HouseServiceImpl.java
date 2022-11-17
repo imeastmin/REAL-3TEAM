@@ -27,16 +27,16 @@ public class HouseServiceImpl implements HouseService {
 	
 	// 등록된 숙소 갯수
 	@Override
-	public int getListCount() throws Exception {
+	public int getListCount(int user_num) throws Exception {
 		// TODO Auto-generated method stub
-		return houseDao.getListCount();
+		return houseDao.getListCount(user_num);
 	}
 
 	// 호스트 등록된 숙소 목록
 	@Override
-	public List getHosthouseList(int page) throws Exception {
+	public List getHosthouseList(int page,int user_num) throws Exception {
 		// TODO Auto-generated method stub
-		return houseDao.getHosthouseList(page);
+		return houseDao.getHosthouseList(page,user_num);
 	}
 	
 	// 숙소 상세
