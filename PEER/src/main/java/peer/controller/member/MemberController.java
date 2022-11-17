@@ -236,7 +236,7 @@ public class MemberController {
 	// 회원 탈퇴
 	@RequestMapping("/deleteinfo.Intercept")
 	public String deleteinfo(HttpSession session) {
-		MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+		MemberBean member = (MemberBean) session.getAttribute("MemberBean");
 		System.out.println(member.getUser_num());
 		int result = ms.deleteuser(member.getUser_num());
 		return "redirect:/login.Intercept";
