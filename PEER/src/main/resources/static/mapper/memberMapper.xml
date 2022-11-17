@@ -4,7 +4,7 @@
 
 	<insert id="insert">
 		insert into user_info
-		values(user_seq.nextval,#{user_email},#{user_pass},#{user_name},#{user_gender},#{user_age},#{user_phone},#{user_nickname},#{user_status},1,sysdate,#{user_birth})
+		values(user_seq.nextval,#{user_email},#{user_pass},#{user_name},#{user_gender},#{user_age},#{user_phone},#{user_nickname},sysdate,#{user_status},1,#{user_birth})
 	</insert>
 
 	<select id="searchinfo"

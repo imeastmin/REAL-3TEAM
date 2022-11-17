@@ -13,9 +13,6 @@
 <style type="text/css">
 div.div-container {
 	display: none;
-	height: 40%;
-	padding-left: 60%;
-	padding-top: 17%;
 }
 </style>
 <script>
@@ -27,9 +24,28 @@ div.div-container {
 <th:block th:replace="/common/header :: header"></th:block>
 <body>
 	<div class="dwrap">
-		<div class="div-container">
-			<h2>등록된 회원정보가 없습니다</h2>
-			<a href="/login.Intercept">로그인으로 이동</a>
+		<div class="container mt-5" align="center"
+			style="padding-top: 150px; padding-left: 7%; min-height: 500px;">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2></h2>
+					<h5></h5>
+					<div class="fakeimg">
+						<img style="width: 200px;" src="/img/nope.png">
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5>
+					<br>
+					<div class="fakeimg">
+						<div class="div-container">
+							<h2>등록된 회원정보가 없습니다</h2>
+							<a href="/login.Intercept">로그인으로 이동</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

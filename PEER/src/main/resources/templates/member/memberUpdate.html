@@ -139,97 +139,114 @@ table {
 </head>
 <th:block th:replace="/common/header :: header"></th:block>
 <body>
-	<div class="div-container" style="min-height: 700px;">
-		<div class="position-relative">
-			<form th:action="@{/updateuser.Intercept}" th:object="${member}"
-				method="post" id="update"
-				style="margin-top: 20%; margin-bottom: 20%"
-				class="position-absolute top-100 start-50 translate-middle">
-				<table>
-					<tr>
-						<td>이메일</td>
-						<td><input type="text" id="show_user_email"
-							class="form-control" th:value="${session.MemberBean.user_email}"
-							disabled="true"></td>
-					</tr>
-					<tr>
-						<input type="hidden" id="user_email" name="user_email"
-							th:value="${session.MemberBean.user_email}">
-					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td>
-							<!--비밀전호 일치 확인  --> <input type="password" id="user_pass"
-							class="form-control" name="user_pass" required="required">
-							<div id="passfail" style="color: red;"></div>
-							<div id="passsucc" style="color: blue;"></div>
-						</td>
-					</tr>
-					<tr>
-						<td>비밀번호 확인</td>
-						<td><input type="password" id="passconfirm"
-							name="passconfirm" class="form-control" required="required"></td>
-					</tr>
-					<tr>
-						<td>이름</td>
-						<td><input type="text" id="user_name" name="user_name"
-							class="form-control" th:value="${session.MemberBean.user_name}"
-							required="required"></td>
-					</tr>
+	<div class="div-container" style="min-height: 600px;">
+		<div class="container mt-5"
+			style="min-height: 500px; padding-top: 30px; padding-left: 200px;"
+			align="center">
+			<div class="row">
+				<div class="col-sm-4">
+					<h2></h2>
+					<h5></h5><br><br><br><br><br>
+					<div class="fakeimg">
+						<img style="width: 200px;" src="/img/userchange.png">
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<h2></h2>
+					<h5></h5>
+					<br>
+					<div class="fakeimg">
+						<form th:action="@{/updateuser.Intercept}" th:object="${member}"
+							method="post" id="update">
+							<table>
+								<tr>
+									<td>이메일</td>
+									<td><input type="text" id="show_user_email"
+										class="form-control"
+										th:value="${session.MemberBean.user_email}" disabled="true"></td>
+								</tr>
+								<tr>
+									<input type="hidden" id="user_email" name="user_email"
+										th:value="${session.MemberBean.user_email}">
+								</tr>
+								<tr>
+									<td>비밀번호</td>
+									<td>
+										<!--비밀전호 일치 확인  --> <input type="password" id="user_pass"
+										class="form-control" name="user_pass" required="required">
+										<div id="passfail" style="color: red;"></div>
+										<div id="passsucc" style="color: blue;"></div>
+									</td>
+								</tr>
+								<tr>
+									<td>비밀번호 확인</td>
+									<td><input type="password" id="passconfirm"
+										name="passconfirm" class="form-control" required="required"></td>
+								</tr>
+								<tr>
+									<td>이름</td>
+									<td><input type="text" id="user_name" name="user_name"
+										class="form-control"
+										th:value="${session.MemberBean.user_name}" required="required"></td>
+								</tr>
 
-					<tr>
-						<td>생년월일</td>
-						<td><input type="date" id="user_birth" name="user_birth"
-							th:value="${(session.MemberBean.user_birth).toString().substring(0,10)}"
-							required="required"></td>
-					</tr>
+								<tr>
+									<td>생년월일</td>
+									<td><input type="date" id="user_birth" name="user_birth"
+										th:value="${(session.MemberBean.user_birth).toString().substring(0,10)}"
+										required="required"></td>
+								</tr>
 
-					<tr>
-						<td>성별</td>
-						<td><input type="radio" name="user_gender" value="남자"
-							th:checked="${(session.MemberBean.user_gender.equals('남자'))}">
-							<label>남자</label> <input type="radio" name="user_gender"
-							value="여자"
-							th:checked="${(session.MemberBean.user_gender.equals('여자'))}">
-							<label>여자</label></td>
-					</tr>
-					<tr>
-						<td>전화번호</td>
-						<td><input type="text" id="user_phone" name="user_phone"
-							class="form-control" th:value="${session.MemberBean.user_phone}"
-							required="required" placeholder="'-'을 추가해서 입력해 주세요">
-							<div id="phonefail" style="color: red;"></td>
-					</tr>
-					<tr>
-						<td>게스트/호스트</td>
-						<td><input type="radio" id="user_status" name="user_status"
-							th:value="${session.MemberBean.user_status}"
-							th:checked="${(session.MemberBean.user_status.equals('게스트'))}"><label>게스트</label>
-							<input type="radio" id="user_status" name="user_status"
-							th:value="${session.MemberBean.user_status}"
-							th:checked="${(session.MemberBean.user_status.equals('호스트'))}"><label>호스트</label>
-						</td>
-					</tr>
+								<tr>
+									<td>성별</td>
+									<td><input type="radio" name="user_gender" value="남자"
+										th:checked="${(session.MemberBean.user_gender.equals('남자'))}">
+										<label>남자</label> <input type="radio" name="user_gender"
+										value="여자"
+										th:checked="${(session.MemberBean.user_gender.equals('여자'))}">
+										<label>여자</label></td>
+								</tr>
+								<tr>
+									<td>전화번호</td>
+									<td><input type="text" id="user_phone" name="user_phone"
+										class="form-control"
+										th:value="${session.MemberBean.user_phone}"
+										required="required" placeholder="'-'을 추가해서 입력해 주세요">
+										<div id="phonefail" style="color: red;"></td>
+								</tr>
+								<tr>
+									<td>게스트/호스트</td>
+									<td><input type="radio" id="user_status"
+										name="user_status"
+										th:value="${session.MemberBean.user_status}"
+										th:checked="${(session.MemberBean.user_status.equals('게스트'))}"><label>게스트</label>
+										<input type="radio" id="user_status" name="user_status"
+										th:value="${session.MemberBean.user_status}"
+										th:checked="${(session.MemberBean.user_status.equals('호스트'))}"><label>호스트</label>
+									</td>
+								</tr>
 
-					<tr>
-						<td>닉네임</td>
-						<td><input type="text" id="user_nickname"
-							name="user_nickname" class="form-control"
-							th:value="${session.MemberBean.user_nickname}"
-							required="required" placeholder="2~10자 이내로 입력하세요.">
-							<div id="nickfail" style="color: red;"></div>
-							<div id="nicksucc" style="color: blue;"></div></td>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="submit" value="수정"
-							class="btn btn-outline-primary">
-							<button type="button" class="btn btn-danger"
-								data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</button></td>
-					</tr>
-				</table>
-
-			</form>
+								<tr>
+									<td>닉네임</td>
+									<td><input type="text" id="user_nickname"
+										name="user_nickname" class="form-control"
+										th:value="${session.MemberBean.user_nickname}"
+										required="required" placeholder="2~10자 이내로 입력하세요.">
+										<div id="nickfail" style="color: red;"></div>
+										<div id="nicksucc" style="color: blue;"></div></td>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="submit" value="수정"
+										class="btn btn-outline-primary">
+										<button type="button" class="btn btn-danger"
+											data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</button></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
@@ -260,7 +277,7 @@ table {
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-secondary"
+				<button type="button" class="btn btn-danger"
 					onclick="deleteinfo()">회원 탈퇴</button>
 			</div>
 		</div>
