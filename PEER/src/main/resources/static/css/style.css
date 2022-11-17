@@ -81,16 +81,16 @@ input[type="submit"]{
     -webkit-box-shadow: none;
     box-shadow: none; }
   .btn.btn-primary {
-    background: #1A374D;
-    border-color: #1A374D; }
+    background: #3232FF;
+    border-color: #3232FF; }
     .btn.btn-primary:hover {
-      border-color: #1f425c;
-      background: #1f425c; }
+      border-color: #3232FF;
+      background: #3232FF; }
   .btn.btn-outline-white {
     border: 2px solid #ffffff; }
     .btn.btn-outline-white:hover {
       background: #ffffff;
-      color: #1A374D !important; }
+      color: #3232FF !important; }
 
 .text-white-opacity {
   opacity: .7; }
