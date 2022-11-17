@@ -7,8 +7,8 @@
 <![CDATA[ 
 		select * from (select rownum as rnum, msg.* 
 			from (select * from message where message_receiver_num = #{user_num}
-				order by message_date desc) msg)
-		where rnum <= #{startPage} and rnum >= #{endPage}
+				order by message_date asc) msg)
+		where rnum <= #{startPage} and rnum >= #{endPage} order by message_num desc
 ]]>
 	</select>
 	
