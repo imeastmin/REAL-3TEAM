@@ -5,11 +5,37 @@
 <th:block th:replace="/common/header :: header"></th:block>
 <!-- 사용 하는곳 -->
 
-<br><br><br><br><br><br><br>
+<br><br><br><br><br>
 
-<p class="community" style="font-size:50px;" align="center">숙소예약이 완료되었습니다.</p> 
+<p class="community" style="font-size:40px;" align="center">숙소예약이 완료되었습니다.</p> 
 
-<br><br><br><br><br><br>
+<br><br><br>
+
+<div align="center">
+	<table width="1100" height="100" align="center">
+		<tr align="center">
+			<td class="community" width="550" height="30" align="right">예약번호 :</td>
+			<td class="community" th:text="${Info.book_num}" align="left"></td>
+		</tr>
+		
+		<tr align="center">
+			<td class="community" width="550" height="30" align="right">체크인 :</td>
+			<td class="community" th:text="${#dates.format(Info.checkin, 'yyyy/MM/dd')}" align="left"></td>
+		</tr>
+		
+		<tr align="center">
+			<td class="community" width="550" height="30" align="right">체크아웃 :</td>
+			<td class="community" th:text="${#dates.format(Info.checkout, 'yyyy/MM/dd')}" align="left"></td>
+		</tr>
+		<tr align="center">
+			<td class="community" width="550" height="30" align="right">결제가격 :</td>
+			<td class="community" th:text="${Info.total_price}" align="left"></td>
+		</tr>
+
+	</table>
+</div>
+
+<br><br><br><br>
 
 <div align="center">
 <a href="/"><button class="community">메인화면</button></a>

@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import peer.model.booking.BookingBean;
+import peer.model.booking.HouseViewBean;
 import peer.model.house.HouseBean;
 import peer.model.house.HousepriceBean;
 import peer.model.member.MemberBean;
-import peer.service.booking.BookingListService;
 import peer.service.booking.HouseViewService;
 import peer.service.house.HouseService;
 import peer.service.member.MemberService;
@@ -25,8 +26,6 @@ import peer.service.member.MemberService;
 public class HouseViewController {
 
 	//계정정보 불러오기, 예약한것 데베에 삽입하기, 예약한것 예약내역에 나타내기
-	@Autowired
-	private BookingListService blservice;
 	
 	@Autowired
 	private HouseService houseService;
@@ -37,10 +36,13 @@ public class HouseViewController {
 	@Autowired
 	private MemberService ms;
 	
+	
 	// 임시 숙소검색창
-	@RequestMapping("HouseListView")
-	public String list(Model model, HttpServletRequest request) throws Exception {
+	@RequestMapping("/HouseListView")
+	public String list(Model model, int user_num, HttpServletRequest request, HttpSession session) throws Exception {
 
+		MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+		
 		List<HouseBean> hosthouselist = new ArrayList<HouseBean>();
 
 		int page = 1;
@@ -51,11 +53,11 @@ public class HouseViewController {
 		}
 
 		// 총 리스트 수를 받아옴.
-		int listcount = houseService.getListCount();
+		int listcount = houseService.getListCount(user_num);
 		System.out.println("listcount:" + listcount);
 
 		// 페이지 번호(page)를 DAO클래스에게 전달한다.
-		hosthouselist = houseService.getHosthouseList(page); // 리스트를 받아옴.
+		hosthouselist = houseService.getHosthouseList(page, user_num); // 리스트를 받아옴.
 
 		// 총 페이지 수.
 		int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림
@@ -85,28 +87,50 @@ public class HouseViewController {
 	// 숙소 상세보기 (상세보기)
 		@RequestMapping(value = "/HouseView", method = RequestMethod.GET)
 		public String house_cont(@RequestParam("house_num") int house_num, 
-								@RequestParam("page") String page,
+//								@RequestParam("page") String page,
 								@RequestParam("state") String state, 
 								HttpSession session,
-								Model model) throws Exception {
-			
-			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+								Model model) throws Exception {			
 			
 			HouseBean house = houseService.house_cont(house_num); // house 상세정보 구하기
 			
-			System.out.println();
+			HouseViewBean hostname = hvservice.getHostname(house_num);
+			
 			System.out.println("house_num:"+house.getHouse_num());
+			System.out.println("hostname:"+hostname.getUser_name());
 			System.out.println("house:"+house);
 			
 			HousepriceBean hprice = houseService.hprice_cont(house_num); // houseprice 상세정보 구하기
-			
+		
+			String pho = house.getHouse_photo();
+		    String[] photo = pho.split(",");
+		    System.out.println(photo[0]);
+		      
+		    String[] detail = house.getHouse_detail().split(",");
+		      
+		      
+//			String[] Photos = {};
+//			String[] PhotoList = hostname.getHouse_photo().split(",");
+//			String FirstPhoto = PhotoList[0];
+//			
+//			for(int i = 1; i < PhotoList.length; i++) {
+//				Photos[i] += PhotoList[i];
+//			}
+//			
+//			System.out.println(FirstPhoto);
 			
 			model.addAttribute("hcont", house);
 			model.addAttribute("house_num", house.getHouse_num());
-			
+			model.addAttribute("hostname", hostname);
+			model.addAttribute("photo", photo);
+		    model.addAttribute("detail", detail);
+//			model.addAttribute("FirstPhoto", FirstPhoto);
+//			model.addAttribute("Photos", Photos);
 			model.addAttribute("hpcont", hprice);
-			model.addAttribute("page", page);
+//			model.addAttribute("page", page);
 
+			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
+			
 			if (state.equals("cont")) { // 상세폼
 
 				return "booking/HouseView";
