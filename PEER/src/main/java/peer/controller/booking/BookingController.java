@@ -99,9 +99,5 @@ public class BookingController {
 		return "booking/payresult";
 	}	
 	
-	@RequestMapping("/bookinglist")
-	public String bookinglist() {
-		return "booking/bookinglist";
-	}
  
 }
