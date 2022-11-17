@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import peer.dao.booking.MyBookingMapper;
-import peer.model.booking.BookingBean;
-import peer.model.booking.ShareBean;
+import peer.model.booking.MyBookingBean;
+import peer.model.booking.MyShareBean;
 
 @Service
 public class MyBookingServiceImp implements MyBookingService {
@@ -16,15 +16,12 @@ public class MyBookingServiceImp implements MyBookingService {
 	private MyBookingMapper myBookingMapper;
 
 	@Override
-	public List<ShareBean> getMyShareBooking(int id) throws Exception {
+	public List<MyShareBean> getMyShareBooking(int id) throws Exception {
 		return myBookingMapper.getMyShareBooking(id);
 	}
 
 	@Override
-	public List<BookingBean> getMyBooking(int id) throws Exception {
+	public List<MyBookingBean> getMyBooking(int id) throws Exception {
 		return myBookingMapper.getMyBooking(id);
 	}
-	
-	
-	
 }
