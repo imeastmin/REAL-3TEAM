@@ -11,57 +11,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import peer.model.house.HouseBean;
-import peer.service.house.HouseService;
+import peer.model.main.MainBean;
+import peer.service.main.MainService;
 
 @Controller
 public class MainController {
 	@Autowired
-	private HouseService houseService;
+	private MainService MainService;
 	
 	@RequestMapping("/")
 	public String index() {
 		return "main";
 	}
 	
-	@RequestMapping("/search")
-	   public String search(Model model, HttpServletRequest request) throws Exception{
-	      List<HouseBean> hosthouselist = new ArrayList<HouseBean>();
-
-	      int page = 1;
-	      int limit = 10; // 한 화면에 출력할 레코드수
-
-	      if (request.getParameter("page") != null) {
-	         page = Integer.parseInt(request.getParameter("page"));
-	      }
-
-	      // 총 리스트 수를 받아옴.
-	      int listcount = houseService.getListCount();
-	      System.out.println("listcount:" + listcount);
-
-	      // 페이지 번호(page)를 DAO클래스에게 전달한다.
-	      hosthouselist = houseService.getHosthouseList(page); // 리스트를 받아옴.
-
-	      // 총 페이지 수.
-	      int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림
-	                                                   // 처리.
-	      // 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-	      int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
-	      // 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
-	      int endpage = maxpage;
-
-	      if (endpage > startpage + 10 - 1)
-	         endpage = startpage + 10 - 1;
-
-	      int num = listcount - (page - 1) * 10;
-
-//	      model.addAttribute("num", num);
-	      model.addAttribute("page", page);
-	      model.addAttribute("startpage", startpage);
-	      model.addAttribute("endpage", endpage);
-	      model.addAttribute("maxpage", maxpage);
-	      model.addAttribute("listcount", listcount);
-	      model.addAttribute("hosthouselist", hosthouselist);
+		@RequestMapping("search")
+	   public String search(String loc, Model model, HttpServletRequest request) throws Exception{
+	
+	      
+	      // 메인 검색
+	      System.out.println("loc:"+loc);
+	      List<MainBean> houselist = MainService.search(loc); 
+	            
+	      model.addAttribute("hosthouselist", houselist);
 	      
 	      return "search";
 	   }

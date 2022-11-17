@@ -18,7 +18,7 @@
 <div id="map_list">
 		<div class="card" th:each="hlist : ${hosthouselist}">
 			<a th:href="@{/HouseView(house_num=${hlist.house_num},page=${page},state='cont')}">
-				<img class="card-img-top" src="img/hero-slider-2.jpg"> <!-- 수정할 부분 -->
+				<div th:src="${p}"><img class="card-img-top" th:src="${p}"></div> <!-- 수정할 부분 -->
 				<div class="card-body">
 					<span class="card-title">[[${hlist.house_name}]]</span>
 					<p class="card-text">[[${hlist.house_address}]]</p>
@@ -73,7 +73,8 @@
     mapOption = { 
         center: new kakao.maps.LatLng(/*[[${hcont.house_y}]]*/, /*[[${hcont.house_x}]]*/), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
-    };/*[/]*/
+    };
+	/*[/]*/
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
  
@@ -87,13 +88,9 @@ positions.push( <!-- 수정할 부분 -->
 			+ /*[[${hcont.house_name}]]*/
 			+ '</div>'
 			+ '<div class="body">'
-			+ '<div class="img">'
-			+ '<img src="img/hero-slider-5.jpg" width="73" height="80">'
-			+ '</div>'
-			+ '<div class="desc">'
 			+ '<div class="ellipsis">' + /*[[${hcont.house_address}]]*/ + '</div>'
-			+ '<div><a th:href="@{/house_cont(house_num=${hlist.house_num},page=${page},state="cont")}" target="_blank" class="link">홈페이지</a></div>'
-			+ '</div>' + '</div>' + '</div>', 
+			+ '<div><a th:href="@{/HouseView(house_num=${hlist.house_num},page=${page}}" style="text-decoration:none" class="link">숙소 정보</a></div>'
+			+ '</div>' + '</div>', 
         latlng: new kakao.maps.LatLng(/*[[${hcont.house_y}]]*/, /*[[${hcont.house_x}]]*/)
 			})
 /*[/]*/
