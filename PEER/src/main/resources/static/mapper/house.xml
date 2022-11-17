@@ -17,7 +17,7 @@
 
  	 <!-- host house 총게시물 수 --> 
 	<select id="getListCount" resultType="int">
-		select count(house_num) from house where user_num=#{user_num}
+		select count(*) from house where user_num=#{user_num}
 	</select>
 
 	<!-- host house 목록 (page번호를 전달받아서 startRow와 endRow를 구함) -->
