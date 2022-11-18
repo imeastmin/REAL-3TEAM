@@ -33,7 +33,7 @@ public class MemberController {
 	private MemberService ms;
 
 	// 로그인 page로 이동
-	@RequestMapping("/login.Intercept")
+	@RequestMapping("/login")
 	public String searchinfo(HttpSession session) {
 		session.invalidate();
 		return "login/login";
@@ -230,7 +230,7 @@ public class MemberController {
 		if (result == 1) {
 			session.invalidate();
 		}
-		return "redirect:/login.Intercept";
+		return "redirect:/login";
 	}
 
 	// 회원 탈퇴
@@ -239,7 +239,7 @@ public class MemberController {
 		MemberBean member = (MemberBean) session.getAttribute("MemberBean");
 		System.out.println(member.getUser_num());
 		int result = ms.deleteuser(member.getUser_num());
-		return "redirect:/login.Intercept";
+		return "redirect:/login";
 	}
 
 	// id 찾기 page로 이동
@@ -365,14 +365,14 @@ public class MemberController {
 //------adminalert는 접근 제한 page--------------------------------------------------
 		if (member == null) {
 			System.out.println("member없음 작동");
-			return "admin/error";
+			return "Suspension";
 		}
 		if (member.getUser_pass().equals(user_pass) && member.getUser_authority() == 99) {
 			System.out.println("admin 입장성공");
 			return "redirect:/call.AdminPage";
 		} else {
 			System.out.println("member정보 미일치 작동");
-			return "admin/error";
+			return "Suspension";
 		}
 
 	}

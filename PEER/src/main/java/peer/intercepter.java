@@ -41,8 +41,8 @@ public class intercepter extends HandlerInterceptorAdapter {
 			}
 			ms.insertLog(log);
 			return true;
-		} else {
 		}
+
 		return true;
 	}
 

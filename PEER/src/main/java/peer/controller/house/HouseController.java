@@ -78,7 +78,7 @@ public class HouseController {
 				File saveFile = new File(path, fileList.get(i));
 				mpf.get(i).transferTo(saveFile);
 				
-				fileName += "/house_files/"+fileList.get(i) + ",";
+				fileName += "/housefiles/"+fileList.get(i) + ",";
 			}
 			h.setHouse_photo(fileName);
 			System.out.println("house_photo:"+h.getHouse_photo());
@@ -183,7 +183,18 @@ public class HouseController {
 	public String board_del_ok(@RequestParam("house_num") int house_num,
 							   @RequestParam("page") int page,
 							   Model model) throws Exception {
-
+		// 등록된 숙소 사진 삭제			
+		String path = System.getProperty("user.dir")+"/src/main/resources/static";
+			
+		HouseBean house = houseService.house_cont(house_num);
+		String pho = house.getHouse_photo();
+		String[] photo = pho.split(",");
+		for (int i = 0; i < photo.length; i++) {			
+			File deletefile = new File(path+photo[i]);
+			deletefile.delete();
+		}
+		System.out.println("fileDelete_ok!");
+		
 		System.out.println("houseDelete_ok");
 		houseService.del_ok(house_num);	
 		

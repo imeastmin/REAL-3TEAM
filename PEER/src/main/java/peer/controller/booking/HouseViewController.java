@@ -93,7 +93,7 @@ public class HouseViewController {
 								Model model) throws Exception {			
 			
 			HouseBean house = houseService.house_cont(house_num); // house 상세정보 구하기
-			
+			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
 			HouseViewBean hostname = hvservice.getHostname(house_num);
 			
 			System.out.println("house_num:"+house.getHouse_num());
@@ -101,35 +101,37 @@ public class HouseViewController {
 			System.out.println("house:"+house);
 			
 			HousepriceBean hprice = houseService.hprice_cont(house_num); // houseprice 상세정보 구하기
-		
-			String pho = house.getHouse_photo();
-		    String[] photo = pho.split(",");
-		    System.out.println(photo[0]);
+		    
+			String details =  house.getHouse_detail();
+		    String[] detail = details.split(",");
 		      
-		    String[] detail = house.getHouse_detail().split(",");
-		      
-		      
-//			String[] Photos = {};
-//			String[] PhotoList = hostname.getHouse_photo().split(",");
-//			String FirstPhoto = PhotoList[0];
-//			
-//			for(int i = 1; i < PhotoList.length; i++) {
-//				Photos[i] += PhotoList[i];
-//			}
-//			
-//			System.out.println(FirstPhoto);
+		    String Pho = house.getHouse_photo();
+		    System.out.println("Pho - " + Pho);
+			String[] PhotoList = Pho.split(",");
+			String[] Photos = new String[PhotoList.length-1];
+			System.out.println("PhotoList - " + PhotoList.toString());
+			
+			String FirstPhoto = PhotoList[0];
+			System.out.println("FirstPho - " + FirstPhoto);
+			System.out.println("PhotoList Length - " + PhotoList.length);
+			System.out.println("Photos Length - " + Photos.length);
+			
+			if(PhotoList.length > 1) {
+				for(int i = 1; i < PhotoList.length; i++) {
+					Photos[i-1] = PhotoList[i];
+				}
+			}
+			
+			System.out.println("Photos - " + Photos[0]);
 			
 			model.addAttribute("hcont", house);
 			model.addAttribute("house_num", house.getHouse_num());
 			model.addAttribute("hostname", hostname);
-			model.addAttribute("photo", photo);
 		    model.addAttribute("detail", detail);
-//			model.addAttribute("FirstPhoto", FirstPhoto);
-//			model.addAttribute("Photos", Photos);
+			model.addAttribute("FirstPhoto", FirstPhoto);
+			model.addAttribute("Photos", Photos);
 			model.addAttribute("hpcont", hprice);
 //			model.addAttribute("page", page);
-
-			MemberBean member = (MemberBean)session.getAttribute("MemberBean");
 			
 			if (state.equals("cont")) { // 상세폼
 
