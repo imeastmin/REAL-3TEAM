@@ -14,6 +14,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(intercepter).addPathPatterns("/*.Intercept").excludePathPatterns("/*.EI");
+		registry.addInterceptor(new PeerInterceptor()).addPathPatterns("/*.Intercept").excludePathPatterns("/*.EI");
 	}
 
 }

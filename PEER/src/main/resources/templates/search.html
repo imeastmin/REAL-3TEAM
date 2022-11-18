@@ -18,7 +18,7 @@
 <div id="map_list">
 		<div class="card" th:each="hlist : ${hosthouselist}">
 			<a th:href="@{/HouseView(house_num=${hlist.house_num},page=${page},state='cont')}">
-				<div th:src="${p}"><img class="card-img-top" th:src="${p}"></div> <!-- 수정할 부분 -->
+				<img class="card-img-top" src="housefiles/33b72c0a-57f1-4958-aaa7-594e92b8232e11.png" style="width: 390px;"> <!-- 수정할 부분 -->
 				<div class="card-body">
 					<span class="card-title">[[${hlist.house_name}]]</span>
 					<p class="card-text">[[${hlist.house_address}]]</p>
