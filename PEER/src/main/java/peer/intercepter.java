@@ -41,8 +41,22 @@ public class intercepter extends HandlerInterceptorAdapter {
 			}
 			ms.insertLog(log);
 			return true;
-		} else {
 		}
+		
+		if (member == null) {
+			System.out.println("============== INTERCEPTOR ==============");
+			response.sendRedirect("Interceptor");
+			return false;
+		}
+
+		int authority = member.getUser_authority();
+
+		if (member != null && authority != 1) {
+			System.out.println("============== INTERCEPTOR AUTHORITY ==============");
+			response.sendRedirect("Suspension");
+			return false;
+		}
+
 		return true;
 	}
 
