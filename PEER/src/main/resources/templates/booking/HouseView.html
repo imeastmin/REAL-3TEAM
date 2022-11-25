@@ -118,14 +118,14 @@ img {
 			onchange="calc()">
 			
 		<form>
-			<input type="hidden" id="days" name="days" size="5" style="text-align: center;">
+			<input type="text" id="days" name="days" size="5" style="text-align: center;">
 		</form>
 	  </div>
 	  	
 		<form>
 			<span class="badge bg-dark">인원수</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			<select name="peoplenum" id="peoplenum"
-				class="form-control custom-select" style="width: 80px">
+				class="form-control custom-select" style="width: 80px" onchange="pricecalc()">
 				<script>
 					for (i = 1; i <= 10; i++) {
 						document.write("<option value='");
@@ -135,6 +135,14 @@ img {
 				</script>
 			</select>
 		</form>
+		
+		<br>
+		<div align="left">
+			<form>
+				<input type="text" size="5" style="width: 80px" id="pricecalc" name="pricecalc">
+				
+			</form>	
+		</div>
 		<br>
 		
 		<!-- 예약하기 버튼 -->
@@ -142,6 +150,8 @@ img {
 		<button id="iamportPayment" type="button"
 			onclick="iamportPayment" class="btn btn-success" style="font-weight: bold; width: 300px;">결제하기</button>
 		</div>
+		<br>
+		
       
       <hr class="d-sm-none">
     </div>
@@ -226,7 +236,17 @@ img {
 			document.getElementById('years').value = parseInt(dif / cYear)
 			document.getElementById('months').value = parseInt(dif / cMonth)
 			document.getElementById('days').value = parseInt(dif / cDay)
+			
 		}
+	}
+	
+	function pricecalc(){
+		var var_days = $("#days").val();
+		var var_peoplenum = $("#peoplenum").val();
+		
+		var pricecalc = var_days*var_peoplenum;
+		
+		document.getElementById('pricecalc').value = parseInt(pricecalc)
 	}
 </script>
 
